@@ -5,7 +5,7 @@ final blackColor = const Color.fromRGBO(13, 13, 13, 1);
 final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
 final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
-Widget myPurpleBtn({required String name, required VoidCallback onPressed}) {
+Widget MyPurpleBtn({required String name, required VoidCallback onPressed}) {
   return SizedBox(
     width: double.infinity,
     child: TextButton(

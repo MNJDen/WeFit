@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
+import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyPurpleBtn.dart';
-import 'package:itec303/Screens/SignUpScreen.dart';
+import 'package:itec303/Screens/SignInScreen.dart';
+import 'package:itec303/Screens/SignUpScreen1.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
@@ -46,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 56.h,
                 ),
                 Text(
-                  "SIGN IN",
+                  "SIGN UP",
                   style: TextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.w500,
@@ -57,7 +58,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 4.h,
                 ),
                 Text(
-                  "Sign in to your account.",
+                  "Fill the following forms to continue.",
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w300,
@@ -80,31 +81,62 @@ class _SignInScreenState extends State<SignInScreen> {
                   suffixIcon: Icons.visibility_off_rounded,
                 ).animate().fadeIn(delay: Duration(milliseconds: 600)),
                 SizedBox(
-                  height: 4.h,
+                  height: 16.h,
+                ),
+                MyPasswordField(
+                  prefixIcon: Icons.lock_rounded,
+                  labelText: "Password",
+                  suffixIcon: Icons.visibility_off_rounded,
+                ).animate().fadeIn(delay: Duration(milliseconds: 700)),
+                SizedBox(
+                  height: 32.h,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Forgot your password?",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w300,
-                          color: purpleColor,
+                    Wrap(
+                      spacing: 10.w,
+                      children: [
+                        Container(
+                          width: 8.w,
+                          height: 8.h,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(169, 88, 237, 1),
+                            shape: BoxShape.circle,
+                          ),
                         ),
-                      ),
+                        Container(
+                          width: 8.w,
+                          height: 8.h,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(169, 88, 237, 0.3),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 92.h,
+                  height: 32.h,
                 ),
                 MyPurpleBtn(
                   name: "Continue",
-                  onPressed: () {},
-                ).animate().fadeIn(delay: Duration(milliseconds: 700)),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation1,
+                            Animation<double> animation2) {
+                          return SignUpScreen1();
+                        },
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
+                  },
+                ).animate().fadeIn(delay: Duration(milliseconds: 800)),
                 SizedBox(
                   height: 32.h,
                 ),
@@ -124,7 +156,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       spacing: 4.w,
                       children: [
                         Text(
-                          "Don’t have an account?",
+                          "Already have an account?",
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w300,
@@ -139,7 +171,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 pageBuilder: (BuildContext context,
                                     Animation<double> animation1,
                                     Animation<double> animation2) {
-                                  return SignUpScreen();
+                                  return SignInScreen();
                                 },
                                 transitionDuration: Duration.zero,
                                 reverseTransitionDuration: Duration.zero,
@@ -147,7 +179,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             );
                           },
                           child: Text(
-                            "Sign Up",
+                            "Sign In",
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w300,

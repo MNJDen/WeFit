@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:itec303/Components/myForm.dart';
-import 'package:itec303/Components/myPurpleBtn.dart';
+import 'package:itec303/Components/MyUsernameField.dart';
+import 'package:itec303/Components/MyPasswordField.dart';
+import 'package:itec303/Components/MyPurpleBtn.dart';
 import 'package:itec303/Screens/SignInScreen.dart';
 import 'package:itec303/Screens/SignUpScreen1.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -67,45 +68,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: 48.h,
                 ),
-                myForm(
-                  label: "Username",
-                  prefixIcon: Icon(
-                    Icons.person_rounded,
-                    color: purpleColor,
-                  ),
-                  obscure: false,
+                MyUsernameField(
+                  prefixIcon: Icons.person_rounded,
+                  labelText: "Username",
                 ).animate().fadeIn(delay: Duration(milliseconds: 500)),
                 SizedBox(
                   height: 16.h,
                 ),
-                myForm(
-                  label: "Password",
-                  prefixIcon: Icon(
-                    Icons.lock_rounded,
-                    color: purpleColor,
-                  ),
-                  obscure: true,
-                  suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.visibility_off_rounded),
-                    color: purpleColor,
-                  ),
+                MyPasswordField(
+                  prefixIcon: Icons.lock_rounded,
+                  labelText: "Password",
+                  suffixIcon: Icons.visibility_off_rounded,
                 ).animate().fadeIn(delay: Duration(milliseconds: 600)),
                 SizedBox(
                   height: 16.h,
                 ),
-                myForm(
-                  label: "Confirm Password",
-                  prefixIcon: Icon(
-                    Icons.lock_rounded,
-                    color: purpleColor,
-                  ),
-                  obscure: true,
-                  suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.visibility_off_rounded),
-                    color: purpleColor,
-                  ),
+                MyPasswordField(
+                  prefixIcon: Icons.lock_rounded,
+                  labelText: "Password",
+                  suffixIcon: Icons.visibility_off_rounded,
                 ).animate().fadeIn(delay: Duration(milliseconds: 700)),
                 SizedBox(
                   height: 32.h,
@@ -139,15 +120,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: 32.h,
                 ),
-                myPurpleBtn(
+                MyPurpleBtn(
                   name: "Continue",
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return const SignUpScreen1();
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation1,
+                            Animation<double> animation2) {
+                          return SignUpScreen1();
                         },
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
                       ),
                     );
                   },
@@ -182,10 +167,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const SignInScreen();
+                              PageRouteBuilder(
+                                pageBuilder: (BuildContext context,
+                                    Animation<double> animation1,
+                                    Animation<double> animation2) {
+                                  return SignInScreen();
                                 },
+                                transitionDuration: Duration.zero,
+                                reverseTransitionDuration: Duration.zero,
                               ),
                             );
                           },

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:itec303/Components/myPurpleBtn.dart';
+import 'package:itec303/Components/MyPurpleBtn.dart';
 import 'package:itec303/Screens/SignInScreen.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class SignUpScreen1 extends StatefulWidget {
   const SignUpScreen1({super.key});
@@ -60,7 +61,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                     fontWeight: FontWeight.w300,
                     color: whiteColor,
                   ),
-                ),
+                ).animate().fadeIn(delay: Duration(milliseconds: 400)),
                 SizedBox(
                   height: 48.h,
                 ),
@@ -82,7 +83,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: Duration(milliseconds: 500)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -98,7 +99,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: Duration(milliseconds: 600)),
                 SizedBox(
                   height: 32.h,
                 ),
@@ -131,7 +132,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                 SizedBox(
                   height: 32.h,
                 ),
-                myPurpleBtn(
+                MyPurpleBtn(
                   name: "Continue",
                   onPressed: () {
                     Navigator.push(
@@ -143,7 +144,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                       ),
                     );
                   },
-                ),
+                ).animate().fadeIn(delay: Duration(milliseconds: 700)),
                 SizedBox(
                   height: 32.h,
                 ),
@@ -203,6 +204,6 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: Duration(milliseconds: 300));
   }
 }

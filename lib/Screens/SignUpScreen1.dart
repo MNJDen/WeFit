@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:itec303/Components/myForm.dart';
 import 'package:itec303/Components/myPurpleBtn.dart';
-import 'package:itec303/Screens/SignUpScreen.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:itec303/Screens/SignInScreen.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignUpScreen1 extends StatefulWidget {
+  const SignUpScreen1({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignUpScreen1> createState() => _SignUpScreen1State();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignUpScreen1State extends State<SignUpScreen1> {
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
@@ -45,7 +43,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 56.h,
                 ),
                 Text(
-                  "SIGN IN",
+                  "SIGN UP",
                   style: TextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.w500,
@@ -56,50 +54,42 @@ class _SignInScreenState extends State<SignInScreen> {
                   height: 4.h,
                 ),
                 Text(
-                  "Sign in to your account.",
+                  "Fill the following forms to continue.",
                   style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w300,
                     color: whiteColor,
                   ),
-                ).animate().fadeIn(delay: Duration(milliseconds: 400)),
+                ),
                 SizedBox(
                   height: 48.h,
                 ),
-                myForm(
-                  label: "Username",
-                  prefixIcon: Icon(
-                    Icons.person_rounded,
-                    color: purpleColor,
-                  ),
-                  obscure: false,
-                ).animate().fadeIn(delay: Duration(milliseconds: 500)),
-                SizedBox(
-                  height: 16.h,
-                ),
-                myForm(
-                  label: "Password",
-                  prefixIcon: Icon(
-                    Icons.lock_rounded,
-                    color: purpleColor,
-                  ),
-                  obscure: true,
-                  suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.visibility_off_rounded),
-                    color: purpleColor,
-                  ),
-                ).animate().fadeIn(delay: Duration(milliseconds: 600)),
-                SizedBox(
-                  height: 4.h,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 120.w,
+                      height: 120.h,
+                      decoration: BoxDecoration(
+                        color: Colors
+                            .transparent, // Set the background color to transparent
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Color.fromRGBO(
+                              169, 88, 237, 1), // Set the border color
+                          width: 2.0, // Set the border width
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
                       onPressed: () {},
                       child: Text(
-                        "Forgot your password?",
+                        "Upload a Photo",
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w300,
@@ -110,12 +100,50 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: 92.h,
+                  height: 32.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Wrap(
+                      spacing: 10.w,
+                      children: [
+                        Container(
+                          width: 8.w,
+                          height: 8.h,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(169, 88, 237, 0.3),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        Container(
+                          width: 8.w,
+                          height: 8.h,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(169, 88, 237, 1),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 32.h,
                 ),
                 myPurpleBtn(
                   name: "Continue",
-                  onPressed: () {},
-                ).animate().fadeIn(delay: Duration(milliseconds: 700)),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const SignInScreen();
+                        },
+                      ),
+                    );
+                  },
+                ),
                 SizedBox(
                   height: 32.h,
                 ),
@@ -135,7 +163,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       spacing: 4.w,
                       children: [
                         Text(
-                          "Don’t have an account?",
+                          "Already have an account?",
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w300,
@@ -146,19 +174,15 @@ class _SignInScreenState extends State<SignInScreen> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              PageRouteBuilder(
-                                pageBuilder: (BuildContext context,
-                                    Animation<double> animation1,
-                                    Animation<double> animation2) {
-                                  return SignUpScreen();
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const SignInScreen();
                                 },
-                                transitionDuration: Duration.zero,
-                                reverseTransitionDuration: Duration.zero,
                               ),
                             );
                           },
                           child: Text(
-                            "Sign Up",
+                            "Sign In",
                             style: TextStyle(
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w300,
@@ -179,6 +203,6 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
         ),
       ),
-    ).animate().fadeIn(delay: Duration(milliseconds: 300));
+    );
   }
 }

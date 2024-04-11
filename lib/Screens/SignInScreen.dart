@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:itec303/Components/myForm.dart';
-import 'package:itec303/Components/myPurpleBtn.dart';
+import 'package:itec303/Components/MyPasswordField.dart';
+import 'package:itec303/Components/MyUsernameField.dart';
+import 'package:itec303/Components/MyPurpleBtn.dart';
 import 'package:itec303/Screens/SignUpScreen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -66,29 +67,17 @@ class _SignInScreenState extends State<SignInScreen> {
                 SizedBox(
                   height: 48.h,
                 ),
-                myForm(
-                  label: "Username",
-                  prefixIcon: Icon(
-                    Icons.person_rounded,
-                    color: purpleColor,
-                  ),
-                  obscure: false,
+                MyUsernameField(
+                  prefixIcon: Icons.person_rounded,
+                  labelText: "Username",
                 ).animate().fadeIn(delay: Duration(milliseconds: 500)),
                 SizedBox(
                   height: 16.h,
                 ),
-                myForm(
-                  label: "Password",
-                  prefixIcon: Icon(
-                    Icons.lock_rounded,
-                    color: purpleColor,
-                  ),
-                  obscure: true,
-                  suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.visibility_off_rounded),
-                    color: purpleColor,
-                  ),
+                MyPasswordField(
+                  prefixIcon: Icons.lock_rounded,
+                  labelText: "Password",
+                  suffixIcon: Icons.visibility_off_rounded,
                 ).animate().fadeIn(delay: Duration(milliseconds: 600)),
                 SizedBox(
                   height: 4.h,
@@ -112,7 +101,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 SizedBox(
                   height: 92.h,
                 ),
-                myPurpleBtn(
+                MyPurpleBtn(
                   name: "Continue",
                   onPressed: () {},
                 ).animate().fadeIn(delay: Duration(milliseconds: 700)),

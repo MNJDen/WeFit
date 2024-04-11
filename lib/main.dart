@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itec303/Components/MyUsernameField.dart';
 import 'package:itec303/Screens/SignInScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             fontFamily: 'General Sans',
+          ).copyWith(
+            colorScheme:
+                ThemeData().colorScheme.copyWith(primary: purpleColor),
           ),
           home: const RootPage(),
         );

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
 import 'package:itec303/Components/MyPurpleBtn.dart';
+import 'package:itec303/Screens/HomeScreen.dart';
 import 'package:itec303/Screens/SignUpScreen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -103,7 +104,20 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 MyPurpleBtn(
                   name: "Continue",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation1,
+                            Animation<double> animation2) {
+                          return HomeScreen();
+                        },
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
+                  },
                 ).animate().fadeIn(delay: Duration(milliseconds: 700)),
                 SizedBox(
                   height: 32.h,

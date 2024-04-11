@@ -27,222 +27,200 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: blackColor,
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20.0, top: 40, bottom: 0,),
-                child: Text(
-                  "Welcome back, ",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: whiteColor,
-                  ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 4.h,
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 40,),
-                child: Text(
-                  "Stefan",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w500,
-                    color: purpleColor,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              Padding(
-                padding: const EdgeInsets.only(top: 50, bottom: 10, right: 20),
-                child: IconButton(
-                  onPressed: () {
-                    // direct to another page
-                  },
-                  icon: const Icon(Icons.person,
-                      color: Color.fromRGBO(169, 88, 237, 1), size: 40),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.w),
-            child: TableCalendar(
-                locale: "en_US",
-                rowHeight: 40,
-                headerStyle: HeaderStyle(
-                    leftChevronIcon: Icon(
-                      Icons.chevron_left,
-                      color: whiteColor,
-                    ),
-                    rightChevronIcon: Icon(
-                      Icons.chevron_right,
-                      color: whiteColor,
-                    ),
-                    titleTextStyle: TextStyle(fontSize: 20, color: whiteColor),
-                    formatButtonVisible: false,
-                    formatButtonShowsNext: true,
-                    titleCentered: true),
-                availableGestures: AvailableGestures.all,
-                selectedDayPredicate: (day) => isSameDay(day, today),
-                firstDay: DateTime.utc(2010, 10, 16),
-                lastDay: DateTime.utc(2040, 10, 16),
-                onDaySelected: _onDaySelected,
-                focusedDay: today,
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: purpleColor,
-                    shape: BoxShape.circle,
-                  ),
-                  todayTextStyle: TextStyle(color: blackColor),
-                  weekendTextStyle: TextStyle(color: purpleColor),
-                  defaultTextStyle: TextStyle(color: whiteColor),
-                  selectedTextStyle: TextStyle(color: blackColor),
-                )),
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, top: 10, bottom: 0),
-                child: Text(
-                  "Don't have a workout plan yet?",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w300,
-                    color: purpleColor,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20.0, top: 0),
-                child: Text(
-                  "Check out our suggested workouts",
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w100,
-                    color: whiteColor,
-                  ),
-                ),
-              ),
-              const Spacer(),
-              TextButton(
-                onPressed: () {},
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                Row(
                   children: [
                     Text(
-                      "See all",
+                      "Welcome back, ",
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w500,
+                        color: whiteColor,
+                      ),
+                    ),
+                    Text(
+                      "Stefan",
+                      style: TextStyle(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w500,
+                        color: purpleColor,
+                      ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        // direct to another page
+                      },
+                      icon: const Icon(Icons.person,
+                          color: Color.fromRGBO(169, 88, 237, 1), size: 40),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 4.h,
+                ),
+                TableCalendar(
+                  locale: "en_US",
+                  rowHeight: 40.h,
+                  headerStyle: HeaderStyle(
+                      leftChevronIcon: Icon(
+                        Icons.chevron_left,
+                        color: whiteColor,
+                      ),
+                      rightChevronIcon: Icon(
+                        Icons.chevron_right,
+                        color: whiteColor,
+                      ),
+                      titleTextStyle:
+                          TextStyle(fontSize: 16.sp, color: whiteColor),
+                      formatButtonVisible: false,
+                      formatButtonShowsNext: true,
+                      titleCentered: true),
+                  availableGestures: AvailableGestures.all,
+                  selectedDayPredicate: (day) => isSameDay(day, today),
+                  firstDay: DateTime.utc(2010, 10, 16),
+                  lastDay: DateTime.utc(2040, 10, 16),
+                  onDaySelected: _onDaySelected,
+                  focusedDay: today,
+                  startingDayOfWeek: StartingDayOfWeek.monday,
+                  calendarStyle: CalendarStyle(
+                    selectedDecoration: BoxDecoration(
+                      color: purpleColor,
+                      shape: BoxShape.circle,
+                    ),
+                    todayTextStyle: TextStyle(color: blackColor),
+                    weekendTextStyle: TextStyle(color: purpleColor),
+                    defaultTextStyle: TextStyle(color: whiteColor),
+                    selectedTextStyle: TextStyle(color: blackColor),
+                  ),
+                ),
+                SizedBox(
+                  height: 36.h,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "Don't have a workout plan yet?",
+                      style: TextStyle(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                        color: purpleColor,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4.w,),
+                Row(
+                  children: [
+                    Text(
+                      "Check out our suggested workouts",
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w300,
                         color: whiteColor,
                       ),
                     ),
-                    const SizedBox(width: 5.0),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20.0),
-                      child: Icon(
-                        Icons.arrow_circle_right,
-                        size: 20.0,
-                        color: whiteColor,
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (BuildContext context,
+                                Animation<double> animation1,
+                                Animation<double> animation2) {
+                              return WorkoutGuidePage();
+                            },
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
+                          ),
+                        );
+                      },
+                      child: Wrap(
+                        spacing: 4.w,
+                        children: [
+                          Text(
+                            "See all",
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w300,
+                              color: whiteColor,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                          Icon(
+                            Icons.arrow_circle_right_rounded,
+                            color: whiteColor,
+                            size: 20.w,
+                          )
+                        ],
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 3.h,
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: CarouselSlider(
-                  items: [
-                    _buildCarouselItem("Chest", "assets/images/Chest.png", () {Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (BuildContext context,
-                            Animation<double> animation1,
-                            Animation<double> animation2) {
-                          return WorkoutGuidePage();
-                        },
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
+                SizedBox(
+                  height: 12.h,
+                ),
+                Column(
+                  children: [
+                    CarouselSlider(
+                      items: [
+                        _buildCarouselItem("Chest", "assets/images/Chest.png",
+                            () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return WorkoutGuidePage();
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        }),
+                        _buildCarouselItem(
+                            "Legs", "assets/images/Leg_Press.jpg", () {}),
+                        _buildCarouselItem(
+                            "Back", "assets/images/Back.jpg", () {}),
+                        _buildCarouselItem(
+                            "Arms", "assets/images/Arms.png", () {}),
+                        _buildCarouselItem(
+                            "Abs", "assets/images/Abs.jpg", () {}),
+                        _buildCarouselItem(
+                            "Shoulders", "assets/images/Shoulders.png", () {}),
+                        _buildCarouselItem(
+                            "Cardio", "assets/images/Cardio.png", () {}),
+                        _buildCarouselItem(
+                            "Glutes", "assets/images/Glutes.png", () {}),
+                      ],
+                      options: CarouselOptions(
+                        height: 210.h,
+                        initialPage: 1,
+                        enableInfiniteScroll: true,
+                        viewportFraction: 0.35,
+                        aspectRatio: 16 / 10,
+                        scrollDirection: Axis.horizontal,
                       ),
-                    );}),
-                    _buildCarouselItem("Legs", "assets/images/Leg_Press.jpg", () {}),
-                    _buildCarouselItem("Back", "assets/images/Back.jpg", () {}),
-                    _buildCarouselItem("Arms", "assets/images/Arms.png", () {}),
-                    _buildCarouselItem("Abs", "assets/images/Abs.jpg", () {}),
-                    _buildCarouselItem("Shoulders", "assets/images/Shoulders.png", () {}),
-                    _buildCarouselItem("Cardio", "assets/images/Cardio.png", () {}),
-                    _buildCarouselItem("Glutes", "assets/images/Glutes.png", () {}),
+                    ),
                   ],
-                  options: CarouselOptions(
-                    height: 210,
-                    initialPage: 1,
-                    enableInfiniteScroll: true,
-                    viewportFraction: 0.33,
-                    aspectRatio: 16 / 9,
-                    scrollDirection: Axis.horizontal,
-                  ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 15.h,
+                ),
+              ],
+            ),
           ),
-          SizedBox(
-            height: 15.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: IconButton(
-                  onPressed: () {
-                    // direct to another page
-                  },
-                  icon: const Icon(
-                    Icons.home,
-                    color: Color.fromRGBO(169, 88, 237, 1),
-                    size: 50,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: IconButton(
-                  onPressed: () {
-                    // direct to another page
-                  },
-                  icon: const Icon(Icons.signal_cellular_alt_rounded,
-                      color: Color.fromRGBO(169, 88, 237, 1), size: 50),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: IconButton(
-                  onPressed: () {
-                    // direct to another page
-                  },
-                  icon: const Icon(Icons.chat_bubble,
-                      color: Color.fromRGBO(169, 88, 237, 1), size: 50),
-                ),
-              ),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -251,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+        margin: EdgeInsets.symmetric(horizontal: 3.h),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           image: DecorationImage(
@@ -262,8 +240,8 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: Text(
             text,
-            style: const TextStyle(
-                fontSize: 20, color: Colors.white, fontWeight: FontWeight.w500),
+            style: TextStyle(
+                fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.w500),
           ),
         ),
       ),

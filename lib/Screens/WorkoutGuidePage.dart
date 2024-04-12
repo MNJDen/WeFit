@@ -52,7 +52,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
               size: 30,
             ),
           ),
-          leadingWidth: 30.w,
+          leadingWidth: 40.w,
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -73,20 +73,18 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (BuildContext context,
-                                      Animation<double> animation1,
-                                      Animation<double> animation2) {
-                                    return WorkoutGuidePage1();
-                                  },
-                                  transitionDuration: Duration.zero,
-                                  reverseTransitionDuration: Duration.zero,
-                                ),
-                              );
+                            onTap: () {Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (BuildContext context,
+                                Animation<double> animation1,
+                                Animation<double> animation2) {
+                              return WorkoutGuidePage1();
                             },
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
+                          ),
+                        );},
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,

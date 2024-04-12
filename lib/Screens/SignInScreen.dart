@@ -4,7 +4,6 @@ import 'package:itec303/Components/MyBottomNavBar.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
 import 'package:itec303/Components/MyPurpleBtn.dart';
-import 'package:itec303/Screens/HomeScreen.dart';
 import 'package:itec303/Screens/SignUpScreen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 

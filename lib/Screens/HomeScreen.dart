@@ -117,7 +117,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 4.w,),
+                SizedBox(
+                  height: 4.w,
+                ),
                 Row(
                   children: [
                     Text(
@@ -153,7 +155,6 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w300,
                               color: whiteColor,
-                              decoration: TextDecoration.underline,
                             ),
                           ),
                           Icon(
@@ -173,21 +174,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     CarouselSlider(
                       items: [
-                        _buildCarouselItem("Chest", "assets/images/Chest.png",
-                            () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (BuildContext context,
-                                  Animation<double> animation1,
-                                  Animation<double> animation2) {
-                                return WorkoutGuidePage();
-                              },
-                              transitionDuration: Duration.zero,
-                              reverseTransitionDuration: Duration.zero,
-                            ),
-                          );
-                        }),
+                        _buildCarouselItem(
+                            "Chest", "assets/images/chest.jpg", () {}),
                         _buildCarouselItem(
                             "Legs", "assets/images/Leg_Press.jpg", () {}),
                         _buildCarouselItem(
@@ -241,7 +229,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Text(
             text,
             style: TextStyle(
-                fontSize: 20.sp, color: Colors.white, fontWeight: FontWeight.w500),
+                fontSize: 20.sp,
+                color: Colors.white,
+                fontWeight: FontWeight.w500),
           ),
         ),
       ),

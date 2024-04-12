@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itec303/Screens/HomeScreen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WorkoutGuidePage extends StatefulWidget {
   const WorkoutGuidePage({super.key});
@@ -16,135 +17,375 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: blackColor,
-        body: Column(
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 50, left: 10),
-                  child: IconButton(
-                    onPressed: () {Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (BuildContext context,
-                            Animation<double> animation1,
-                            Animation<double> animation2) {
-                          return HomeScreen();
-                        },
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
+        appBar: AppBar(
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Back",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w400,
+                  color: whiteColor,
+                ),
+              ),
+              Text(
+                "Choose a muscle group you wish to learn",
+                style: TextStyle(
+                    fontSize: 12.sp,
+                    color: whiteColor,
+                    fontWeight: FontWeight.w100),
+              )
+            ],
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_circle_left_rounded,
+              color: purpleColor,
+              size: 30,
+            ),
+          ),
+          leadingWidth: 30.w,
+        ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 4.h,
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 4.h,
                       ),
-                    );},
-                    icon: Icon(
-                      Icons.arrow_circle_left_rounded,
-                      color: purpleColor,
-                      size: 30,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 5.0),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 50,
-                  ),
-                  child: Text(
-                    "Back",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w300,
-                      color: whiteColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 5),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Text(
-                    "Choose a muscle group you wish to learn",
-                    style: TextStyle(
-                        fontSize: 12,
-                        color: whiteColor,
-                        fontWeight: FontWeight.w100),
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(height: 5),
-             Column(
-               children: [
-                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        // direct to anitehr page
-                      },
-                      child: SizedBox(
-                        width: 190,
-                        child: Card(
-                          child: Stack(
-                            children: [
-                              Image.asset(
-                                'assets/images/chest.jpg',
-                                height: 200,
-                                width: 200,
-                              ),
-                              Positioned(
-                                bottom: 8.0,
-                                left: 20.0,
-                                child: Text(
-                                  'Card 1',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
+                      //firstRow
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: 190.h,
+                              width: 160.w,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  children: [
+                                    Ink.image(
+                                      image: AssetImage(
+                                          'assets/images/Chest_png.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Center(
+                                        child: Text(
+                                          'Chest',
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        // direct to another page
-                      },
-                      child: SizedBox(
-                        width: 190, 
-                        child: Card(
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/image2.jpg', 
-                                height: 150,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Card 2',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                          InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: 190.h,
+                              width: 160.w,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  children: [
+                                    Ink.image(
+                                      image: AssetImage(
+                                          'assets/images/Backpng.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Center(
+                                        child: Text(
+                                          'Back',
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-                             ],
-                           ),
-               ],
-             ),
-          ],
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      //secondRow
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: 190.h,
+                              width: 160.w,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  children: [
+                                    Ink.image(
+                                      image: AssetImage(
+                                          'assets/images/Legspng.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Center(
+                                        child: Text(
+                                          'Legs',
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: 190.h,
+                              width: 160.w,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  children: [
+                                    Ink.image(
+                                      image: AssetImage(
+                                          'assets/images/Shoulders.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Center(
+                                        child: Text(
+                                          'Shoulders',
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      //thirdRow
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: 190.h,
+                              width: 160.w,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  children: [
+                                    Ink.image(
+                                      image:
+                                          AssetImage('assets/images/Arms.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Center(
+                                        child: Text(
+                                          'Arms',
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: 190.h,
+                              width: 160.w,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  children: [
+                                    Ink.image(
+                                      image:
+                                          AssetImage('assets/images/Abs.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Center(
+                                        child: Text(
+                                          'Abs',
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      //fourthRow
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: 190.h,
+                              width: 160.w,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  children: [
+                                    Ink.image(
+                                      image: AssetImage(
+                                          'assets/images/Cardio.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Center(
+                                        child: Text(
+                                          'Cardio',
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: 190.h,
+                              width: 160.w,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  children: [
+                                    Ink.image(
+                                      image: AssetImage(
+                                          'assets/images/Glutes.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    Positioned(
+                                      top: 0,
+                                      left: 0,
+                                      right: 0,
+                                      bottom: 0,
+                                      child: Center(
+                                        child: Text(
+                                          'Glutes',
+                                          style: TextStyle(
+                                            fontSize: 20.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
         ));
-  }  
+  }
 }

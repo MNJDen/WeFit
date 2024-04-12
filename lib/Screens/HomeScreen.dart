@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         _buildCarouselItem(
                             "Arms", "assets/images/Arms.png", () {}),
                         _buildCarouselItem(
-                            "Abs", "assets/images/Abs.jpg", () {}),
+                            "Abs", "assets/images/Abs.png", () {}),
                         _buildCarouselItem(
                             "Shoulders", "assets/images/Shoulders.png", () {}),
                         _buildCarouselItem(

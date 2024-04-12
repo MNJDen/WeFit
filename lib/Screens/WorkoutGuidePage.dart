@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itec303/Screens/HomeScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage1.dart';
 
 class WorkoutGuidePage extends StatefulWidget {
   const WorkoutGuidePage({super.key});
@@ -72,7 +73,20 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation1,
+                                      Animation<double> animation2) {
+                                    return WorkoutGuidePage1();
+                                  },
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
+                            },
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,

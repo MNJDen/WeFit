@@ -44,12 +44,12 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
             color: blackColor,
             elevation: 1,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 110.h),
+              padding: EdgeInsets.symmetric(horizontal: 65.h),
               child: SizedBox(
                 height: 75.h,
                 width: double.infinity,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     IconBottomBar(
                       icon: Icons.home_rounded,

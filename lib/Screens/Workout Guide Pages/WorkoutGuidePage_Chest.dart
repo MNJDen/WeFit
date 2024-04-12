@@ -15,6 +15,35 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: blackColor,
+      appBar: AppBar(
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Back",
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                color: whiteColor,
+              ),
+            ),
+          ],
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_circle_left_rounded,
+            color: purpleColor,
+            size: 30,
+          ),
+        ),
+        leadingWidth: 30.w,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -22,40 +51,7 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 27.h,
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return WorkoutGuidePage1();
-                            },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.arrow_circle_left_rounded,
-                          color: Color.fromRGBO(169, 88, 237, 1), size: 28),
-                    ),
-                    Text(
-                      "Back",
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: whiteColor,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 17.h,
+                  height: 20.h,
                 ),
                 Row(
                   children: [
@@ -67,7 +63,9 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
                     ),
                   ],
                 ),
-                SizedBox(height: 17.h,),
+                SizedBox(
+                  height: 17.h,
+                ),
                 Row(
                   children: [
                     Text(
@@ -80,7 +78,9 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
                     ),
                   ],
                 ),
-                SizedBox(height: 4.h,),
+                SizedBox(
+                  height: 4.h,
+                ),
                 Row(
                   children: [
                     Text(
@@ -93,7 +93,9 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
                     ),
                   ],
                 ),
-                SizedBox(height: 12.h,),
+                SizedBox(
+                  height: 12.h,
+                ),
                 Text(
                   "1. Lie on a flat bench holding a dumbbell in each hand with an overhand grip.\n"
                   "2. Start by holding the dumbbells slightly wider than shoulder width apart above your shoulders. Your palms should be facing forward.\n"

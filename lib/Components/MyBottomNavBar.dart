@@ -44,7 +44,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
             color: blackColor,
             elevation: 1,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 75.h),
+              padding: EdgeInsets.symmetric(horizontal: 110.h),
               child: SizedBox(
                 height: 75.h,
                 width: double.infinity,
@@ -100,18 +100,13 @@ class IconBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        IconButton(
-          onPressed: onPressed,
-          icon: Icon(icon,
-              size: 40.h,
-              color: selected
-                  ? Color.fromRGBO(169, 88, 237, 1)
-                  : Color.fromRGBO(169, 88, 237, 0.3)),
-        ),
-      ],
+    return IconButton(
+      onPressed: onPressed,
+      icon: Icon(icon,
+          size: 40.h,
+          color: selected
+              ? Color.fromRGBO(169, 88, 237, 1)
+              : Color.fromRGBO(169, 88, 237, 0.3)),
     );
   }
 }

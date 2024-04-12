@@ -4,7 +4,6 @@ import 'package:itec303/Components/MyUsernameField.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyPurpleBtn.dart';
 import 'package:itec303/Screens/SignInScreen.dart';
-import 'package:itec303/Screens/SignUpScreen1.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -123,18 +122,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 MyPurpleBtn(
                   name: "Continue",
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (BuildContext context,
-                            Animation<double> animation1,
-                            Animation<double> animation2) {
-                          return SignUpScreen1();
-                        },
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    );
                   },
                 ).animate().fadeIn(delay: Duration(milliseconds: 800)),
                 SizedBox(

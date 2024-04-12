@@ -37,6 +37,35 @@ class _WorkoutGuidePage1State extends State<WorkoutGuidePage1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Back",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w400,
+                  color: whiteColor,
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_circle_left_rounded,
+              color: purpleColor,
+              size: 30,
+            ),
+          ),
+          leadingWidth: 30.w,
+        ),
       backgroundColor: blackColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -45,40 +74,7 @@ class _WorkoutGuidePage1State extends State<WorkoutGuidePage1> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 27.h,
-                ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return SignUpScreen();
-                            },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.arrow_circle_left_rounded,
-                          color: Color.fromRGBO(169, 88, 237, 1), size: 28),
-                    ),
-                    Text(
-                      "Back",
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500,
-                        color: whiteColor,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 27.h,
+                  height: 15.h,
                 ),
                 Row(
                   children: [
@@ -86,11 +82,14 @@ class _WorkoutGuidePage1State extends State<WorkoutGuidePage1> {
                       "Chest",
                       style: TextStyle(
                         fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
                         color: purpleColor,
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 3.h,
                 ),
                 Row(
                   children: [
@@ -98,14 +97,14 @@ class _WorkoutGuidePage1State extends State<WorkoutGuidePage1> {
                       "Choose a chest exercise you wish to learn",
                       style: TextStyle(
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w100,
                         color: whiteColor,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 12.h,
                 ),
                 // List of images displayed vertically
                 Column(
@@ -142,7 +141,7 @@ class _WorkoutGuidePage1State extends State<WorkoutGuidePage1> {
                                   chestExerciseNames[index],
                                   style: TextStyle(
                                     fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                     color: whiteColor,
                                   ),
                                 ),
@@ -154,7 +153,7 @@ class _WorkoutGuidePage1State extends State<WorkoutGuidePage1> {
                     );
                   }),
                 ),
-              ],
+              ], 
             ),
           ),
         ),

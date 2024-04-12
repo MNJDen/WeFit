@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Components/MyBottomNavBar.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
 import 'package:itec303/Components/MyPurpleBtn.dart';
@@ -111,7 +112,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         pageBuilder: (BuildContext context,
                             Animation<double> animation1,
                             Animation<double> animation2) {
-                          return HomeScreen();
+                          return MyBottomNavBar();
                         },
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,

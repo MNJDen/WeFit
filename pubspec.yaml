@@ -39,6 +39,9 @@ dependencies:
   table_calendar: ^3.1.1
   carousel_slider: ^4.2.1
   flutter_animate: ^4.5.0
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
 
 dev_dependencies:
   flutter_test:

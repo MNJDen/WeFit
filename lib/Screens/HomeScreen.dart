@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Screens/WorkoutGuidePage.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -17,10 +18,16 @@ class _HomeScreenState extends State<HomeScreen> {
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
   DateTime today = DateTime.now();
+
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
     });
+  }
+
+  void logout() {
+    final _auth = AuthService();
+    _auth.signOut();
   }
 
   @override
@@ -57,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     const Spacer(),
                     IconButton(
                       onPressed: () {
-                        // direct to another page
+                        logout();
                       },
                       icon: const Icon(Icons.person,
                           color: Color.fromRGBO(169, 88, 237, 1), size: 40),

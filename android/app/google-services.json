@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "605202542090",
+    "project_id": "wefit-d6233",
+    "storage_bucket": "wefit-d6233.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605202542090:android:08e7739de53d41d6d7f9f3",
+        "android_client_info": {
+          "package_name": "com.example.itec303"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPZC2lSQCk2lf4HthI3VW6ldzBlaw6e2k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,11 +9,13 @@ class MyPasswordField extends StatefulWidget {
   final IconData prefixIcon;
   final String labelText;
   final IconData? suffixIcon;
+  final TextEditingController controller;
 
   MyPasswordField({
     required this.prefixIcon,
     required this.labelText,
     this.suffixIcon,
+    required this.controller,
   });
 
   @override
@@ -50,14 +52,16 @@ class _MyPasswordFieldState extends State<MyPasswordField> {
   }
 
   // Method to toggle text obscuring
-    void _toggleObscureText() {
+  void _toggleObscureText() {
     setState(() {
       _obscureText = !_obscureText;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       style: TextStyle(
         fontSize: 12.sp,
         color: whiteColor,
@@ -67,15 +71,13 @@ class _MyPasswordFieldState extends State<MyPasswordField> {
       decoration: InputDecoration(
         prefixIcon: Icon(
           widget.prefixIcon,
-          color: _isFocused
-              ? purpleColor
-              : whiteColor,
+          color: _isFocused ? purpleColor : whiteColor,
         ),
         suffixIcon: widget.suffixIcon != null
             ? IconButton(
                 icon: Icon(
                   _obscureText ? widget.suffixIcon : Icons.visibility_rounded,
-                  color: _isFocused ? purpleColor: whiteColor,
+                  color: _isFocused ? purpleColor : whiteColor,
                 ),
                 onPressed: () {
                   if (widget.suffixIcon != null) {

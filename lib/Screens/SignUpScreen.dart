@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyPurpleBtn.dart';
@@ -14,9 +15,32 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
+
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
+
+  void register(BuildContext context) {
+    final _auth = AuthService();
+
+    try {
+      _auth.signUpWithEmailPassword(
+        _emailController.text,
+        _passController.text,
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            "Error: $e",
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +92,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 48.h,
                 ),
                 MyUsernameField(
-                  prefixIcon: Icons.person_rounded,
-                  labelText: "Username",
+                  prefixIcon: Icons.email_rounded,
+                  labelText: "Email",
+                  controller: _emailController,
                 ).animate().fadeIn(delay: Duration(milliseconds: 500)),
                 SizedBox(
                   height: 16.h,
@@ -78,17 +103,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   prefixIcon: Icons.lock_rounded,
                   labelText: "Password",
                   suffixIcon: Icons.visibility_off_rounded,
+                  controller: _passController,
                 ).animate().fadeIn(delay: Duration(milliseconds: 600)),
                 SizedBox(
                   height: 16.h,
-                ),
-                MyPasswordField(
-                  prefixIcon: Icons.lock_rounded,
-                  labelText: "Password",
-                  suffixIcon: Icons.visibility_off_rounded,
-                ).animate().fadeIn(delay: Duration(milliseconds: 700)),
-                SizedBox(
-                  height: 32.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -121,9 +139,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 MyPurpleBtn(
                   name: "Continue",
-                  onPressed: () {
-                  },
-                ).animate().fadeIn(delay: Duration(milliseconds: 800)),
+                  onPressed: () => register(context),
+                ).animate().fadeIn(delay: Duration(milliseconds: 700)),
                 SizedBox(
                   height: 32.h,
                 ),

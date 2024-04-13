@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:itec303/Components/MyBottomNavBar.dart';
+import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
 import 'package:itec303/Components/MyPurpleBtn.dart';
@@ -15,9 +15,32 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passController = TextEditingController();
+
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
+
+  void login(BuildContext context) async {
+    final authService = AuthService();
+
+    try {
+      await authService.signInWithEmailPassword(
+        _emailController.text,
+        _passController.text,
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(
+            "Error: $e",
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +87,15 @@ class _SignInScreenState extends State<SignInScreen> {
                     fontWeight: FontWeight.w300,
                     color: whiteColor,
                   ),
-                ).animate().fadeIn(delay: Duration(milliseconds: 400)),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 48.h,
                 ),
                 MyUsernameField(
-                  prefixIcon: Icons.person_rounded,
-                  labelText: "Username",
-                ).animate().fadeIn(delay: Duration(milliseconds: 500)),
+                  prefixIcon: Icons.email_rounded,
+                  labelText: "Email",
+                  controller: _emailController,
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -79,7 +103,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   prefixIcon: Icons.lock_rounded,
                   labelText: "Password",
                   suffixIcon: Icons.visibility_off_rounded,
-                ).animate().fadeIn(delay: Duration(milliseconds: 600)),
+                  controller: _passController,
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -104,26 +129,13 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 MyPurpleBtn(
                   name: "Continue",
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (BuildContext context,
-                            Animation<double> animation1,
-                            Animation<double> animation2) {
-                          return MyBottomNavBar();
-                        },
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    );
-                  },
-                ).animate().fadeIn(delay: Duration(milliseconds: 700)),
+                  onPressed: () => login(context),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
                 SizedBox(
                   height: 32.h,
                 ),
                 Divider(
-                  color: Color.fromRGBO(251, 248, 255, 0.3),
+                  color: const Color.fromRGBO(251, 248, 255, 0.3),
                   indent: 30.w,
                   endIndent: 30.w,
                   thickness: 1,
@@ -153,7 +165,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                 pageBuilder: (BuildContext context,
                                     Animation<double> animation1,
                                     Animation<double> animation2) {
-                                  return SignUpScreen();
+                                  return const SignUpScreen();
                                 },
                                 transitionDuration: Duration.zero,
                                 reverseTransitionDuration: Duration.zero,
@@ -182,6 +194,6 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
         ),
       ),
-    ).animate().fadeIn(delay: Duration(milliseconds: 300));
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

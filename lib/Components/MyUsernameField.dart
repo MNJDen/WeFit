@@ -6,12 +6,14 @@ final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
 final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
 class MyUsernameField extends StatefulWidget {
-  final IconData prefixIcon;
+  final IconData? prefixIcon;
   final String labelText;
+  final TextEditingController controller;
 
   MyUsernameField({
-    required this.prefixIcon,
+    this.prefixIcon,
     required this.labelText,
+    required this.controller,
   });
 
   @override
@@ -49,6 +51,7 @@ class _MyUsernameFieldState extends State<MyUsernameField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       style: TextStyle(
         fontSize: 12.sp,
         color: whiteColor,
@@ -57,9 +60,7 @@ class _MyUsernameFieldState extends State<MyUsernameField> {
       decoration: InputDecoration(
         prefixIcon: Icon(
           widget.prefixIcon,
-          color: _isFocused
-              ? purpleColor
-              : whiteColor,
+          color: _isFocused ? purpleColor : whiteColor,
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

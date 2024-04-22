@@ -77,7 +77,7 @@ class _WorkoutGuidePage_BackState extends State<WorkoutGuidePage_Back> {
                 Row(
                   children: [
                     Text(
-                      "Chest",
+                      "Back",
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w400,
@@ -92,7 +92,7 @@ class _WorkoutGuidePage_BackState extends State<WorkoutGuidePage_Back> {
                 Row(
                   children: [
                     Text(
-                      "Choose a chest exercise you wish to learn",
+                      "Choose a back exercise you wish to learn",
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w100,

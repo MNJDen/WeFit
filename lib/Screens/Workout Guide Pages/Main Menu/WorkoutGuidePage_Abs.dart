@@ -78,7 +78,7 @@ class _WorkoutGuidePage_AbsState extends State<WorkoutGuidePage_Abs> {
                 Row(
                   children: [
                     Text(
-                      "Chest",
+                      "Abs",
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w400,
@@ -93,7 +93,7 @@ class _WorkoutGuidePage_AbsState extends State<WorkoutGuidePage_Abs> {
                 Row(
                   children: [
                     Text(
-                      "Choose a chest exercise you wish to learn",
+                      "Choose an ab exercise you wish to learn",
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w100,

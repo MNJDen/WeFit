@@ -78,7 +78,7 @@ class _WorkoutGuidePage_ArmsState extends State<WorkoutGuidePage_Arms> {
                 Row(
                   children: [
                     Text(
-                      "Chest",
+                      "Arms",
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w400,
@@ -93,7 +93,7 @@ class _WorkoutGuidePage_ArmsState extends State<WorkoutGuidePage_Arms> {
                 Row(
                   children: [
                     Text(
-                      "Choose a chest exercise you wish to learn",
+                      "Choose an arm exercise you wish to learn",
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w100,

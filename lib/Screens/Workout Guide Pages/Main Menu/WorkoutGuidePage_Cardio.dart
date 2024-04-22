@@ -78,7 +78,7 @@ class _WorkoutGuidePage_CardioState extends State<WorkoutGuidePage_Cardio> {
                 Row(
                   children: [
                     Text(
-                      "Chest",
+                      "Cardio",
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w400,
@@ -93,7 +93,7 @@ class _WorkoutGuidePage_CardioState extends State<WorkoutGuidePage_Cardio> {
                 Row(
                   children: [
                     Text(
-                      "Choose a chest exercise you wish to learn",
+                      "Choose a cardio exercise you wish to learn",
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w100,

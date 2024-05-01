@@ -6,6 +6,9 @@ import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyPurpleBtn.dart';
 import 'package:itec303/Screens/SignInScreen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -16,19 +19,47 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
-
+  File? _image;
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
-  void register(BuildContext context) {
+  void register(BuildContext context) async {
     final _auth = AuthService();
 
     try {
-      _auth.signUpWithEmailPassword(
+      String? downloadURL;
+      if (_image != null) {
+        // Get the current user
+        User? currentUser = _auth.getCurrentUser();
+        if (currentUser != null) {
+          // If current user is not null, get the user's UID
+          String userId = currentUser.uid;
+
+          // Call uploadImage with both the image and the user's UID
+          downloadURL = await _auth.uploadImage(_image!, userId);
+
+          if (downloadURL != null) {
+            print('Image uploaded. Download URL: $downloadURL');
+          } else {
+            print('Failed to upload image.');
+            return; // Exit function if image upload fails
+          }
+        } else {
+          print(
+              'Current user is null.'); // Handle case where current user is null
+        }
+      } else {
+        print('No image selected.');
+      }
+
+      await _auth.signUpWithEmailPassword(
         _emailController.text,
         _passController.text,
+        _usernameController.text,
+        _image!,
       );
     } catch (e) {
       showDialog(
@@ -91,10 +122,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: 48.h,
                 ),
+                _image == null
+                    ? Text('No image selected.')
+                    : Image.file(_image!),
+                TextButton(
+                  onPressed: () async {
+                    final picker = ImagePicker();
+                    final pickedFile =
+                        await picker.pickImage(source: ImageSource.gallery);
+                    if (pickedFile != null) {
+                      setState(() {
+                        _image = File(pickedFile.path);
+                      });
+                    }
+                  },
+                  child: Text("Upload Image"),
+                ),
                 MyUsernameField(
                   prefixIcon: Icons.email_rounded,
                   labelText: "Email",
                   controller: _emailController,
+                ).animate().fadeIn(delay: Duration(milliseconds: 500)),
+                SizedBox(
+                  height: 16.h,
+                ),
+                MyUsernameField(
+                  prefixIcon: Icons.person_rounded,
+                  labelText: "Username",
+                  controller: _usernameController,
                 ).animate().fadeIn(delay: Duration(milliseconds: 500)),
                 SizedBox(
                   height: 16.h,

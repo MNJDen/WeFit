@@ -207,7 +207,8 @@ class AccountSettingScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                )
+                ),
+                IconButton(onPressed: () {}, icon: Icon(Icons.person),),
               ],
             ),
           ),

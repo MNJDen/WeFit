@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Screens/AccountSettings.dart';
+import 'package:itec303/Screens/SetExercise.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Screens/WorkoutGuidePage.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -15,15 +16,23 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  DateTime today = DateTime.now();
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
-  DateTime today = DateTime.now();
 
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
     });
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SetExercise(
+          today: today,
+        ),
+      ),
+    );
   }
 
   void logout() {
@@ -217,8 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             "Arms", "assets/images/Arms.png", () {}),
                         _buildCarouselItem(
                             "Abs", "assets/images/Abs.png", () {}),
-                        _buildCarouselItem(
-                            "Shoulders", "assets/images/Shoulders_dsp.png", () {}),
+                        _buildCarouselItem("Shoulders",
+                            "assets/images/Shoulders_dsp.png", () {}),
                         _buildCarouselItem(
                             "Cardio", "assets/images/Cardio.png", () {}),
                         _buildCarouselItem(

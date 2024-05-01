@@ -23,9 +23,18 @@ class ChatScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 20.sp,
             fontWeight: FontWeight.w500,
-            color: whiteColor,
+            color: purpleColor,
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.edit_rounded,
+              color: purpleColor,
+            ),
+          )
+        ],
       ),
       body: _buildUserList(),
     );

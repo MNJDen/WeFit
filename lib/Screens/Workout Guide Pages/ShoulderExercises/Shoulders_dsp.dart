@@ -55,7 +55,7 @@ class _Shoulders_dspState extends State<Shoulders_dsp> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                      'assets/images/Shoulders_dsp.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

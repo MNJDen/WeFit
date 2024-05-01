@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/ShoulderExercises/Shoulders_dsp.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/ShoulderExercises/Shoulders_fr.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/ShoulderExercises/Shoulders_op.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/ShoulderExercises/Shoulders_rf.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/ShoulderExercises/Shoulders_slr.dart';
 
 class WorkoutGuidePage_Shoulders extends StatefulWidget {
   const WorkoutGuidePage_Shoulders({super.key});
@@ -14,22 +19,32 @@ class _WorkoutGuidePage_ShouldersState extends State<WorkoutGuidePage_Shoulders>
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
+  //List of Route
+  final List<Widget> shouldersExerciseScreens = [
+    const Shoulders_dsp(),
+    const Shoulders_fr(),
+    const Shoulders_op(),
+    const Shoulders_rf(),
+    const Shoulders_slr(),
+  ];
+
   // List of image paths
-  final List<String> chestExerciseImages = [
-    // 'assets/images/dbFlatBenchPress.png',
-    // 'assets/images/dbInclineBenchPress.png',
-    // 'assets/images/dbFlatBenchFlys.png',
-    // 'assets/images/dbInclineBenchFlys.png',
+  final List<String> shouldersExerciseImages = [
+    'assets/images/Shoulders_dsp.png',
+    'assets/images/Shoulders_fr.png',
+    'assets/images/Shoulders_op.png',
+    'assets/images/Shoulders_rf.png',
+    'assets/images/Shoulders_slr.png',
     // Add more image paths as needed
   ];
 
   // List of exercise names corresponding to each image
-  final List<String> chestExerciseNames = [
+  final List<String> shouldersExerciseNames = [
     'Dumbbell Shoulder Press',
-    'Side Lateral Raise',
-    'Reverse Flyes',
     'Front Raise',
     'Overhead Press',
+    'Reverse Flyes',
+    'Side Lateral Raise',
     // Add more exercise names as needed
   ];
 
@@ -107,24 +122,40 @@ class _WorkoutGuidePage_ShouldersState extends State<WorkoutGuidePage_Shoulders>
                 ),
                 // List of images displayed vertically
                 Column(
-                  children: List.generate(chestExerciseImages.length, (index) {
+                  children: List.generate(shouldersExerciseImages.length, (index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (BuildContext context,
+                                Animation<double> animation1,
+                                Animation<double> animation2) {
+                              return shouldersExerciseScreens[index];
+                            },
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
+                          ),
+                        );
+                      },
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 10.h),
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset(
-                              chestExerciseImages[index],
-                              height: 75.h, // Adjust the height as needed
-                              width: 320.w, // Adjust the width as needed
-                              fit: BoxFit.cover,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(15), // Adjust the border radius as needed
+                              child: Image.asset(
+                                shouldersExerciseImages[index],
+                                height: 100.h, // Adjust the height as needed
+                                width: 320.w, // Adjust the width as needed
+                                fit: BoxFit.cover,
+                              ),
                             ),
                             Positioned.fill(
                               child: Center(
                                 child: Text(
-                                  chestExerciseNames[index],
+                                  shouldersExerciseNames[index],
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,

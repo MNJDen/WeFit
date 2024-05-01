@@ -55,7 +55,7 @@ class _Back_lpdState extends State<Back_lpd> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                      'assets/images/Back_lpd.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

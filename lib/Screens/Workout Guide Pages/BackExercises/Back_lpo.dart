@@ -55,7 +55,7 @@ class _Back_lpoState extends State<Back_lpo> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                      'assets/images/Back_lpo.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

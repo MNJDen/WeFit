@@ -210,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         _buildCarouselItem(
                             "Chest", "assets/images/chest.jpg", () {}),
                         _buildCarouselItem(
-                            "Legs", "assets/images/Leg_Press.jpg", () {}),
+                            "Legs", "assets/images/Legs_lp.png", () {}),
                         _buildCarouselItem(
                             "Back", "assets/images/Back.jpg", () {}),
                         _buildCarouselItem(
@@ -218,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         _buildCarouselItem(
                             "Abs", "assets/images/Abs.png", () {}),
                         _buildCarouselItem(
-                            "Shoulders", "assets/images/Shoulders.png", () {}),
+                            "Shoulders", "assets/images/Shoulders_dsp.png", () {}),
                         _buildCarouselItem(
                             "Cardio", "assets/images/Cardio.png", () {}),
                         _buildCarouselItem(

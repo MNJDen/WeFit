@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/ChestExercises/Chest_dfbf.dart';
 import 'package:itec303/Screens/Workout%20Guide%20Pages/ChestExercises/Chest_dfbp.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/ChestExercises/Chest_dibf.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/ChestExercises/Chest_dibp.dart';
 
 class WorkoutGuidePage_Chest extends StatefulWidget {
   const WorkoutGuidePage_Chest({super.key});
@@ -15,6 +18,13 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
+  //List of Route
+  final List<Widget> chestExerciseScreens = [
+    const Chest_dfbp(),
+    const Chest_dibp(),
+    const Chest_dfbf(),
+    const Chest_dibf(),
+  ];
   // List of image paths
   final List<String> chestExerciseImages = [
     'assets/images/dbFlatBenchPress.png',
@@ -116,7 +126,7 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
                             pageBuilder: (BuildContext context,
                                 Animation<double> animation1,
                                 Animation<double> animation2) {
-                              return Chest_dfbp();
+                              return chestExerciseScreens[index];
                             },
                             transitionDuration: Duration.zero,
                             reverseTransitionDuration: Duration.zero,
@@ -128,11 +138,14 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset(
-                              chestExerciseImages[index],
-                              height: 75.h, // Adjust the height as needed
-                              width: 320.w, // Adjust the width as needed
-                              fit: BoxFit.cover,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(15), // Adjust the border radius as needed
+                              child: Image.asset(
+                                chestExerciseImages[index],
+                                height: 100.h, // Adjust the height as needed
+                                width: 320.w, // Adjust the width as needed
+                                fit: BoxFit.cover,
+                              ),
                             ),
                             Positioned.fill(
                               child: Center(

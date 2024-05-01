@@ -55,7 +55,7 @@ class _Legs_lpState extends State<Legs_lp> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                      'assets/images/Legs_lp.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

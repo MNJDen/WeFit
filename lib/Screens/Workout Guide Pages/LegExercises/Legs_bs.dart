@@ -55,7 +55,7 @@ class _Legs_bsState extends State<Legs_bs> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                      'assets/images/Legs_bs.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

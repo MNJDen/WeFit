@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,6 +7,7 @@ import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Screens/WorkoutGuidePage.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,6 +33,24 @@ class _HomeScreenState extends State<HomeScreen> {
     _auth.signOut();
   }
 
+  late Stream<DocumentSnapshot> _userStream;
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch the current user's ID from Firebase Authentication
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      // Fetch user data from Firestore based on the current user's ID
+      _userStream = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(currentUser.uid)
+          .snapshots();
+    } else {
+      print('Current user is null. Make sure the user is authenticated.');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,21 +66,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Row(
                   children: [
-                    Text(
-                      "Welcome back, ",
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
-                        color: whiteColor,
-                      ),
-                    ),
-                    Text(
-                      "Stefan",
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
-                        color: purpleColor,
-                      ),
+                    StreamBuilder<DocumentSnapshot>(
+                      stream: _userStream,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<DocumentSnapshot> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator(); // Show loading indicator while fetching data
+                        }
+                        if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        }
+                        if (!snapshot.hasData || !snapshot.data!.exists) {
+                          return const Text(
+                              'User data not found'); // Handle case where user data doesn't exist
+                        }
+                        // Access username from document snapshot and display it
+                        final username = snapshot.data!.get('username');
+                        return Text(
+                          'Welcome back, $username',
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                            fontWeight: FontWeight.w500,
+                            color: purpleColor,
+                          ),
+                        );
+                      },
                     ),
                     const Spacer(),
                     InkWell(
@@ -84,14 +115,51 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(100),
                           border: Border.all(color: purpleColor, width: 1.w),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.asset(
-                            'assets/images/Pedro.jpg',
-                            fit: BoxFit.cover,
-                            width: 35.w,
-                            height: 35.h,
-                          ),
+                        child: StreamBuilder<DocumentSnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('Users')
+                              .doc(FirebaseAuth.instance.currentUser!
+                                  .uid) // Include UID in document path
+                              .snapshots(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<DocumentSnapshot> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator(); // Show loading indicator while fetching data
+                            }
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            }
+                            if (!snapshot.hasData || !snapshot.data!.exists) {
+                              return const Text(
+                                  'User data not found'); // Handle case where user data doesn't exist
+                            }
+                            // Access profile image URL from document snapshot and display it
+                            final profileImageUrl =
+                                snapshot.data!.get('profileImageUrl');
+                            if (profileImageUrl != null) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.network(
+                                  profileImageUrl,
+                                  fit: BoxFit.cover,
+                                  width: 35.w,
+                                  height: 35.h,
+                                ),
+                              );
+                            } else {
+                              // If profile image URL is not available, display a placeholder or default image
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: Image.asset(
+                                  'assets/images/default_profile_image.jpg',
+                                  fit: BoxFit.cover,
+                                  width: 35.w,
+                                  height: 35.h,
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ),
@@ -121,7 +189,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   selectedDayPredicate: (day) => isSameDay(day, today),
                   firstDay: DateTime.utc(2010, 10, 16),
                   lastDay: DateTime.utc(2040, 10, 16),
-                  onDaySelected: _onDaySelected,
+                  onDaySelected: (selectedDay, focusedDay) {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation1,
+                            Animation<double> animation2) {
+                          return WorkoutGuidePage(selectedDate: today);
+                        },
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
+                  },
                   focusedDay: today,
                   startingDayOfWeek: StartingDayOfWeek.monday,
                   calendarStyle: CalendarStyle(
@@ -172,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             pageBuilder: (BuildContext context,
                                 Animation<double> animation1,
                                 Animation<double> animation2) {
-                              return WorkoutGuidePage();
+                              return WorkoutGuidePage(selectedDate: today);
                             },
                             transitionDuration: Duration.zero,
                             reverseTransitionDuration: Duration.zero,
@@ -217,8 +298,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             "Arms", "assets/images/Arms.png", () {}),
                         _buildCarouselItem(
                             "Abs", "assets/images/Abs.png", () {}),
-                        _buildCarouselItem(
-                            "Shoulders", "assets/images/Shoulders_dsp.png", () {}),
+                        _buildCarouselItem("Shoulders",
+                            "assets/images/Shoulders_dsp.png", () {}),
                         _buildCarouselItem(
                             "Cardio", "assets/images/Cardio.png", () {}),
                         _buildCarouselItem(

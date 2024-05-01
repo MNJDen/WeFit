@@ -55,7 +55,7 @@ class _Glutes_bhtState extends State<Glutes_bht> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                      'assets/images/Glutes_bht.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

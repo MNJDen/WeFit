@@ -55,7 +55,7 @@ class _Glutes_dbssState extends State<Glutes_dbss> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                     'assets/images/Legs_bss.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

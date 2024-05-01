@@ -42,7 +42,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
           ),
           child: BottomAppBar(
             color: blackColor,
-            elevation: 1,
+            elevation: 0,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 65.h),
               child: SizedBox(

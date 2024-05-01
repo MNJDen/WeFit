@@ -16,6 +16,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
 
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
@@ -29,6 +30,7 @@ class _SignInScreenState extends State<SignInScreen> {
       await authService.signInWithEmailPassword(
         _emailController.text,
         _passController.text,
+        _usernameController.text,
       );
     } catch (e) {
       showDialog(

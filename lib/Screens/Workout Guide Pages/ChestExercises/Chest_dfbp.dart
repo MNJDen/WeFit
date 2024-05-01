@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
+import 'package:itec303/Screens/WorkoutGuidePage.dart';
 
 class Chest_dfbp extends StatefulWidget {
   const Chest_dfbp({super.key});
@@ -15,7 +16,7 @@ class _Chest_dfbpState extends State<Chest_dfbp> {
     return Scaffold(
       backgroundColor: blackColor,
       appBar: AppBar(
-        title: Column(
+        title: Column(  
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

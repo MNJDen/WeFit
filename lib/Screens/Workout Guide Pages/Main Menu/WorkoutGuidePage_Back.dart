@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/BackExercises/Back_bor.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/BackExercises/Back_lpd.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/BackExercises/Back_lpo.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/BackExercises/Back_scr.dart';
 
 class WorkoutGuidePage_Back extends StatefulWidget {
   const WorkoutGuidePage_Back({super.key});
@@ -14,21 +18,28 @@ class _WorkoutGuidePage_BackState extends State<WorkoutGuidePage_Back> {
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
+  //List of Route
+  final List<Widget> backExerciseScreens = [
+    const Back_bor(),
+    const Back_lpd(),
+    const Back_lpo(),
+    const Back_scr(),
+  ];
   // List of image paths
-  final List<String> chestExerciseImages = [
-    // 'assets/images/dbFlatBenchPress.png',
-    // 'assets/images/dbInclineBenchPress.png',
-    // 'assets/images/dbFlatBenchFlys.png',
-    // 'assets/images/dbInclineBenchFlys.png',
+  final List<String> backExerciseImages = [
+    'assets/images/Back_bor.png',
+    'assets/images/Back_lpd.png',
+    'assets/images/Back_lpo.png',
+    'assets/images/Back_scr.png',
     // Add more image paths as needed
   ];
 
   // List of exercise names corresponding to each image
-  final List<String> chestExerciseNames = [
-    'Lat Pull-Down',
+  final List<String> backExerciseNames = [
+    'Bent-over Row',
+    'Lat Pull-down',
+    'Lat Pull-over',
     'Seated Cable Row',
-    'Bent-Over Row',
-    'Lat Pull-Over',
     // Add more exercise names as needed
   ];
 
@@ -36,34 +47,34 @@ class _WorkoutGuidePage_BackState extends State<WorkoutGuidePage_Back> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Back",
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  color: whiteColor,
-                ),
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Back",
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                color: whiteColor,
               ),
-            ],
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_circle_left_rounded,
-              color: purpleColor,
-              size: 30,
             ),
-          ),
-          leadingWidth: 30.w,
+          ],
         ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_circle_left_rounded,
+            color: purpleColor,
+            size: 30,
+          ),
+        ),
+        leadingWidth: 30.w,
+      ),
       backgroundColor: blackColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -106,24 +117,40 @@ class _WorkoutGuidePage_BackState extends State<WorkoutGuidePage_Back> {
                 ),
                 // List of images displayed vertically
                 Column(
-                  children: List.generate(chestExerciseImages.length, (index) {
+                  children: List.generate(backExerciseImages.length, (index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (BuildContext context,
+                                Animation<double> animation1,
+                                Animation<double> animation2) {
+                              return backExerciseScreens[index];
+                            },
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
+                          ),
+                        );
+                      },
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 10.h),
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset(
-                              chestExerciseImages[index],
-                              height: 75.h, // Adjust the height as needed
-                              width: 320.w, // Adjust the width as needed
-                              fit: BoxFit.cover,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(15), // Adjust the border radius as needed
+                              child: Image.asset(
+                                backExerciseImages[index],
+                                height: 100.h, // Adjust the height as needed
+                                width: 320.w, // Adjust the width as needed
+                                fit: BoxFit.cover,
+                              ),
                             ),
                             Positioned.fill(
                               child: Center(
                                 child: Text(
-                                  chestExerciseNames[index],
+                                  backExerciseNames[index],
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -138,7 +165,7 @@ class _WorkoutGuidePage_BackState extends State<WorkoutGuidePage_Back> {
                     );
                   }),
                 ),
-              ], 
+              ],
             ),
           ),
         ),

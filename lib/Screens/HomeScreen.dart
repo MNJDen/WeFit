@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Screens/AccountSettings.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Screens/WorkoutGuidePage.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -62,12 +63,37 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const Spacer(),
-                    IconButton(
-                      onPressed: () {
-                        logout();
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (BuildContext context,
+                                Animation<double> animation1,
+                                Animation<double> animation2) {
+                              return const AccountSettingScreen();
+                            },
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
+                          ),
+                        );
                       },
-                      icon: const Icon(Icons.person,
-                          color: Color.fromRGBO(169, 88, 237, 1), size: 40),
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          border: Border.all(color: purpleColor, width: 1.w),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.asset(
+                            'assets/images/Pedro.jpg',
+                            fit: BoxFit.cover,
+                            width: 35.w,
+                            height: 35.h,
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

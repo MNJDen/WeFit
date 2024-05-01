@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:itec303/Screens/AccountSettings.dart';
+import 'package:itec303/Screens/AccountSettingsScreen.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Screens/WorkoutGuidePage.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -64,6 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const Spacer(),
                     InkWell(
+                      splashColor: purpleColor,
+                      highlightColor: purpleColor,
+                      borderRadius: BorderRadius.circular(100),
                       onTap: () {
                         Navigator.push(
                           context,
@@ -217,8 +220,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             "Arms", "assets/images/Arms.png", () {}),
                         _buildCarouselItem(
                             "Abs", "assets/images/Abs.png", () {}),
-                        _buildCarouselItem(
-                            "Shoulders", "assets/images/Shoulders_dsp.png", () {}),
+                        _buildCarouselItem("Shoulders",
+                            "assets/images/Shoulders_dsp.png", () {}),
                         _buildCarouselItem(
                             "Cardio", "assets/images/Cardio.png", () {}),
                         _buildCarouselItem(

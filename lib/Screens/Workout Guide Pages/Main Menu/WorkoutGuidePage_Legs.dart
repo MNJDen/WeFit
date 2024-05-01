@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/LegExercises/Legs_bs.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/LegExercises/Legs_bss.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/LegExercises/Legs_le.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/LegExercises/Legs_lp.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/LegExercises/Legs_scr.dart';
 
 class WorkoutGuidePage_Legs extends StatefulWidget {
   const WorkoutGuidePage_Legs({super.key});
@@ -14,21 +19,30 @@ class _WorkoutGuidePage_LegsState extends State<WorkoutGuidePage_Legs> {
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
+  //List of Route
+  final List<Widget> legsExerciseScreens = [
+    const Legs_bs(),
+    const Legs_bss(),
+    const Legs_le(),
+    const Legs_lp(),
+    const Legs_scr(),
+  ];
   // List of image paths
-  final List<String> chestExerciseImages = [
-    // 'assets/images/dbFlatBenchPress.png',
-    // 'assets/images/dbInclineBenchPress.png',
-    // 'assets/images/dbFlatBenchFlys.png',
-    // 'assets/images/dbInclineBenchFlys.png',
+  final List<String> legsExerciseImages = [
+    'assets/images/Legs_bs.png',
+    'assets/images/Legs_bss.png',
+    'assets/images/Legs_le.png',
+    'assets/images/Legs_lp.png',
+    'assets/images/Legs_scr.png',
     // Add more image paths as needed
   ];
 
   // List of exercise names corresponding to each image
-  final List<String> chestExerciseNames = [
-    'Leg Press',
-    'Leg Extension',
+  final List<String> legsExerciseNames = [
     'Barbell Squat',
     'Bulgarian Split Squat',
+    'Leg Extension',
+    'Leg Press',
     'Standing Calf Raise',
     // Add more exercise names as needed
   ];
@@ -37,34 +51,34 @@ class _WorkoutGuidePage_LegsState extends State<WorkoutGuidePage_Legs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Back",
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  color: whiteColor,
-                ),
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Back",
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                color: whiteColor,
               ),
-            ],
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_circle_left_rounded,
-              color: purpleColor,
-              size: 30,
             ),
-          ),
-          leadingWidth: 30.w,
+          ],
         ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_circle_left_rounded,
+            color: purpleColor,
+            size: 30,
+          ),
+        ),
+        leadingWidth: 30.w,
+      ),
       backgroundColor: blackColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -107,24 +121,40 @@ class _WorkoutGuidePage_LegsState extends State<WorkoutGuidePage_Legs> {
                 ),
                 // List of images displayed vertically
                 Column(
-                  children: List.generate(chestExerciseImages.length, (index) {
+                  children: List.generate(legsExerciseImages.length, (index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (BuildContext context,
+                                Animation<double> animation1,
+                                Animation<double> animation2) {
+                              return legsExerciseScreens[index];
+                            },
+                            transitionDuration: Duration.zero,
+                            reverseTransitionDuration: Duration.zero,
+                          ),
+                        );
+                      },
                       child: Padding(
                         padding: EdgeInsets.only(bottom: 10.h),
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            Image.asset(
-                              chestExerciseImages[index],
-                              height: 75.h, // Adjust the height as needed
-                              width: 320.w, // Adjust the width as needed
-                              fit: BoxFit.cover,
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(15), // Adjust the border radius as needed
+                              child: Image.asset(
+                                legsExerciseImages[index],
+                                height: 100.h, // Adjust the height as needed
+                                width: 320.w, // Adjust the width as needed
+                                fit: BoxFit.cover,
+                              ),
                             ),
                             Positioned.fill(
                               child: Center(
                                 child: Text(
-                                  chestExerciseNames[index],
+                                  legsExerciseNames[index],
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500,
@@ -139,7 +169,7 @@ class _WorkoutGuidePage_LegsState extends State<WorkoutGuidePage_Legs> {
                     );
                   }),
                 ),
-              ], 
+              ],
             ),
           ),
         ),

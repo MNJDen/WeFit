@@ -55,7 +55,7 @@ class _Abs_mcState extends State<Abs_mc> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                      'assets/images/Abs_mc.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

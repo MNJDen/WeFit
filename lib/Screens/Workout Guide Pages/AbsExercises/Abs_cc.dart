@@ -55,7 +55,7 @@ class _Abs_ccState extends State<Abs_cc> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                      'assets/images/Abs_cc.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

@@ -25,13 +25,19 @@ class UserTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(
-              Icons.person,
-              color: whiteColor,
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.asset(
+                'assets/images/Pedro.jpg',
+                height: 52.h,
+                width: 52.w,
+              ),
             ),
+            SizedBox(width: 16.w,),
             Text(
               text,
               style: TextStyle(
+                fontSize: 16.sp,
                 color: whiteColor,
               ),
             ),

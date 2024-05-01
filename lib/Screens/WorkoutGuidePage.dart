@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:itec303/Screens/HomeScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Abs.dart';
 import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Arms.dart';
@@ -10,7 +11,10 @@ import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuide
 import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Shoulders.dart';
 
 class WorkoutGuidePage extends StatefulWidget {
-  const WorkoutGuidePage({super.key});
+  final DateTime selectedDate;
+
+  const WorkoutGuidePage({Key? key, required this.selectedDate})
+      : super(key: key);
 
   @override
   State<WorkoutGuidePage> createState() => _WorkoutGuidePageState();
@@ -79,18 +83,20 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
-                            onTap: () {Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return WorkoutGuidePage_Chest();
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation1,
+                                      Animation<double> animation2) {
+                                    return WorkoutGuidePage_Chest();
+                                  },
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
                             },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );},
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,
@@ -99,8 +105,8 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                                 child: Stack(
                                   children: [
                                     Ink.image(
-                                      image: AssetImage(
-                                          'assets/images/chest.jpg'),
+                                      image:
+                                          AssetImage('assets/images/chest.jpg'),
                                       fit: BoxFit.cover,
                                     ),
                                     Positioned(
@@ -125,18 +131,20 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return WorkoutGuidePage_Back();
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation1,
+                                      Animation<double> animation2) {
+                                    return WorkoutGuidePage_Back();
+                                  },
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
                             },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );},
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,
@@ -180,18 +188,20 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
-                            onTap: () {Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return WorkoutGuidePage_Legs();
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation1,
+                                      Animation<double> animation2) {
+                                    return WorkoutGuidePage_Legs();
+                                  },
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
                             },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );},
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,
@@ -226,18 +236,20 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return WorkoutGuidePage_Shoulders();
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation1,
+                                      Animation<double> animation2) {
+                                    return WorkoutGuidePage_Shoulders();
+                                  },
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
                             },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );},
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,
@@ -254,7 +266,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                                       top: 0,
                                       left: 0,
                                       right: 0,
-                                      bottom: 0,  
+                                      bottom: 0,
                                       child: Center(
                                         child: Text(
                                           'Shoulders',
@@ -281,18 +293,20 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
-                            onTap: () {Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return WorkoutGuidePage_Arms();
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation1,
+                                      Animation<double> animation2) {
+                                    return WorkoutGuidePage_Arms();
+                                  },
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
                             },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );},
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,
@@ -327,18 +341,20 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return WorkoutGuidePage_Abs();
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation1,
+                                      Animation<double> animation2) {
+                                    return WorkoutGuidePage_Abs();
+                                  },
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
                             },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );},
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,
@@ -382,18 +398,20 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           InkWell(
-                            onTap: () {Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return WorkoutGuidePage_Cardio();
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation1,
+                                      Animation<double> animation2) {
+                                    return WorkoutGuidePage_Cardio();
+                                  },
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
                             },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );},
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,
@@ -428,18 +446,20 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return WorkoutGuidePage_Glutes();
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (BuildContext context,
+                                      Animation<double> animation1,
+                                      Animation<double> animation2) {
+                                    return WorkoutGuidePage_Glutes();
+                                  },
+                                  transitionDuration: Duration.zero,
+                                  reverseTransitionDuration: Duration.zero,
+                                ),
+                              );
                             },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );},
                             child: SizedBox(
                               height: 190.h,
                               width: 160.w,

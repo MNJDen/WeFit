@@ -55,7 +55,7 @@ class _Arms_bcState extends State<Arms_bc> {
                 Row(
                   children: [
                     Image.asset(
-                      '',
+                      'assets/images/Arms_bc.png',
                       height: 150.h, // Adjust the height as needed
                       width: 320.w, // Adjust the width as needed
                       fit: BoxFit.cover,

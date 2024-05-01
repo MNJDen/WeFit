@@ -101,7 +101,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                                   children: [
                                     Ink.image(
                                       image: AssetImage(
-                                          'assets/images/Chest_png.png'),
+                                          'assets/images/chest.jpg'),
                                       fit: BoxFit.cover,
                                     ),
                                     Positioned(
@@ -202,7 +202,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                                   children: [
                                     Ink.image(
                                       image: AssetImage(
-                                          'assets/images/Legspng.png'),
+                                          'assets/images/Legs_lp.png'),
                                       fit: BoxFit.cover,
                                     ),
                                     Positioned(
@@ -248,14 +248,14 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                                   children: [
                                     Ink.image(
                                       image: AssetImage(
-                                          'assets/images/Shoulders.png'),
+                                          'assets/images/Shoulders_dsp.png'),
                                       fit: BoxFit.cover,
                                     ),
                                     Positioned(
                                       top: 0,
                                       left: 0,
                                       right: 0,
-                                      bottom: 0,
+                                      bottom: 0,  
                                       child: Center(
                                         child: Text(
                                           'Shoulders',

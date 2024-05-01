@@ -80,7 +80,41 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       backgroundColor: blackColor,
       appBar: AppBar(
-        title: Text(widget.receiverEmail),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_circle_left_rounded,
+            color: purpleColor,
+            size: 30,
+          ),
+        ),
+        title: Row(
+          children: [
+            Column(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.asset(
+                    'assets/images/Pedro.jpg',
+                    fit: BoxFit.cover,
+                    height: 40.h,
+                    width: 40.w,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 10.w,
+            ),
+            Column(
+              children: [
+                Text(widget.receiverEmail),
+              ],
+            )
+          ],
+        ),
         backgroundColor: blackColor,
       ),
       body: Column(

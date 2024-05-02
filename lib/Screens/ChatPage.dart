@@ -227,6 +227,7 @@ class _ChatPageState extends State<ChatPage> {
               shape: BoxShape.circle,
             ),
             child: IconButton(
+              splashColor: purpleColor,
               onPressed: sendMessage,
               icon: Icon(
                 Icons.send_rounded,

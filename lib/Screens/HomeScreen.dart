@@ -92,13 +92,33 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
                         // Access username from document snapshot and display it
                         final username = snapshot.data!.get('username');
-                        return Text(
-                          'Welcome back, $username',
-                          style: TextStyle(
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w500,
-                            color: purpleColor,
+                        return Wrap(
+                          children: [
+                            Text(
+                            'Welcome back, ',
+                            style: TextStyle(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w500,
+                              color: whiteColor,
+                            ),
                           ),
+                            Text(
+                              '$username',
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w500,
+                                color: purpleColor,
+                              ),
+                            ),
+                            Text(
+                              '!',
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w500,
+                                color: whiteColor,
+                              ),
+                            ),
+                          ],
                         );
                       },
                     ),
@@ -122,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(4),
+                        padding: EdgeInsets.all(4.w),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
                           border: Border.all(color: purpleColor, width: 1.w),

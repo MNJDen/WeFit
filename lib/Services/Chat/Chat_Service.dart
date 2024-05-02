@@ -18,14 +18,14 @@ class ChatService {
     });
   }
 
-  //send message
-  Future<void> sendMessage(String receiverID, message) async {
-    //get current user info
-    final String currentUserID = _auth.currentUser!.uid;
-    final String currentUserEmail = _auth.currentUser!.email!;
+  // Send a message and update the latest message timestamp in the chat room
+  Future<void> sendMessage(String receiverID, String message) async {
+    // Get the current user information
+    final currentUserID = _auth.currentUser!.uid;
+    final currentUserEmail = _auth.currentUser!.email!;
     final Timestamp timestamp = Timestamp.now();
 
-    //create new message
+    // Create a new message
     Message newMessage = Message(
       senderID: currentUserID,
       senderEmail: currentUserEmail,
@@ -34,17 +34,35 @@ class ChatService {
       timestamp: timestamp,
     );
 
-    //contruct chat room ID for the two users (sorted to ensure uniqueness)
+    // Construct chat room ID
     List<String> ids = [currentUserID, receiverID];
-    ids.sort(); //sort the ids (this ensures the chat screen is the same for both user)
+    ids.sort(); // Sort the IDs to create a unique chat room ID
     String chatRoomID = ids.join('_');
 
-    //add new message to database
+    // Add the new message to the chat room
     await _firestore
-        .collection("chat_rooms")
+        .collection('chat_rooms')
         .doc(chatRoomID)
-        .collection("messages")
+        .collection('messages')
         .add(newMessage.toMap());
+
+    // Verify the existence of the chat room document
+    DocumentSnapshot chatRoomDoc =
+        await _firestore.collection('chat_rooms').doc(chatRoomID).get();
+
+    // If the document does not exist, create it and update it with the latestTimestamp
+    if (!chatRoomDoc.exists) {
+      // Initialize the chat room document with default fields
+      await _firestore.collection('chat_rooms').doc(chatRoomID).set({
+        'participants': ids,
+        'latestTimestamp': timestamp,
+      });
+    } else {
+      // Update the existing chat room document with the latestTimestamp
+      await _firestore.collection('chat_rooms').doc(chatRoomID).update({
+        'latestTimestamp': timestamp,
+      });
+    }
   }
 
   //get messages
@@ -127,44 +145,75 @@ class ChatService {
     });
   }
 
-  // Fetch the chat list for the current user
+  // Fetch the current user's chat list and sort it by the latest message timestamp
   Stream<List<Map<String, dynamic>>> getCurrentUserChatListStream() {
-    final String currentUserID = _auth.currentUser!.uid;
+    final currentUserID = _auth.currentUser!.uid;
 
     return _firestore
         .collection('chat_lists')
         .doc(currentUserID)
         .snapshots()
         .asyncMap((docSnapshot) async {
-      // Initialize the chat list if the document doesn't exist
       if (!docSnapshot.exists) {
-        await _firestore.collection('chat_lists').doc(currentUserID).set({
-          'userIDs': [],
-        });
         return [];
       }
 
-      // Retrieve the list of user IDs from the document
-      List<dynamic> userIDsDynamic = docSnapshot.data()?['userIDs'] ?? [];
+      // Fetch user IDs in the chat list
+      List<String> userIDs = List<String>.from(docSnapshot['userIDs']);
 
-      // Convert the list to a List<String> and handle any parsing issues
-      List<String> userIDs;
-      try {
-        userIDs = List<String>.from(userIDsDynamic);
-      } catch (e) {
-        print('Error parsing user IDs: $e');
-        return [];
-      }
-
-      // Fetch details of each user in the chat list
+      // Fetch user details and latest message timestamps
       List<Map<String, dynamic>> userDetails = [];
       for (String userID in userIDs) {
-        DocumentSnapshot userDoc =
-            await _firestore.collection("Users").doc(userID).get();
+        DocumentSnapshot<Map<String, dynamic>> userDoc =
+            await _firestore.collection('Users').doc(userID).get();
+
         if (userDoc.exists) {
-          userDetails.add(userDoc.data() as Map<String, dynamic>);
+          // Fetch the latest message timestamp for each user
+          var chatRoomID = [currentUserID, userID]..sort();
+          var chatRoomRef = _firestore
+              .collection('chat_rooms')
+              .doc(chatRoomID.join('_'))
+              .collection('messages');
+
+          // Query for the latest message in the chat room
+          QuerySnapshot latestMessageQuery = await chatRoomRef
+              .orderBy('timestamp', descending: true)
+              .limit(1)
+              .get();
+
+          Timestamp? latestTimestamp;
+          if (latestMessageQuery.docs.isNotEmpty) {
+            latestTimestamp = latestMessageQuery.docs.first['timestamp'];
+          }
+
+          // Include user details and latest message timestamp
+          // Cast the return type of userDoc.data() to Map<String, dynamic>?
+          Map<String, dynamic>? userData =
+              userDoc.data() as Map<String, dynamic>?;
+          if (userData != null) {
+            userData['uid'] = userID;
+            userData['latestTimestamp'] = latestTimestamp;
+            userDetails.add(userData);
+          }
         }
       }
+
+      // Sort the user details based on the latest message timestamp
+      userDetails.sort((a, b) {
+        Timestamp? timestampA = a['latestTimestamp'];
+        Timestamp? timestampB = b['latestTimestamp'];
+
+        if (timestampA == null && timestampB == null) {
+          return 0;
+        } else if (timestampA == null) {
+          return 1;
+        } else if (timestampB == null) {
+          return -1;
+        } else {
+          return timestampB.compareTo(timestampA);
+        }
+      });
+
       return userDetails;
     });
   }

@@ -24,25 +24,36 @@ class _SignInScreenState extends State<SignInScreen> {
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
   void login(BuildContext context) async {
-    final authService = AuthService();
+  final authService = AuthService();
 
-    try {
-      await authService.signInWithEmailPassword(
-        _emailController.text,
-        _passController.text,
-        _usernameController.text,
-      );
-    } catch (e) {
+  try {
+    await authService.signInWithEmailPassword(
+      _emailController.text,
+      _passController.text,
+      _usernameController.text,
+    );
+    // You can add more code here to handle a successful sign-in, such as navigation.
+  } catch (e) {
+    // Before showing the dialog, check if the context is still valid (i.e., if the widget is still mounted).
+    if (mounted) {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(
-            "Error: $e",
-          ),
+          title: Text("Error: $e"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text("OK"),
+            ),
+          ],
         ),
       );
     }
   }
+}
+
 
   @override
   Widget build(BuildContext context) {

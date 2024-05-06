@@ -221,20 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   selectedDayPredicate: (day) => isSameDay(day, today),
                   firstDay: DateTime.utc(2010, 10, 16),
                   lastDay: DateTime.utc(2040, 10, 16),
-                  onDaySelected: (selectedDay, focusedDay) {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (BuildContext context,
-                            Animation<double> animation1,
-                            Animation<double> animation2) {
-                          return WorkoutGuidePage(selectedDate: today);
-                        },
-                        transitionDuration: Duration.zero,
-                        reverseTransitionDuration: Duration.zero,
-                      ),
-                    );
-                  },
+                  onDaySelected: _onDaySelected,
                   focusedDay: today,
                   startingDayOfWeek: StartingDayOfWeek.monday,
                   calendarStyle: CalendarStyle(

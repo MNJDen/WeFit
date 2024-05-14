@@ -1,14 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
+import 'package:itec303/Screens/SignInScreen.dart';
 
-class AccountSettingScreen extends StatelessWidget {
+class AccountSettingScreen extends StatefulWidget {
   const AccountSettingScreen({super.key});
 
-  void logout() {
-    final _auth = AuthService();
-    _auth.signOut();
+  @override
+  State<AccountSettingScreen> createState() => _AccountSettingScreenState();
+}
+
+class _AccountSettingScreenState extends State<AccountSettingScreen> {
+  final blackColor = const Color.fromRGBO(13, 13, 13, 1);
+  final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
+  final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
+  bool _isLoading = false;
+
+  void logout(BuildContext context) async {
+    final authService = AuthService();
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      await authService.signOut();
+      Navigator.pushAndRemoveUntil(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (BuildContext context, Animation<double> animation1, Animation<double> animation2) {
+            return const SignInScreen();
+          },
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+        (route) => false,
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Error: $e"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("OK"),
+            ),
+          ],
+        ),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -177,38 +224,39 @@ class AccountSettingScreen extends StatelessWidget {
                 SizedBox(
                   height: 12.h,
                 ),
-                InkWell(
-                  splashColor: purpleColor,
-                  highlightColor: blackColor,
-                  borderRadius: BorderRadius.circular(10),
-                  onTap: () {
-                    logout();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(10.w),
-                    width: double.infinity,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.logout_rounded,
-                          color: whiteColor,
-                          size: 25.h,
-                        ),
-                        SizedBox(
-                          width: 4.w,
-                        ),
-                        Text(
-                          "Sign Out",
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color: whiteColor,
+                _isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : InkWell(
+                        splashColor: purpleColor,
+                        highlightColor: blackColor,
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {
+                          logout(context);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(10.w),
+                          width: double.infinity,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.logout_rounded,
+                                color: whiteColor,
+                                size: 25.h,
+                              ),
+                              SizedBox(
+                                width: 4.w,
+                              ),
+                              Text(
+                                "Sign Out",
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  color: whiteColor,
+                                ),
+                              ),
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                IconButton(onPressed: () {}, icon: Icon(Icons.person),),
+                        ),
+                      ),
               ],
             ),
           ),

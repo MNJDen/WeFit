@@ -1,3 +1,4 @@
+// ChatService.dart
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:itec303/Models/Message.dart';
@@ -131,15 +132,17 @@ class ChatService {
       if (snapshot.docs.isNotEmpty) {
         DocumentSnapshot doc = snapshot.docs.first;
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        // Include both the latest message and its timestamp in the return value
+        // Include the receiverID in the return value
         return {
           'message': data['message'],
           'timestamp': data['timestamp'],
+          'receiverID': data['receiverID'], // Add receiverID here
         };
       } else {
         return {
           'message': '',
           'timestamp': null,
+          'receiverID': null, // Ensure receiverID is included even if no message
         };
       }
     });

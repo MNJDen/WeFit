@@ -7,6 +7,7 @@ class UserTile extends StatelessWidget {
   final String message;
   final DateTime? timestamp;
   final void Function()? onTap;
+  final bool isNewMessage;
 
   const UserTile({
     super.key,
@@ -14,7 +15,16 @@ class UserTile extends StatelessWidget {
     required this.message,
     this.timestamp,
     required this.onTap,
+    this.isNewMessage = false,
   });
+
+  TextStyle _getMessageStyle(bool isNewMessage) {
+    return TextStyle(
+      fontSize: 12.sp,
+      color: whiteColor,
+      fontWeight: isNewMessage ? FontWeight.w600 : FontWeight.normal, // Adjust font weight based on isNewMessage
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +66,7 @@ class UserTile extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16.sp,
                       color: whiteColor,
+                      fontWeight: FontWeight.w500
                     ),
                   ),
                   // Display latest message and time with vertical bar
@@ -65,30 +76,19 @@ class UserTile extends StatelessWidget {
                         child: Text(
                           // Truncate the message and handle overflow
                           message,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: whiteColor,
-                          ),
+                          style: _getMessageStyle(isNewMessage), // Use the custom message style
                           maxLines: 1, // Limit the message to one line
                           overflow:
                               TextOverflow.ellipsis, // Truncate with ellipsis
                         ),
                       ),
-                      // Conditionally display the vertical bar and time
-                      if (message.isNotEmpty)
-                        Text(
-                          ' | ',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: whiteColor,
-                          ),
-                        ),
+                      // Display the time
                       if (message.isNotEmpty)
                         Text(
                           timeString,
                           style: TextStyle(
                             fontSize: 12.sp,
-                            color: Colors.grey[500],
+                            color: whiteColor,
                           ),
                         ),
                     ],

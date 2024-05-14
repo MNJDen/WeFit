@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
@@ -8,7 +9,7 @@ import 'package:itec303/Screens/SignInScreen.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:io';
+import 'package:itec303/Components/MyBottomNavBar.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -25,9 +26,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
+  bool _isLoading = false;
 
   void register(BuildContext context) async {
     final _auth = AuthService();
+
+    setState(() {
+      _isLoading = true;
+    });
 
     try {
       String? downloadURL;
@@ -55,12 +61,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
         print('No image selected.');
       }
 
-      await _auth.signUpWithEmailPassword(
+      UserCredential? userCredential = await _auth.signUpWithEmailPassword(
         _emailController.text,
         _passController.text,
         _usernameController.text,
         _image!,
       );
+
+      if (userCredential != null) {
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (BuildContext context, Animation<double> animation1,
+                Animation<double> animation2) {
+              return MyBottomNavBar();
+            },
+            transitionDuration: Duration.zero,
+            reverseTransitionDuration: Duration.zero,
+          ),
+        );
+      }
     } catch (e) {
       showDialog(
         context: context,
@@ -70,6 +90,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -120,23 +144,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ).animate().fadeIn(delay: Duration(milliseconds: 400)),
                 SizedBox(
-                  height: 48.h,
+                  height: 12.h,
                 ),
                 _image == null
                     ? Text('No image selected.')
                     : Image.file(_image!),
-                TextButton(
-                  onPressed: () async {
-                    final picker = ImagePicker();
-                    final pickedFile =
-                        await picker.pickImage(source: ImageSource.gallery);
-                    if (pickedFile != null) {
-                      setState(() {
-                        _image = File(pickedFile.path);
-                      });
-                    }
-                  },
-                  child: Text("Upload Image"),
+                Container(
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: () async {
+                      final picker = ImagePicker();
+                      final pickedFile =
+                          await picker.pickImage(source: ImageSource.gallery);
+                      if (pickedFile != null) {
+                        setState(() {
+                          _image = File(pickedFile.path);
+                        });
+                      }
+                    },
+                    child: Text("Upload Image"),
+                  ),
+                ),
+                SizedBox(
+                  height: 16.h,
                 ),
                 MyUsernameField(
                   prefixIcon: Icons.email_rounded,
@@ -163,39 +193,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(
                   height: 16.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Wrap(
-                      spacing: 10.w,
-                      children: [
-                        Container(
-                          width: 8.w,
-                          height: 8.h,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(169, 88, 237, 1),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        Container(
-                          width: 8.w,
-                          height: 8.h,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(169, 88, 237, 0.3),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
                 SizedBox(
                   height: 32.h,
                 ),
-                MyPurpleBtn(
-                  name: "Continue",
-                  onPressed: () => register(context),
-                ).animate().fadeIn(delay: Duration(milliseconds: 700)),
+                _isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : MyPurpleBtn(
+                        name: "Continue",
+                        onPressed: () => register(context),
+                      ).animate().fadeIn(delay: Duration(milliseconds: 700)),
                 SizedBox(
                   height: 32.h,
                 ),

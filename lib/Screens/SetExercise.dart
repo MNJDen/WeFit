@@ -123,7 +123,7 @@ class _SetExerciseState extends State<SetExercise> {
                     child: DottedBorder(
                       dashPattern: [6, 5, 6, 5],
                       color: purpleColor,
-                      strokeWidth: 1.w,
+                      strokeWidth: 2.w,
                       borderType: BorderType.RRect,
                       radius: Radius.circular(15),
                       child: Container(
@@ -132,14 +132,12 @@ class _SetExerciseState extends State<SetExercise> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
-                              Icons.add_circle,
-                              color: purpleColor,
-                              size: 40.0,
-                              semanticLabel:
-                                  'Text to announce in accessibility modes',
+                            Image.asset(
+                              'assets/images/Plus.png', // Replace this with the path to your plus icon image
+                              height: 36.h,
+                              width: 36.w,
                             ),
-                            SizedBox(height: 2.h),
+                            SizedBox(height: 8.h),
                             Text(
                               'Tap to add an exercise',
                               style: TextStyle(

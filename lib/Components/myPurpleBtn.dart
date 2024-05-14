@@ -13,7 +13,7 @@ Widget MyPurpleBtn({required String name, required VoidCallback onPressed}) {
         backgroundColor: MaterialStateProperty.all(purpleColor),
         foregroundColor: MaterialStateProperty.all(whiteColor),
         padding: MaterialStateProperty.all(
-          EdgeInsets.symmetric(vertical: 10.h),
+          EdgeInsets.symmetric(vertical: 12.h),
         ),
       ),
       onPressed: onPressed,

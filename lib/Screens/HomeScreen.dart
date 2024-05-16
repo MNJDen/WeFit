@@ -81,27 +81,26 @@ class _HomeScreenState extends State<HomeScreen> {
                           AsyncSnapshot<DocumentSnapshot> snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const CircularProgressIndicator(); // Show loading indicator while fetching data
+                          return const CircularProgressIndicator();
                         }
                         if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         }
                         if (!snapshot.hasData || !snapshot.data!.exists) {
                           return const Text(
-                              'User data not found'); // Handle case where user data doesn't exist
+                              'User data not found'); 
                         }
-                        // Access username from document snapshot and display it
                         final username = snapshot.data!.get('username');
                         return Wrap(
                           children: [
                             Text(
-                            'Welcome back, ',
-                            style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w500,
-                              color: whiteColor,
+                              'Welcome back, ',
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w500,
+                                color: whiteColor,
+                              ),
                             ),
-                          ),
                             Text(
                               '$username',
                               style: TextStyle(
@@ -142,36 +141,39 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       },
                       child: Container(
-                        padding: EdgeInsets.all(4.w),
+                        padding: EdgeInsets.all(2.h),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(color: purpleColor, width: 1.w),
+                          borderRadius: BorderRadius.circular(120),
+                          border: Border.all(
+                            color: purpleColor,
+                            width: 1.w,
+                          ),
                         ),
                         child: StreamBuilder<DocumentSnapshot>(
                           stream: FirebaseFirestore.instance
                               .collection('Users')
                               .doc(FirebaseAuth.instance.currentUser!
-                                  .uid) // Include UID in document path
+                                  .uid)
                               .snapshots(),
                           builder: (BuildContext context,
                               AsyncSnapshot<DocumentSnapshot> snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return const CircularProgressIndicator(); // Show loading indicator while fetching data
+                              return const CircularProgressIndicator(); 
                             }
                             if (snapshot.hasError) {
                               return Text('Error: ${snapshot.error}');
                             }
                             if (!snapshot.hasData || !snapshot.data!.exists) {
                               return const Text(
-                                  'User data not found'); // Handle case where user data doesn't exist
+                                  'User data not found'); 
                             }
-                            // Access profile image URL from document snapshot and display it
                             final profileImageUrl =
                                 snapshot.data!.get('profileImageUrl');
                             if (profileImageUrl != null) {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
+                              return Card(
+                                shape: const CircleBorder(),
+                                clipBehavior: Clip.antiAlias,
                                 child: Image.network(
                                   profileImageUrl,
                                   fit: BoxFit.cover,
@@ -180,11 +182,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               );
                             } else {
-                              // If profile image URL is not available, display a placeholder or default image
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(100),
-                                child: Image.asset(
-                                  'assets/images/default_profile_image.jpg',
+                              return Card(
+                                shape: const CircleBorder(),
+                                clipBehavior: Clip.antiAlias,
+                                child: Image.network(
+                                  'assets/images/Default_Account_Image.png',
                                   fit: BoxFit.cover,
                                   width: 35.w,
                                   height: 35.h,

@@ -7,12 +7,12 @@ import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Services/Chat/Chat_Service.dart';
 
 class ChatPage extends StatefulWidget {
-  final String receiverEmail;
+  final String receiverUser;
   final String receiverID;
 
   ChatPage({
     super.key,
-    required this.receiverEmail,
+    required this.receiverUser,
     required this.receiverID,
   });
 
@@ -92,25 +92,50 @@ class _ChatPageState extends State<ChatPage> {
         ),
         title: Row(
           children: [
-            Column(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    'assets/images/Pedro.jpg',
-                    fit: BoxFit.cover,
-                    height: 40.h,
-                    width: 40.w,
-                  ),
-                ),
-              ],
+            FutureBuilder<DocumentSnapshot>(
+              future: FirebaseFirestore.instance
+                  .collection("Users")
+                  .doc(widget.receiverID)
+                  .get(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
+                if (snapshot.hasError || !snapshot.hasData) {
+                  return Text("Error");
+                }
+                var userData = snapshot.data!.data()
+                    as Map<String, dynamic>?; 
+                return Column(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: userData != null &&
+                              userData['profileImageUrl'] != null
+                          ? Image.network(
+                              userData['profileImageUrl']
+                                  as String, 
+                              fit: BoxFit.cover,
+                              height: 40.h,
+                              width: 40.w,
+                            )
+                          : Image.asset(
+                              'assets/images/Default_Account_Image.png', 
+                              fit: BoxFit.cover,
+                              height: 40.h,
+                              width: 40.w,
+                            ),
+                    ),
+                  ],
+                );
+              },
             ),
             SizedBox(
               width: 10.w,
             ),
             Column(
               children: [
-                Text(widget.receiverEmail),
+                Text(widget.receiverUser),
               ],
             )
           ],
@@ -136,21 +161,22 @@ class _ChatPageState extends State<ChatPage> {
     return StreamBuilder(
       stream: _chatService.getMessage(widget.receiverID, senderID),
       builder: (context, snapshot) {
-        //errors
+        // Handle errors and loading states
         if (snapshot.hasError) {
           return const Text("Error");
         }
-
-        //loading
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading...");
         }
 
-        //return List View
-        return ListView(
-          // controller: _scrollController,
-          children:
-              snapshot.data!.docs.map((doc) => _buildMessageItem(doc)).toList(),
+        // Return a reversed ListView to start at the bottom
+        return ListView.builder(
+          reverse: true, // Start from the bottom
+          itemCount: snapshot.data!.docs.length,
+          itemBuilder: (context, index) {
+            DocumentSnapshot doc = snapshot.data!.docs[index];
+            return _buildMessageItem(doc);
+          },
         );
       },
     );

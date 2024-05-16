@@ -65,12 +65,10 @@ class _ChatPageState extends State<ChatPage> {
 
   //send message
   void sendMessage() async {
-    //check if not empty
     if (_messageController.text.isNotEmpty) {
       await _chatService.sendMessage(
           widget.receiverID, _messageController.text);
 
-      //clear text controller
       _messageController.clear();
     }
   }
@@ -104,8 +102,7 @@ class _ChatPageState extends State<ChatPage> {
                 if (snapshot.hasError || !snapshot.hasData) {
                   return Text("Error");
                 }
-                var userData = snapshot.data!.data()
-                    as Map<String, dynamic>?; 
+                var userData = snapshot.data!.data() as Map<String, dynamic>?;
                 return Column(
                   children: [
                     ClipRRect(
@@ -113,14 +110,13 @@ class _ChatPageState extends State<ChatPage> {
                       child: userData != null &&
                               userData['profileImageUrl'] != null
                           ? Image.network(
-                              userData['profileImageUrl']
-                                  as String, 
+                              userData['profileImageUrl'] as String,
                               fit: BoxFit.cover,
                               height: 40.h,
                               width: 40.w,
                             )
                           : Image.asset(
-                              'assets/images/Default_Account_Image.png', 
+                              'assets/images/Default_Account_Image.png',
                               fit: BoxFit.cover,
                               height: 40.h,
                               width: 40.w,
@@ -144,12 +140,10 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
-          //display all messages
           Expanded(
             child: _buildMessageList(),
           ),
 
-          //user input
           _buildUserInput(),
         ],
       ),
@@ -161,20 +155,20 @@ class _ChatPageState extends State<ChatPage> {
     return StreamBuilder(
       stream: _chatService.getMessage(widget.receiverID, senderID),
       builder: (context, snapshot) {
-        // Handle errors and loading states
         if (snapshot.hasError) {
           return const Text("Error");
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading...");
         }
-
-        // Return a reversed ListView to start at the bottom
         return ListView.builder(
-          reverse: true, // Start from the bottom
-          itemCount: snapshot.data!.docs.length,
+          reverse: true, 
+          itemCount: snapshot.data!.docs
+              .length, 
           itemBuilder: (context, index) {
-            DocumentSnapshot doc = snapshot.data!.docs[index];
+            
+            final doc =
+                snapshot.data!.docs[snapshot.data!.docs.length - 1 - index];
             return _buildMessageItem(doc);
           },
         );
@@ -182,14 +176,11 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  //build message item
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
-    //is current user
     bool isCurrentUser = data['senderID'] == _authService.getCurrentUser()!.uid;
 
-    //allign message based on role
     var alignment =
         isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
 
@@ -209,7 +200,6 @@ class _ChatPageState extends State<ChatPage> {
     );
   }
 
-  //build message input
   Widget _buildUserInput() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 20, vertical: 12),

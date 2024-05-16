@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
@@ -15,6 +17,24 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
   bool _isLoading = false;
+  late Stream<DocumentSnapshot> _userStream;
+  late User? _currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentUser();
+  }
+
+  void _getCurrentUser() {
+    _currentUser = AuthService().getCurrentUser();
+    if (_currentUser != null) {
+      _userStream = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(_currentUser!.uid)
+          .snapshots();
+    }
+  }
 
   void logout(BuildContext context) async {
     final authService = AuthService();
@@ -28,7 +48,8 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
       Navigator.pushAndRemoveUntil(
         context,
         PageRouteBuilder(
-          pageBuilder: (BuildContext context, Animation<double> animation1, Animation<double> animation2) {
+          pageBuilder: (BuildContext context, Animation<double> animation1,
+              Animation<double> animation2) {
             return const SignInScreen();
           },
           transitionDuration: Duration.zero,
@@ -93,37 +114,62 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                 SizedBox(
                   height: 40.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        border: Border.all(color: purpleColor, width: 1.w),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(100),
-                        child: Image.asset(
-                          'assets/images/Pedro.jpg',
-                          fit: BoxFit.cover,
-                          width: 100.w,
-                          height: 100.h,
+                StreamBuilder<DocumentSnapshot>(
+                  stream: _userStream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    }
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    }
+                    if (!snapshot.hasData || !snapshot.data!.exists) {
+                      return Text('User data not found');
+                    }
+                    final profileImageUrl =
+                        snapshot.data!.get('profileImageUrl');
+                    final username = snapshot.data!.get('username');
+
+                    return Column(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(color: purpleColor, width: 1),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: profileImageUrl != null
+                                ? Image.network(
+                                    profileImageUrl,
+                                    fit: BoxFit.cover,
+                                    width: 100,
+                                    height: 100,
+                                  )
+                                : Image.asset(
+                                    'assets/images/Pedro.jpg',
+                                    fit: BoxFit.cover,
+                                    width: 100,
+                                    height: 100,
+                                  ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 12.h,
-                ),
-                Text(
-                  "Stefan0",
-                  style: TextStyle(
-                    fontSize: 16.sp,
-                    color: whiteColor,
-                    fontWeight: FontWeight.w500,
-                  ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Text(
+                          username ?? 'Username',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: whiteColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 60.h,

@@ -6,6 +6,7 @@ class UserTile extends StatelessWidget {
   final String r_user;
   final String message;
   final DateTime? timestamp;
+  final String profileImageUrl; 
   final void Function()? onTap;
   final bool isNewMessage;
 
@@ -14,21 +15,13 @@ class UserTile extends StatelessWidget {
     required this.r_user,
     required this.message,
     this.timestamp,
+    required this.profileImageUrl,
     required this.onTap,
     this.isNewMessage = false,
   });
 
-  TextStyle _getMessageStyle(bool isNewMessage) {
-    return TextStyle(
-      fontSize: 12.sp,
-      color: whiteColor,
-      fontWeight: isNewMessage ? FontWeight.w600 : FontWeight.normal, // Adjust font weight based on isNewMessage
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    // Format the timestamp to a user-friendly time format
     String timeString = timestamp != null
         ? '${timestamp!.hour}:${timestamp!.minute.toString().padLeft(2, '0')}'
         : '';
@@ -36,7 +29,7 @@ class UserTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+        margin: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.black38,
@@ -44,45 +37,52 @@ class UserTile extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Avatar image for the user
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.asset(
-                'assets/images/Pedro.jpg',
-                fit: BoxFit.cover,
-                height: 52.h,
-                width: 52.w,
-              ),
+            Card(
+              shape: const CircleBorder(),
+              clipBehavior: Clip.antiAlias,
+              child: profileImageUrl !=
+                      null 
+                  ? Image.network(
+                      profileImageUrl,
+                      fit: BoxFit.cover,
+                      width: 52.w,
+                      height: 52.h,
+                    )
+                  : Image.asset(
+                      'assets/images/Default_Account_Image.png',
+                      fit: BoxFit.cover,
+                      width: 52.w,
+                      height: 52.h,
+                    ),
             ),
             SizedBox(width: 16.w),
-            // Expanded column for user email, message, and time
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Display user email
                   Text(
                     r_user,
                     style: TextStyle(
-                      fontSize: 16.sp,
-                      color: whiteColor,
-                      fontWeight: FontWeight.w500
-                    ),
+                        fontSize: 16.sp,
+                        color: whiteColor,
+                        fontWeight: FontWeight.w500),
                   ),
-                  // Display latest message and time with vertical bar
                   Row(
                     children: [
                       Expanded(
                         child: Text(
-                          // Truncate the message and handle overflow
                           message,
-                          style: _getMessageStyle(isNewMessage), // Use the custom message style
-                          maxLines: 1, // Limit the message to one line
-                          overflow:
-                              TextOverflow.ellipsis, // Truncate with ellipsis
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: whiteColor,
+                            fontWeight: isNewMessage
+                                ? FontWeight.w600
+                                : FontWeight.normal,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      // Display the time
                       if (message.isNotEmpty)
                         Text(
                           timeString,

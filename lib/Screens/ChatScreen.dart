@@ -28,6 +28,13 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       backgroundColor: blackColor,
       appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            color: Colors.white12,
+            height: 1,
+          ),
+        ),
         backgroundColor: blackColor,
         title: Text(
           "Chats",
@@ -123,24 +130,24 @@ class _ChatScreenState extends State<ChatScreen> {
         if (messageSnapshot.connectionState == ConnectionState.waiting) {
           return ListTile(
             title: Text(
-              user['email'],
+              user['username'],
               style: TextStyle(color: whiteColor),
             ),
             subtitle: Center(child: CircularProgressIndicator()),
             onTap: () {
-              _navigateToChatPage(user['email'], user['uid']);
+              _navigateToChatPage(user['username'], user['uid']);
             },
           );
         } else if (messageSnapshot.hasError) {
           print('Error fetching latest message: ${messageSnapshot.error}');
           return ListTile(
             title: Text(
-              user['email'],
+              user['username'],
               style: TextStyle(color: whiteColor),
             ),
             subtitle: Text('Error fetching latest message'),
             onTap: () {
-              _navigateToChatPage(user['email'], user['uid']);
+              _navigateToChatPage(user['username'], user['uid']);
             },
           );
         }
@@ -150,13 +157,10 @@ class _ChatScreenState extends State<ChatScreen> {
         String latestMessage = latestData['message'] as String;
         DateTime? timestamp = latestData['timestamp']?.toDate();
 
-        // Get the current user's ID
         String currentUserId = _authService.getCurrentUser()?.uid ?? '';
 
-        // Determine if the current user is the receiver of the message
         bool isReceiver = currentUserId == latestData['receiverID'];
 
-        // Determine isNewMessage based on whether the current user is the receiver and whether there's a new message
         bool isNewMessage = isReceiver &&
             (timestamp != null &&
                 DateTime.now().difference(timestamp).inSeconds < 5);
@@ -167,12 +171,25 @@ class _ChatScreenState extends State<ChatScreen> {
               context: context,
               builder: (context) {
                 return AlertDialog(
-                  title: Text('Remove user?'),
+                  title: Text(
+                    'Removing a User',
+                    style: TextStyle(
+                      color: blackColor,
+                    ),
+                  ),
                   content: Text(
-                      'Are you sure you want to remove ${user['email']} from your chat list?'),
+                    'Are you sure you want to remove ${user['username']} from your chat list?',
+                    style: TextStyle(
+                      color: blackColor,
+                    ),
+                  ),
                   actions: [
                     TextButton(
-                      child: Text('Cancel'),
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                            color: blackColor, fontWeight: FontWeight.w300),
+                      ),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -195,11 +212,12 @@ class _ChatScreenState extends State<ChatScreen> {
             );
           },
           child: UserTile(
-            r_user: user['email'],
+            r_user: user['username'],
             message: latestMessage,
             timestamp: timestamp,
+            profileImageUrl: user['profileImageUrl'],
             onTap: () {
-              _navigateToChatPage(user['email'], user['uid']);
+              _navigateToChatPage(user['username'], user['uid']);
             },
             isNewMessage: isNewMessage,
           ),
@@ -220,14 +238,14 @@ class _ChatScreenState extends State<ChatScreen> {
     });
   }
 
-  void _navigateToChatPage(String receiverEmail, String receiverID) {
+  void _navigateToChatPage(String receiverUser, String receiverID) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (BuildContext context, Animation<double> animation1,
             Animation<double> animation2) {
           return ChatPage(
-            receiverEmail: receiverEmail,
+            receiverUser: receiverUser,
             receiverID: receiverID,
           );
         },

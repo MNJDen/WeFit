@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Screens/ChangePasswordScreen.dart';
+import 'package:itec303/Screens/ProfileDetailsScreen.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Screens/SignInScreen.dart';
 
@@ -94,7 +96,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
             size: 30,
           ),
         ),
-        leadingWidth: 40.w,
+        leadingWidth: 30.w,
         backgroundColor: blackColor,
         title: Text(
           "Account Settings",
@@ -134,7 +136,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                     return Column(
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(6),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             border: Border.all(color: purpleColor, width: 1),
@@ -157,12 +159,12 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: 12,
+                          height: 12.h,
                         ),
                         Text(
                           username ?? 'Username',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 20,
                             color: whiteColor,
                             fontWeight: FontWeight.w500,
                           ),
@@ -178,7 +180,20 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                   splashColor: purpleColor,
                   highlightColor: blackColor,
                   borderRadius: BorderRadius.circular(10),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation1,
+                            Animation<double> animation2) {
+                          return const ProfileDetailsScreen();
+                        },
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
+                  },
                   child: Container(
                     padding: EdgeInsets.all(10.w),
                     width: double.infinity,
@@ -210,7 +225,20 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                   splashColor: purpleColor,
                   highlightColor: blackColor,
                   borderRadius: BorderRadius.circular(10),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation1,
+                            Animation<double> animation2) {
+                          return const ChangePasswordScreen();
+                        },
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
+                  },
                   child: Container(
                     padding: EdgeInsets.all(10.w),
                     width: double.infinity,
@@ -236,39 +264,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 12.h,
-                ),
-                InkWell(
-                  splashColor: purpleColor,
-                  highlightColor: blackColor,
-                  borderRadius: BorderRadius.circular(10),
-                  onTap: () {},
-                  child: Container(
-                    padding: EdgeInsets.all(10.w),
-                    width: double.infinity,
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.image_rounded,
-                          color: whiteColor,
-                          size: 25.h,
-                        ),
-                        SizedBox(
-                          width: 4.w,
-                        ),
-                        Text(
-                          "Change Profile Picture",
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            color: whiteColor,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 12.h,
+                  height: 172.h,
                 ),
                 _isLoading
                     ? Center(child: CircularProgressIndicator())
@@ -280,6 +276,10 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                           logout(context);
                         },
                         child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: purpleColor,
+                          ),
                           padding: EdgeInsets.all(10.w),
                           width: double.infinity,
                           child: Row(
@@ -297,6 +297,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                                 style: TextStyle(
                                   fontSize: 16.sp,
                                   color: whiteColor,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],

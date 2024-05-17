@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
 import 'package:itec303/Models/exercise_item.dart';
 import 'package:itec303/Screens/SetExercise.dart';
 
@@ -37,21 +39,48 @@ class _AddExerciseState extends State<AddExercise> {
     });
   }
 
+  String getCurrentUserId() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user.uid;
+    } else {
+      // Handle case when user is not authenticated
+      // For simplicity, return an empty string here, but you may want to handle this case differently based on your app's requirements
+      return '';
+    }
+  }
+
   void _onNextButtonPressed() {
+    String userId = getCurrentUserId(); // Obtain the current user's identifier
+    _saveSelectedExercisesToFirestore(selectedExercises, widget.currentDate,
+        userId); // Pass the user's identifier
     Navigator.push(
       context,
-      PageRouteBuilder(
-        pageBuilder: (BuildContext context, Animation<double> animation1,
-            Animation<double> animation2) {
-          return SetExercise(
-            today: widget.currentDate,
-            selectedExercises: selectedExercises,
-          );
-        },
-        transitionDuration: Duration.zero,
-        reverseTransitionDuration: Duration.zero,
+      MaterialPageRoute(
+        builder: (context) => SetExercise(
+          today: widget.currentDate,
+          selectedExercises: selectedExercises,
+          userId: userId, // Pass userId to SetExercise
+        ),
       ),
     );
+  }
+
+  Future<void> _saveSelectedExercisesToFirestore(List<ExerciseItem> exercises,
+      DateTime selectedDate, String userId) async {
+    final CollectionReference exerciseCollection =
+        FirebaseFirestore.instance.collection('exercises');
+
+    // Loop through selected exercises and add them to Firestore with the selected date and user's identifier
+    for (ExerciseItem exercise in exercises) {
+      await exerciseCollection.add({
+        'name': exercise.name,
+        'imagePath': exercise.imagePath,
+        'date': selectedDate,
+        'userId': userId, // Include the user's identifier
+        // Add other exercise properties as needed
+      });
+    }
   }
 
   @override

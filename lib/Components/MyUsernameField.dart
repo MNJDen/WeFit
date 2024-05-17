@@ -10,12 +10,14 @@ class MyUsernameField extends StatefulWidget {
   final String labelText;
   final TextEditingController controller;
   final FormFieldValidator<String>? validator;
+  final bool? enable;
 
   MyUsernameField({
     this.prefixIcon,
     required this.labelText,
     required this.controller,
     this.validator,
+    this.enable,
   });
 
   @override
@@ -49,6 +51,7 @@ class _MyUsernameFieldState extends State<MyUsernameField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
+      enabled: widget.enable,
       style: TextStyle(
         fontSize: 12.sp,
         color: whiteColor,

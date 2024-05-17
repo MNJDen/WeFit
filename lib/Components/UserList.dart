@@ -39,7 +39,7 @@ class UserList extends StatelessWidget {
                       height: 52.h,
                     )
                   : Image.asset(
-                      'assets/images/default_profile_image.jpg',
+                      'assets/images/Default_Account_Image.png',
                       fit: BoxFit.cover,
                       width: 52.w,
                       height: 52.h,

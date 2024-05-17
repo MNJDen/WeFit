@@ -264,7 +264,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 172.h,
+                  height: 180.h,
                 ),
                 _isLoading
                     ? Center(child: CircularProgressIndicator())

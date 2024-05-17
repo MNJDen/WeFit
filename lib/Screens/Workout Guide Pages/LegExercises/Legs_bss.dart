@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
 
@@ -61,7 +62,7 @@ class _Legs_bssState extends State<Legs_bss> {
                       fit: BoxFit.cover,
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 17.h,
                 ),
@@ -76,7 +77,7 @@ class _Legs_bssState extends State<Legs_bss> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -91,7 +92,7 @@ class _Legs_bssState extends State<Legs_bss> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -105,12 +106,12 @@ class _Legs_bssState extends State<Legs_bss> {
                     fontWeight: FontWeight.w200,
                     color: whiteColor,
                   ),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

@@ -41,13 +41,6 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                   color: whiteColor,
                 ),
               ),
-              Text(
-                "Choose a muscle group you wish to learn",
-                style: TextStyle(
-                    fontSize: 12.sp,
-                    color: whiteColor,
-                    fontWeight: FontWeight.w100),
-              )
             ],
           ),
           backgroundColor: Colors.transparent,
@@ -62,7 +55,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
               size: 30,
             ),
           ),
-          leadingWidth: 40.w,
+          leadingWidth: 30.w,
         ),
         body: SafeArea(
           child: SingleChildScrollView(
@@ -75,6 +68,17 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                   ),
                   Column(
                     children: [
+                      Row(
+                        children: [
+                          Text(
+                            "Choose a muscle group you wish to learn",
+                            style: TextStyle(
+                                fontSize: 12.sp,
+                                color: whiteColor,
+                                fontWeight: FontWeight.w100),
+                          ),
+                        ],
+                      ),
                       SizedBox(
                         height: 4.h,
                       ),
@@ -153,8 +157,7 @@ class _WorkoutGuidePageState extends State<WorkoutGuidePage> {
                                 child: Stack(
                                   children: [
                                     Ink.image(
-                                      image: AssetImage(
-                                          'assets/images/Backpng.png'),
+                                      image: AssetImage('assets/images/Backpng.png'),
                                       fit: BoxFit.cover,
                                     ),
                                     Positioned(

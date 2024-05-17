@@ -21,38 +21,37 @@ class _SelectExerciseGroupState extends State<SelectExerciseGroup> {
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
   List<String> exerciseCategoryImages = [
-    'Abs.png',
-    'Arms.png',
-    'Backpng.png',
-    'Cardio.png',
     'chest.jpg',
+    'Backpng.png',
     'Legs_lp.png',
     'Shoulders_dsp.png',
+    'Arms.png',
+    'Abs.png',
+    'Cardio.png',
     'Glutes.png',
   ];
 
   List<String> exerciseCategoryNames = [
-    'Abs',
-    'Arms',
-    'Back',
-    'Cardio',
     'Chest',
+    'Back',
     'Legs',
     'Shoulders',
+    'Arms',
+    'Abs',
+    'Cardio',
     'Glutes',
   ];
 
   List<List<ExerciseItem>> allExercises = [
-    ExercisesConstants.absExercises,
-    ExercisesConstants.armsExercises,
-    ExercisesConstants.backExercises,
-    ExercisesConstants.cardioExercises,
     ExercisesConstants.chestExercises,
+    ExercisesConstants.backExercises,
     ExercisesConstants.legExercises,
     ExercisesConstants.shoulderExercises,
+    ExercisesConstants.armsExercises,
+    ExercisesConstants.absExercises,
+    ExercisesConstants.cardioExercises,
     ExercisesConstants.gluteExercises,
   ];
-  
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +103,8 @@ class _SelectExerciseGroupState extends State<SelectExerciseGroup> {
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
                 children: List.generate(allExercises.length, (index) {
                   return InkWell(
                     onTap: () {
@@ -126,32 +125,32 @@ class _SelectExerciseGroupState extends State<SelectExerciseGroup> {
                         ),
                       );
                     },
-                    child: Card(
-                      clipBehavior: Clip.antiAlias,
-                      child: Stack(
-                        children: [
-                          Ink.image(
-                            image: AssetImage(
-                                'assets/images/${exerciseCategoryImages[index]}'),
-                            fit: BoxFit.cover,
-                          ),
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            child: Center(
-                              child: Text(
-                                exerciseCategoryNames[index],
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
+                    child: SizedBox(
+                      height: 190.h,
+                      width: 160.w,
+                      child: Card(
+                        clipBehavior: Clip.antiAlias,
+                        child: Stack(
+                          children: [
+                            Ink.image(
+                              image: AssetImage(
+                                  'assets/images/${exerciseCategoryImages[index]}'),
+                              fit: BoxFit.cover,
+                            ),
+                            Positioned(
+                              child: Center(
+                                child: Text(
+                                  exerciseCategoryNames[index],
+                                  style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );

@@ -18,7 +18,7 @@ Widget MyPurpleBtn({required String name, required VoidCallback onPressed}) {
       ),
       onPressed: onPressed,
       child: Text(
-        "Continue",
+        name,
         style: TextStyle(
           fontSize: 16.sp,
           fontWeight: FontWeight.w500,

@@ -24,34 +24,55 @@ class _SignInScreenState extends State<SignInScreen> {
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
   void login(BuildContext context) async {
-  final authService = AuthService();
+    final authService = AuthService();
 
-  try {
-    await authService.signInWithEmailPassword(
-      _emailController.text,
-      _passController.text,
-      _usernameController.text,
-    );
-  } catch (e) {
-    if (mounted) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("Error: $e"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); 
-              },
-              child: Text("OK"),
-            ),
-          ],
-        ),
+    try {
+      await authService.signInWithEmailPassword(
+        _emailController.text,
+        _passController.text,
+        _usernameController.text,
       );
+    } catch (e) {
+      if (mounted) {
+        String errorMessage;
+        if (e is AuthServiceException) {
+          errorMessage = e.message;
+        } else {
+          errorMessage = 'An unknown error occurred';
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            width: MediaQuery.of(context).size.width * 0.95,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Color.fromRGBO(59, 23, 23, 1),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_rounded,
+                  color: Color.fromRGBO(255, 49, 49, 1),
+                ),
+                SizedBox(
+                  width: 4.w,
+                ),
+                Flexible(
+                  child: Text(
+                    errorMessage, // Use the cleaned error message here
+                    style: TextStyle(
+                      color: whiteColor,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }
     }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {

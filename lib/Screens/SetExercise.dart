@@ -63,7 +63,7 @@ class _SetExerciseState extends State<SetExercise> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 20.h,
+                  height: 4.h,
                 ),
                 Row(
                   children: [

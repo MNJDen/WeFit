@@ -62,7 +62,7 @@ class AuthService {
           'uid': userCredential.user!.uid,
           'email': email,
           'username': username,
-          'profileImageUrl': imageUrl, // Add the image URL to Firestore
+          'profileImageUrl': imageUrl, 
         },
       );
 

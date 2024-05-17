@@ -54,11 +54,14 @@ class _Back_borState extends State<Back_bor> {
                 ),
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/Back_bor.png',
-                      height: 150.h, // Adjust the height as needed
-                      width: 320.w, // Adjust the width as needed
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                      child: Image.asset(
+                        'assets/images/Back_bor.png',
+                        height: 150.h, // Adjust the height as needed
+                        width: 320.w, // Adjust the width as needed
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ],
                 ),

@@ -54,11 +54,14 @@ class _Cardio_rjState extends State<Cardio_rj> {
                 ),
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/Cardio_rj.png',
-                      height: 150.h, // Adjust the height as needed
-                      width: 320.w, // Adjust the width as needed
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                      child: Image.asset(
+                        'assets/images/Cardio_rj.png',
+                        height: 150.h, // Adjust the height as needed
+                        width: 320.w, // Adjust the width as needed
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ],
                 ),

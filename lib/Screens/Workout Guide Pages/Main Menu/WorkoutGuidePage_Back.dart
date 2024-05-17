@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Screens/Workout%20Guide%20Pages/BackExercises/Back_bor.dart';
 import 'package:itec303/Screens/Workout%20Guide%20Pages/BackExercises/Back_lpd.dart';
@@ -96,7 +97,7 @@ class _WorkoutGuidePage_BackState extends State<WorkoutGuidePage_Back> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -111,65 +112,69 @@ class _WorkoutGuidePage_BackState extends State<WorkoutGuidePage_Back> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 12.h,
                 ),
                 // List of images displayed vertically
                 Column(
-                  children: List.generate(backExerciseImages.length, (index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return backExerciseScreens[index];
-                            },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 10.h),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15), // Adjust the border radius as needed
-                              child: Image.asset(
-                                backExerciseImages[index],
-                                height: 100.h, // Adjust the height as needed
-                                width: 320.w, // Adjust the width as needed
-                                fit: BoxFit.cover,
-                              ),
+                  children: List.generate(
+                    backExerciseImages.length,
+                    (index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return backExerciseScreens[index];
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
                             ),
-                            Positioned.fill(
-                              child: Center(
-                                child: Text(
-                                  backExerciseNames[index],
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: whiteColor,
+                          );
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 10.h),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    15), // Adjust the border radius as needed
+                                child: Image.asset(
+                                  backExerciseImages[index],
+                                  height: 100.h, // Adjust the height as needed
+                                  width: 320.w, // Adjust the width as needed
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned.fill(
+                                child: Center(
+                                  child: Text(
+                                    backExerciseNames[index],
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: whiteColor,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    },
+                  ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

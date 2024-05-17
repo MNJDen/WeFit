@@ -113,7 +113,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.error_rounded,
+                  Icons.check_circle_outline,
                   color: Color.fromRGBO(49, 255, 49, 1),
                 ),
                 SizedBox(

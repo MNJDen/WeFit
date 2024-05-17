@@ -32,9 +32,7 @@ class _SignInScreenState extends State<SignInScreen> {
       _passController.text,
       _usernameController.text,
     );
-    // You can add more code here to handle a successful sign-in, such as navigation.
   } catch (e) {
-    // Before showing the dialog, check if the context is still valid (i.e., if the widget is still mounted).
     if (mounted) {
       showDialog(
         context: context,
@@ -43,7 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(context).pop(); 
               },
               child: Text("OK"),
             ),
@@ -119,26 +117,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   controller: _passController,
                 ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
-                  height: 4.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Forgot your password?",
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w300,
-                          color: purpleColor,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 92.h,
+                  height: 96.h,
                 ),
                 MyPurpleBtn(
                   name: "Continue",

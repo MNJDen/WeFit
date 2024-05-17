@@ -175,7 +175,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.error_rounded,
+                  Icons.check_circle_rounded,
                   color: Color.fromRGBO(49, 255, 49, 1),
                 ),
                 SizedBox(

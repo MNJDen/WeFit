@@ -43,6 +43,43 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     }
   }
 
+  Future<void> _changePassword() async {
+    if (_newPasswordController.text != _confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text("New password and confirm password do not match")),
+      );
+      return;
+    }
+
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        // Reauthenticate user
+        AuthCredential credential = EmailAuthProvider.credential(
+          email: user.email!,
+          password: _oldPasswordController.text,
+        );
+
+        await user.reauthenticateWithCredential(credential);
+        // Update password
+        await user.updatePassword(_newPasswordController.text);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Password changed successfully")),
+        );
+
+        _oldPasswordController.clear();
+        _newPasswordController.clear();
+        _confirmPasswordController.clear();
+      }
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: ${e.message}")),
+      );
+    }
+  }
+
   @override
   void dispose() {
     _oldPasswordController.dispose();
@@ -51,6 +88,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: blackColor,
@@ -81,9 +119,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(
             children: [
-              SizedBox(
-                height: 40.h,
-              ),
+              SizedBox(height: 40.h),
               Center(
                 child: StreamBuilder<DocumentSnapshot>(
                   stream: _userStream,
@@ -127,9 +163,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                   ),
                           ),
                         ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
+                        SizedBox(height: 12.h),
                         Text(
                           username ?? 'Username',
                           style: TextStyle(
@@ -138,35 +172,32 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(
-                          height: 60.h,
-                        ),
+                        SizedBox(height: 60.h),
                         MyPasswordField(
                           prefixIcon: Icons.lock_rounded,
                           suffixIcon: Icons.visibility_off_rounded,
                           labelText: "Old Password",
                           controller: _oldPasswordController,
                         ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
+                        SizedBox(height: 12.h),
                         MyPasswordField(
                           prefixIcon: Icons.lock_rounded,
                           suffixIcon: Icons.visibility_off_rounded,
                           labelText: "New Password",
                           controller: _newPasswordController,
                         ),
-                        SizedBox(
-                          height: 12.h,
-                        ),
+                        SizedBox(height: 12.h),
                         MyPasswordField(
                           prefixIcon: Icons.lock_rounded,
                           suffixIcon: Icons.visibility_off_rounded,
                           labelText: "Confirm Password",
                           controller: _confirmPasswordController,
                         ),
-                        SizedBox(height: 140.h,),
-                        MyPurpleBtn(name: "Save", onPressed: () {} ),
+                        SizedBox(height: 140.h),
+                        MyPurpleBtn(
+                          name: "Save",
+                          onPressed: _changePassword,
+                        ),
                       ],
                     );
                   },

@@ -32,16 +32,34 @@ class _HomeScreenState extends State<HomeScreen> {
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
+  String getCurrentUserId() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user.uid;
+    } else {
+      // Handle the case when the user is not authenticated
+      // You can return null or an empty string, or handle this case based on your application's logic
+      return '';
+    }
+  }
+
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
     });
+    String userId = getCurrentUserId(); // Obtain the current user's identifier
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => SetExercise(
-          today: today,
-        ),
+      PageRouteBuilder(
+        pageBuilder: (BuildContext context, Animation<double> animation1,
+            Animation<double> animation2) {
+          return SetExercise(
+            today: today,
+            userId: userId,
+          );
+        },
+        transitionDuration: Duration.zero,
+        reverseTransitionDuration: Duration.zero,
       ),
     );
   }

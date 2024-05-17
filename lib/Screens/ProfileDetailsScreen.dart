@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:itec303/Components/MyPasswordField.dart';
@@ -265,7 +266,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                       );
                     },
                   ),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 60.h,
                 ),
@@ -273,7 +274,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   prefixIcon: Icons.person_rounded,
                   labelText: "Username",
                   controller: _usernameController,
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -282,7 +283,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   labelText: "Email",
                   controller: _emailController,
                   enable: false,
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -314,19 +315,19 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
                 SizedBox(
                   height: 140.h,
                 ),
                 MyPurpleBtn(
                   name: "Save",
                   onPressed: _saveProfile,
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 800)),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

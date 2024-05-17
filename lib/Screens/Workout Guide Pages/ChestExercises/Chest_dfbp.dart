@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
-import 'package:itec303/Screens/WorkoutGuidePage.dart';
 
 class Chest_dfbp extends StatefulWidget {
   const Chest_dfbp({super.key});
@@ -62,7 +62,7 @@ class _Chest_dfbpState extends State<Chest_dfbp> {
                       fit: BoxFit.cover,
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 17.h,
                 ),
@@ -77,7 +77,7 @@ class _Chest_dfbpState extends State<Chest_dfbp> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -92,7 +92,7 @@ class _Chest_dfbpState extends State<Chest_dfbp> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -109,12 +109,12 @@ class _Chest_dfbpState extends State<Chest_dfbp> {
                     fontWeight: FontWeight.w200,
                     color: whiteColor,
                   ),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

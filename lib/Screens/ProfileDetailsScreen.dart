@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
+import 'package:itec303/Components/myPurpleBtn.dart';
 import 'package:itec303/Screens/ChangePasswordScreen.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
 
@@ -101,10 +102,64 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
           .collection('Users')
           .doc(_currentUser!.uid)
           .update({'username': newUsername});
+
+          ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            width: MediaQuery.of(context).size.width * 0.95,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Color.fromRGBO(34, 109, 34, 1),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_rounded,
+                  color: Color.fromRGBO(49, 255, 49, 1),
+                ),
+                SizedBox(
+                  width: 4.w,
+                ),
+                Flexible(
+                  child: Text(
+                    'Changed Username Succesfully!', 
+                    style: TextStyle(
+                      color: whiteColor,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
     } else {
       // Show an error message or handle the error appropriately
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Username must be 10 characters or less')),
+        SnackBar(
+          width: MediaQuery.of(context).size.width * 0.95,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Color.fromRGBO(59, 23, 23, 1),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_rounded,
+                color: Color.fromRGBO(255, 49, 49, 1),
+              ),
+              SizedBox(
+                width: 4.w,
+              ),
+              Text(
+                'Username must be 10 characters or less',
+                style: TextStyle(
+                  color: whiteColor,
+                  fontSize: 12.sp,
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     }
   }
@@ -226,18 +281,10 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   prefixIcon: Icons.email_rounded,
                   labelText: "Email",
                   controller: _emailController,
+                  enable: false,
                 ),
                 SizedBox(
                   height: 12.h,
-                ),
-                // MyPasswordField(
-                //   prefixIcon: Icons.lock_rounded,
-                //   labelText: "Password",
-                //   suffixIcon: Icons.visibility_off_rounded,
-                //   controller: _passwordController,
-                // ),
-                SizedBox(
-                  height: 4.h,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -269,11 +316,11 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                   ],
                 ),
                 SizedBox(
-                  height: 20.h,
+                  height: 140.h,
                 ),
-                ElevatedButton(
+                MyPurpleBtn(
+                  name: "Save",
                   onPressed: _saveProfile,
-                  child: Text('Save'),
                 ),
               ],
             ),

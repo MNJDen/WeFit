@@ -47,7 +47,30 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     if (_newPasswordController.text != _confirmPasswordController.text) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-            content: Text("New password and confirm password do not match")),
+          width: MediaQuery.of(context).size.width * 0.95,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Color.fromRGBO(59, 23, 23, 1),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_rounded,
+                color: Color.fromRGBO(255, 49, 49, 1),
+              ),
+              SizedBox(
+                width: 4.w,
+              ),
+              Text(
+                "New password and confirm password do not match",
+                style: TextStyle(
+                  color: whiteColor,
+                  fontSize: 12.sp,
+                ),
+              ),
+            ],
+          ),
+        ),
       );
       return;
     }
@@ -66,7 +89,31 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         await user.updatePassword(_newPasswordController.text);
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Password changed successfully")),
+          SnackBar(
+            width: MediaQuery.of(context).size.width * 0.95,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Color.fromRGBO(34, 109, 34, 1),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.check_circle_rounded,
+                  color: Color.fromRGBO(49, 255, 49, 1),
+                ),
+                SizedBox(
+                  width: 4.w,
+                ),
+                Text(
+                  "Password changed successfully",
+                  style: TextStyle(
+                    color: whiteColor,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
 
         _oldPasswordController.clear();
@@ -74,8 +121,36 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         _confirmPasswordController.clear();
       }
     } on FirebaseAuthException catch (e) {
+      String errorMessage = getErrorMessage(e);
+
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: ${e.message}")),
+        SnackBar(
+          width: MediaQuery.of(context).size.width * 0.95,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Color.fromRGBO(59, 23, 23, 1),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_rounded,
+                color: Color.fromRGBO(255, 49, 49, 1),
+              ),
+              SizedBox(
+                width: 4.w,
+              ),
+              Flexible(
+                child: Text(
+                  errorMessage,
+                  style: TextStyle(
+                    color: whiteColor,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     }
   }
@@ -106,7 +181,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         leadingWidth: 30.w,
         backgroundColor: blackColor,
         title: Text(
-          "Profile Details",
+          "Change Password",
           style: TextStyle(
             color: purpleColor,
             fontSize: 20.sp,
@@ -208,5 +283,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
       ),
     );
+  }
+}
+
+String getErrorMessage(FirebaseAuthException e) {
+  switch (e.code) {
+    case 'wrong-password':
+      return 'The old password is incorrect.';
+    case 'weak-password':
+      return 'The new password is too weak.';
+    case 'requires-recent-login':
+      return 'Please log in again to change your password.';
+    case 'user-not-found':
+      return 'User not found. Please sign in again.';
+    case 'network-request-failed':
+      return 'Network error. Please check your connection.';
+    default:
+      return 'An unknown error occurred: ${e.message}';
   }
 }

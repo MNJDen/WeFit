@@ -48,9 +48,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
           downloadURL = await _auth.uploadImage(_image!, userId);
 
           if (downloadURL != null) {
-            print('Image uploaded. Download URL: $downloadURL');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                width: MediaQuery.of(context).size.width * 0.95,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Color.fromRGBO(34, 109, 34, 1),
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_rounded,
+                      color: Color.fromRGBO(49, 255, 49, 1),
+                    ),
+                    SizedBox(
+                      width: 4.w,
+                    ),
+                    Flexible(
+                      child: Text(
+                        'Image uploaded!', // Use the cleaned error message here
+                        style: TextStyle(
+                          color: whiteColor,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
           } else {
-            print('Failed to upload image.');
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                width: MediaQuery.of(context).size.width * 0.95,
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Color.fromRGBO(59, 23, 23, 1),
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.check_circle_rounded,
+                      color: Color.fromRGBO(255, 49, 49, 1),
+                    ),
+                    SizedBox(
+                      width: 4.w,
+                    ),
+                    Flexible(
+                      child: Text(
+                        'Failed to upload image!', // Use the cleaned error message here
+                        style: TextStyle(
+                          color: whiteColor,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
             return; // Exit function if image upload fails
           }
         } else {
@@ -58,7 +114,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
               'Current user is null.'); // Handle case where current user is null
         }
       } else {
-        print('No image selected.');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            width: MediaQuery.of(context).size.width * 0.95,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Color.fromRGBO(59, 23, 23, 1),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_rounded,
+                  color: Color.fromRGBO(255, 49, 49, 1),
+                ),
+                SizedBox(
+                  width: 4.w,
+                ),
+                Flexible(
+                  child: Text(
+                    'No image selected', // Use the cleaned error message here
+                    style: TextStyle(
+                      color: whiteColor,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
       }
 
       UserCredential? userCredential = await _auth.signUpWithEmailPassword(
@@ -80,13 +164,71 @@ class _SignUpScreenState extends State<SignUpScreen> {
             reverseTransitionDuration: Duration.zero,
           ),
         );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            width: MediaQuery.of(context).size.width * 0.95,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Color.fromRGBO(34, 109, 34, 1),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_rounded,
+                  color: Color.fromRGBO(49, 255, 49, 1),
+                ),
+                SizedBox(
+                  width: 4.w,
+                ),
+                Flexible(
+                  child: Text(
+                    'Sign Up Successful!', // Use the cleaned error message here
+                    style: TextStyle(
+                      color: whiteColor,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
       }
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text(
-            "Error: $e",
+      String errorMessage;
+      if (e is AuthServiceException) {
+        errorMessage = e.message;
+      } else {
+        errorMessage = 'An unknown error occurred';
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          width: MediaQuery.of(context).size.width * 0.95,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Color.fromRGBO(59, 23, 23, 1),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_rounded,
+                color: Color.fromRGBO(255, 49, 49, 1),
+              ),
+              SizedBox(
+                width: 4.w,
+              ),
+              Flexible(
+                child: Text(
+                  errorMessage, // Use the cleaned error message here
+                  style: TextStyle(
+                    color: whiteColor,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
@@ -148,7 +290,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 _image == null
                     ? Text('No image selected.')
-                    : Image.file(_image!),
+                    : Center(
+                        child: Card(
+                          shape: const CircleBorder(),
+                          clipBehavior: Clip.antiAlias,
+                          child: Image.file(
+                            _image!,
+                            fit: BoxFit.cover,
+                            height: 120.h,
+                            width: 120.h,
+                          ),
+                        ),
+                      ),
                 Container(
                   width: double.infinity,
                   child: TextButton(

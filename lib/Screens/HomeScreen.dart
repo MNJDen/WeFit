@@ -9,6 +9,7 @@ import 'package:itec303/Screens/WorkoutGuidePage.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -198,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -236,7 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     defaultTextStyle: TextStyle(color: whiteColor),
                     selectedTextStyle: TextStyle(color: blackColor),
                   ),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 36.h,
                 ),
@@ -251,7 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
                   height: 4.w,
                 ),
@@ -301,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -336,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
                 SizedBox(
                   height: 15.h,
                 ),
@@ -345,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 
   Widget _buildCarouselItem(String text, String imagePath, VoidCallback onTap) {

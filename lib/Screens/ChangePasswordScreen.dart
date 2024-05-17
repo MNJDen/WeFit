@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/myPurpleBtn.dart';
@@ -247,42 +248,42 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 60.h),
-                        MyPasswordField(
-                          prefixIcon: Icons.lock_rounded,
-                          suffixIcon: Icons.visibility_off_rounded,
-                          labelText: "Old Password",
-                          controller: _oldPasswordController,
-                        ),
-                        SizedBox(height: 12.h),
-                        MyPasswordField(
-                          prefixIcon: Icons.lock_rounded,
-                          suffixIcon: Icons.visibility_off_rounded,
-                          labelText: "New Password",
-                          controller: _newPasswordController,
-                        ),
-                        SizedBox(height: 12.h),
-                        MyPasswordField(
-                          prefixIcon: Icons.lock_rounded,
-                          suffixIcon: Icons.visibility_off_rounded,
-                          labelText: "Confirm Password",
-                          controller: _confirmPasswordController,
-                        ),
-                        SizedBox(height: 140.h),
-                        MyPurpleBtn(
-                          name: "Save",
-                          onPressed: _changePassword,
-                        ),
                       ],
                     );
                   },
                 ),
-              ),
+              ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
+              SizedBox(height: 60.h),
+              MyPasswordField(
+                prefixIcon: Icons.lock_rounded,
+                suffixIcon: Icons.visibility_off_rounded,
+                labelText: "Old Password",
+                controller: _oldPasswordController,
+              ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
+              SizedBox(height: 12.h),
+              MyPasswordField(
+                prefixIcon: Icons.lock_rounded,
+                suffixIcon: Icons.visibility_off_rounded,
+                labelText: "New Password",
+                controller: _newPasswordController,
+              ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
+              SizedBox(height: 12.h),
+              MyPasswordField(
+                prefixIcon: Icons.lock_rounded,
+                suffixIcon: Icons.visibility_off_rounded,
+                labelText: "Confirm Password",
+                controller: _confirmPasswordController,
+              ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
+              SizedBox(height: 140.h),
+              MyPurpleBtn(
+                name: "Save",
+                onPressed: _changePassword,
+              ).animate().fadeIn(delay: const Duration(milliseconds: 800)),
             ],
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }
 

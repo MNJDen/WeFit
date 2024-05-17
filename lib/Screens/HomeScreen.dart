@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         );
                       },
                       child: Container(
-                        padding: EdgeInsets.all(2.h),
+                        padding: EdgeInsets.all(1.h),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(120),
                           border: Border.all(

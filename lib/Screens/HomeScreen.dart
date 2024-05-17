@@ -228,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 TableCalendar(
                   locale: "en_US",
-                  rowHeight: 40.h,
+                  rowHeight: 44.h,
                   headerStyle: HeaderStyle(
                       leftChevronIcon: Icon(
                         Icons.chevron_left,

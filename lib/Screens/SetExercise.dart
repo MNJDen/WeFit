@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -8,8 +10,13 @@ import 'package:itec303/Screens/SelectExerciseGroup.dart';
 class SetExercise extends StatefulWidget {
   final DateTime today;
   final List<ExerciseItem>? selectedExercises;
+  final String userId; // Add userId field
 
-  const SetExercise({Key? key, required this.today, this.selectedExercises})
+  const SetExercise(
+      {Key? key,
+      required this.today,
+      this.selectedExercises,
+      required this.userId})
       : super(key: key);
 
   @override
@@ -20,6 +27,45 @@ class _SetExerciseState extends State<SetExercise> {
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
+
+  List<ExerciseItem> savedExercises = [];
+
+  String getCurrentUserId() {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return user.uid;
+    } else {
+      // Handle the case when the user is not authenticated
+      // You can return null or an empty string, or handle this case based on your application's logic
+      return '';
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    String userId = getCurrentUserId(); // Obtain the current user's identifier
+    _fetchSavedExercises(userId); // Pass the userId to fetch saved exercises
+  }
+
+  Future<void> _fetchSavedExercises(String userId) async {
+    final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('exercises')
+        .where('date', isEqualTo: widget.today)
+        .where('userId', isEqualTo: userId) // Filter by userId
+        .get();
+
+    setState(() {
+      savedExercises = querySnapshot.docs.map((doc) {
+        return ExerciseItem(
+          name: doc['name'],
+          imagePath: doc['imagePath'],
+          id: doc.id,
+          // Add other properties as needed
+        );
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,15 +152,14 @@ class _SetExerciseState extends State<SetExercise> {
                 SizedBox(
                   height: 16.h,
                 ),
-                if (widget.selectedExercises != null &&
-                    widget.selectedExercises!.isNotEmpty) ...[
-                  // Display selected exercises
+                if (savedExercises.isNotEmpty) ...[
+                  // Display saved exercises
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 10.h),
                       Column(
-                        children: widget.selectedExercises!.map((exercise) {
+                        children: savedExercises.map((exercise) {
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: 5.h),
                             child: Stack(
@@ -158,7 +203,7 @@ class _SetExerciseState extends State<SetExercise> {
                         pageBuilder: (BuildContext context,
                             Animation<double> animation1,
                             Animation<double> animation2) {
-                          return SelectExerciseGroup(currentDate: widget.today,);
+                          return SelectExerciseGroup(currentDate: widget.today);
                         },
                         transitionDuration: Duration.zero,
                         reverseTransitionDuration: Duration.zero,

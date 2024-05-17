@@ -55,11 +55,14 @@ class _Cardio_cState extends State<Cardio_c> {
                 ),
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/Cardio_c.png',
-                      height: 150.h, // Adjust the height as needed
-                      width: 320.w, // Adjust the width as needed
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                      child: Image.asset(
+                        'assets/images/Cardio_c.png',
+                        height: 150.h, // Adjust the height as needed
+                        width: 320.w, // Adjust the width as needed
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ],
                 ).animate().fadeIn(delay: const Duration(milliseconds: 400)),

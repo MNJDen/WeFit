@@ -55,11 +55,14 @@ class _Back_lpoState extends State<Back_lpo> {
                 ),
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/Back_lpo.png',
-                      height: 150.h, // Adjust the height as needed
-                      width: 320.w, // Adjust the width as needed
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                      child: Image.asset(
+                        'assets/images/Back_lpo.png',
+                        height: 150.h, // Adjust the height as needed
+                        width: 320.w, // Adjust the width as needed
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ],
                 ).animate().fadeIn(delay: const Duration(milliseconds: 400)),

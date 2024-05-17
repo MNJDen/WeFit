@@ -4,6 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Screens/AccountSettingsScreen.dart';
 import 'package:itec303/Screens/SetExercise.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Abs.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Arms.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Back.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Cardio.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Chest.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Glutes.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Legs.dart';
+import 'package:itec303/Screens/Workout%20Guide%20Pages/Main%20Menu/WorkoutGuidePage_Shoulders.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
 import 'package:itec303/Screens/WorkoutGuidePage.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -88,8 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Text('Error: ${snapshot.error}');
                         }
                         if (!snapshot.hasData || !snapshot.data!.exists) {
-                          return const Text(
-                              'User data not found'); 
+                          return const Text('User data not found');
                         }
                         final username = snapshot.data!.get('username');
                         return Wrap(
@@ -153,21 +160,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: StreamBuilder<DocumentSnapshot>(
                           stream: FirebaseFirestore.instance
                               .collection('Users')
-                              .doc(FirebaseAuth.instance.currentUser!
-                                  .uid)
+                              .doc(FirebaseAuth.instance.currentUser!.uid)
                               .snapshots(),
                           builder: (BuildContext context,
                               AsyncSnapshot<DocumentSnapshot> snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
-                              return const CircularProgressIndicator(); 
+                              return const CircularProgressIndicator();
                             }
                             if (snapshot.hasError) {
                               return Text('Error: ${snapshot.error}');
                             }
                             if (!snapshot.hasData || !snapshot.data!.exists) {
-                              return const Text(
-                                  'User data not found'); 
+                              return const Text('User data not found');
                             }
                             final profileImageUrl =
                                 snapshot.data!.get('profileImageUrl');
@@ -310,22 +315,125 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     CarouselSlider(
                       items: [
+                        _buildCarouselItem("Chest", "assets/images/chest.jpg",
+                            () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return WorkoutGuidePage_Chest();
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        }),
+                        _buildCarouselItem("Legs", "assets/images/Legs_lp.png",
+                            () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return WorkoutGuidePage_Legs();
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        }),
+                        _buildCarouselItem("Back", "assets/images/Back.jpg",
+                            () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return WorkoutGuidePage_Back();
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        }),
+                        _buildCarouselItem("Arms", "assets/images/Arms.png",
+                            () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return WorkoutGuidePage_Arms();
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        }),
+                        _buildCarouselItem("Abs", "assets/images/Abs.png", () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return WorkoutGuidePage_Abs();
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        }),
                         _buildCarouselItem(
-                            "Chest", "assets/images/chest.jpg", () {}),
-                        _buildCarouselItem(
-                            "Legs", "assets/images/Legs_lp.png", () {}),
-                        _buildCarouselItem(
-                            "Back", "assets/images/Back.jpg", () {}),
-                        _buildCarouselItem(
-                            "Arms", "assets/images/Arms.png", () {}),
-                        _buildCarouselItem(
-                            "Abs", "assets/images/Abs.png", () {}),
-                        _buildCarouselItem("Shoulders",
-                            "assets/images/Shoulders_dsp.png", () {}),
-                        _buildCarouselItem(
-                            "Cardio", "assets/images/Cardio.png", () {}),
-                        _buildCarouselItem(
-                            "Glutes", "assets/images/Glutes.png", () {}),
+                            "Shoulders", "assets/images/Shoulders_dsp.png", () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return WorkoutGuidePage_Shoulders();
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        }),
+                        _buildCarouselItem("Cardio", "assets/images/Cardio.png",
+                            () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return WorkoutGuidePage_Cardio();
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        }),
+                        _buildCarouselItem("Glutes", "assets/images/Glutes.png",
+                            () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return WorkoutGuidePage_Glutes();
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        }),
                       ],
                       options: CarouselOptions(
                         height: 210.h,

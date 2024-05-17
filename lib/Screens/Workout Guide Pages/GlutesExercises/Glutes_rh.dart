@@ -55,11 +55,14 @@ class _Glutes_rhState extends State<Glutes_rh> {
                 ),
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/Glutes_rh.png',
-                      height: 150.h, // Adjust the height as needed
-                      width: 320.w, // Adjust the width as needed
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                      child: Image.asset(
+                        'assets/images/Glutes_rh.png',
+                        height: 150.h, // Adjust the height as needed
+                        width: 320.w, // Adjust the width as needed
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ],
                 ).animate().fadeIn(delay: const Duration(milliseconds: 400)),

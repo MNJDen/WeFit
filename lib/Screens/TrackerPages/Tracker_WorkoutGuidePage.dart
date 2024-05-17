@@ -3,19 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Constants/exercises_constants.dart';
 import 'package:itec303/Models/exercise_item.dart';
 import 'package:itec303/Screens/AddExercise.dart';
+import 'package:itec303/Screens/TrackerPages/Tracker_AddExercise.dart';
 
-class SelectExerciseGroup extends StatefulWidget {
-  final DateTime currentDate;
-  const SelectExerciseGroup({
-    required this.currentDate,
+class Tracker_WorkoutGuidePage extends StatefulWidget {
+  const Tracker_WorkoutGuidePage({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<SelectExerciseGroup> createState() => _SelectExerciseGroupState();
+  State<Tracker_WorkoutGuidePage> createState() => _Tracker_WorkoutGuidePageState();
 }
 
-class _SelectExerciseGroupState extends State<SelectExerciseGroup> {
+class _Tracker_WorkoutGuidePageState extends State<Tracker_WorkoutGuidePage> {
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
@@ -114,10 +113,9 @@ class _SelectExerciseGroupState extends State<SelectExerciseGroup> {
                           pageBuilder: (BuildContext context,
                               Animation<double> animation1,
                               Animation<double> animation2) {
-                            return AddExercise(
+                            return Tracker_AddExercise(
                               exercises: allExercises[index],
                               categoryName: exerciseCategoryNames[index],
-                              currentDate: widget.currentDate,
                             );
                           },
                           transitionDuration: Duration.zero,

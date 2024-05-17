@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Screens/Workout%20Guide%20Pages/CardioExercises/Cardio_b.dart';
 import 'package:itec303/Screens/Workout%20Guide%20Pages/CardioExercises/Cardio_c.dart';
@@ -101,7 +102,7 @@ class _WorkoutGuidePage_CardioState extends State<WorkoutGuidePage_Cardio> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -116,65 +117,69 @@ class _WorkoutGuidePage_CardioState extends State<WorkoutGuidePage_Cardio> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 12.h,
                 ),
                 // List of images displayed vertically
                 Column(
-                  children: List.generate(cardioExerciseImages.length, (index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return cardioExerciseScreens[index];
-                            },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 10.h),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15), // Adjust the border radius as needed
-                              child: Image.asset(
-                                cardioExerciseImages[index],
-                                height: 100.h, // Adjust the height as needed
-                                width: 320.w, // Adjust the width as needed
-                                fit: BoxFit.cover,
-                              ),
+                  children: List.generate(
+                    cardioExerciseImages.length,
+                    (index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return cardioExerciseScreens[index];
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
                             ),
-                            Positioned.fill(
-                              child: Center(
-                                child: Text(
-                                  cardioExerciseNames[index],
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: whiteColor,
+                          );
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 10.h),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    15), // Adjust the border radius as needed
+                                child: Image.asset(
+                                  cardioExerciseImages[index],
+                                  height: 100.h, // Adjust the height as needed
+                                  width: 320.w, // Adjust the width as needed
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned.fill(
+                                child: Center(
+                                  child: Text(
+                                    cardioExerciseNames[index],
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: whiteColor,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    },
+                  ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

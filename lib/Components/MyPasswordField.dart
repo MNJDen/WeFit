@@ -23,35 +23,29 @@ class MyPasswordField extends StatefulWidget {
 }
 
 class _MyPasswordFieldState extends State<MyPasswordField> {
-  // Define a boolean variable to track the focus state
   bool _isFocused = false;
   bool _obscureText = true;
 
-  // Create a FocusNode to track the focus state
   late FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    // Add a listener to the FocusNode to update the focus state
     _focusNode.addListener(_onFocusChange);
   }
 
   @override
   void dispose() {
-    // Dispose the FocusNode when the widget is disposed
     _focusNode.dispose();
     super.dispose();
   }
 
-  // Method to update the focus state
   void _onFocusChange() {
     setState(() {
       _isFocused = _focusNode.hasFocus;
     });
   }
 
-  // Method to toggle text obscuring
   void _toggleObscureText() {
     setState(() {
       _obscureText = !_obscureText;

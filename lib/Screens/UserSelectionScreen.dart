@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/UserList.dart';
 import 'package:itec303/Services/Chat/Chat_Service.dart';
@@ -16,8 +17,13 @@ class UserSelectionScreen extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(
+            Icons.arrow_circle_left_rounded,
+            color: purpleColor,
+            size: 30,
+          ),
         ),
+        leadingWidth: 30.w,
       ),
       body: Container(
         color: blackColor,

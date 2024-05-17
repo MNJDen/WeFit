@@ -2,14 +2,18 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:itec303/Models/exercise_item.dart';
+import 'package:itec303/Screens/SelectExerciseGroup.dart';
 
 class SetExercise extends StatefulWidget {
   final DateTime today;
+  final List<ExerciseItem>? selectedExercises;
 
-  const SetExercise({Key? key, required this.today}) : super(key: key);
+  const SetExercise({Key? key, required this.today, this.selectedExercises})
+      : super(key: key);
 
   @override
-  State<SetExercise> createState() => _SetExerciseState();
+  _SetExerciseState createState() => _SetExerciseState();
 }
 
 class _SetExerciseState extends State<SetExercise> {
@@ -50,7 +54,7 @@ class _SetExerciseState extends State<SetExercise> {
             size: 30,
           ),
         ),
-        leadingWidth: 40.w,
+        leadingWidth: 30.w,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -61,7 +65,6 @@ class _SetExerciseState extends State<SetExercise> {
                 SizedBox(
                   height: 20.h,
                 ),
-                // Your text widgets
                 Row(
                   children: [
                     Text(
@@ -103,27 +106,71 @@ class _SetExerciseState extends State<SetExercise> {
                 SizedBox(
                   height: 16.h,
                 ),
+                if (widget.selectedExercises != null &&
+                    widget.selectedExercises!.isNotEmpty) ...[
+                  // Display selected exercises
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 10.h),
+                      Column(
+                        children: widget.selectedExercises!.map((exercise) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(vertical: 5.h),
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  child: Image.asset(
+                                    exercise.imagePath,
+                                    height: 100.h,
+                                    width: 320.w,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Positioned.fill(
+                                  child: Center(
+                                    child: Text(
+                                      exercise.name,
+                                      style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: whiteColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8.h),
+                ],
                 InkWell(
                   onTap: () {
-                    //   Navigator.push(
-                    //         context,
-                    //         PageRouteBuilder(
-                    //           pageBuilder: (BuildContext context,
-                    //               Animation<double> animation1,
-                    //               Animation<double> animation2) {
-                    //             return ;
-                    //           },
-                    //           transitionDuration: Duration.zero,
-                    //           reverseTransitionDuration: Duration.zero,
-                    //         ),
-                    //       );
+                    Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (BuildContext context,
+                            Animation<double> animation1,
+                            Animation<double> animation2) {
+                          return SelectExerciseGroup(currentDate: widget.today,);
+                        },
+                        transitionDuration: Duration.zero,
+                        reverseTransitionDuration: Duration.zero,
+                      ),
+                    );
                   },
                   child: Padding(
                     padding: EdgeInsets.only(bottom: 10.h),
                     child: DottedBorder(
                       dashPattern: [6, 5, 6, 5],
                       color: purpleColor,
-                      strokeWidth: 2.w,
+                      strokeWidth: 1.w,
                       borderType: BorderType.RRect,
                       radius: Radius.circular(15),
                       child: Container(
@@ -132,12 +179,12 @@ class _SetExerciseState extends State<SetExercise> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Image.asset(
-                              'assets/images/Plus.png', // Replace this with the path to your plus icon image
-                              height: 36.h,
-                              width: 36.w,
+                            Icon(
+                              Icons.add_circle,
+                              color: purpleColor,
+                              size: 40.0,
                             ),
-                            SizedBox(height: 8.h),
+                            SizedBox(height: 2.h),
                             Text(
                               'Tap to add an exercise',
                               style: TextStyle(

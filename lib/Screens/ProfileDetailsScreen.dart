@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:itec303/Components/MyPasswordField.dart';
+import 'package:image_picker/image_picker.dart';
+// import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
 import 'package:itec303/Screens/ChangePasswordScreen.dart';
 import 'package:itec303/Services/Auth/Auth_Service.dart';
@@ -24,6 +27,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
   late TextEditingController _usernameController;
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
@@ -52,6 +56,62 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
         }
       });
     }
+  }
+
+  Future<void> _changeProfilePicture() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      try {
+        // Delete the previous profile image from Firebase Storage if it exists
+        final userDoc = await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(_currentUser!.uid)
+            .get();
+        final oldImageUrl = userDoc.get('profileImageUrl');
+        if (oldImageUrl != null) {
+          final oldImageRef = FirebaseStorage.instance.refFromURL(oldImageUrl);
+          await oldImageRef.delete();
+        }
+
+        // Upload the new image to Firebase Storage
+        final File imageFile = File(image.path);
+        final storageRef = FirebaseStorage.instance
+            .ref()
+            .child('profile_images')
+            .child('${_currentUser!.uid}.jpg');
+        await storageRef.putFile(imageFile);
+
+        // Get the download URL of the uploaded image
+        final newImageUrl = await storageRef.getDownloadURL();
+
+        // Update the profile image URL in Firestore
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(_currentUser!.uid)
+            .update({'profileImageUrl': newImageUrl});
+      } catch (e) {
+        print('Failed to change profile picture: $e');
+      }
+    }
+  }
+
+  Future<void> _updateUsername(String newUsername) async {
+    if (newUsername.length <= 10) {
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(_currentUser!.uid)
+          .update({'username': newUsername});
+    } else {
+      // Show an error message or handle the error appropriately
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Username must be 10 characters or less')),
+      );
+    }
+  }
+
+  void _saveProfile() {
+    final newUsername = _usernameController.text;
+    _updateUsername(newUsername);
   }
 
   @override
@@ -143,7 +203,7 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                             height: 4.h,
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: _changeProfilePicture,
                             child: Text('Change Profile Picture'),
                           ),
                         ],
@@ -170,12 +230,12 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                 SizedBox(
                   height: 12.h,
                 ),
-                MyPasswordField(
-                  prefixIcon: Icons.lock_rounded,
-                  labelText: "Password",
-                  suffixIcon: Icons.visibility_off_rounded,
-                  controller: _passwordController,
-                ),
+                // MyPasswordField(
+                //   prefixIcon: Icons.lock_rounded,
+                //   labelText: "Password",
+                //   suffixIcon: Icons.visibility_off_rounded,
+                //   controller: _passwordController,
+                // ),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -207,6 +267,13 @@ class _ProfileDetailsScreenState extends State<ProfileDetailsScreen> {
                       ),
                     ),
                   ],
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                ElevatedButton(
+                  onPressed: _saveProfile,
+                  child: Text('Save'),
                 ),
               ],
             ),

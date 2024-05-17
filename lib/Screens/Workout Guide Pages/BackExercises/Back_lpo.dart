@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
 
@@ -54,14 +55,17 @@ class _Back_lpoState extends State<Back_lpo> {
                 ),
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/Back_lpo.png',
-                      height: 150.h, // Adjust the height as needed
-                      width: 320.w, // Adjust the width as needed
-                      fit: BoxFit.cover,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10), // Adjust the radius as needed
+                      child: Image.asset(
+                        'assets/images/Back_lpo.png',
+                        height: 150.h, // Adjust the height as needed
+                        width: 320.w, // Adjust the width as needed
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 17.h,
                 ),
@@ -76,7 +80,7 @@ class _Back_lpoState extends State<Back_lpo> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -91,7 +95,7 @@ class _Back_lpoState extends State<Back_lpo> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -105,12 +109,12 @@ class _Back_lpoState extends State<Back_lpo> {
                     fontWeight: FontWeight.w200,
                     color: whiteColor,
                   ),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

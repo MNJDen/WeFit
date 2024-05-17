@@ -5,6 +5,7 @@ import 'package:itec303/Screens/Workout%20Guide%20Pages/ChestExercises/Chest_dfb
 import 'package:itec303/Screens/Workout%20Guide%20Pages/ChestExercises/Chest_dfbp.dart';
 import 'package:itec303/Screens/Workout%20Guide%20Pages/ChestExercises/Chest_dibf.dart';
 import 'package:itec303/Screens/Workout%20Guide%20Pages/ChestExercises/Chest_dibp.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class WorkoutGuidePage_Chest extends StatefulWidget {
   const WorkoutGuidePage_Chest({super.key});
@@ -47,34 +48,34 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Back",
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  color: whiteColor,
-                ),
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Back",
+              style: TextStyle(
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                color: whiteColor,
               ),
-            ],
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_circle_left_rounded,
-              color: purpleColor,
-              size: 30,
             ),
-          ),
-          leadingWidth: 30.w,
+          ],
         ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_circle_left_rounded,
+            color: purpleColor,
+            size: 30,
+          ),
+        ),
+        leadingWidth: 30.w,
+      ),
       backgroundColor: blackColor,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -83,7 +84,7 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
             child: Column(
               children: [
                 SizedBox(
-                  height: 15.h,
+                  height: 12.h,
                 ),
                 Row(
                   children: [
@@ -96,7 +97,7 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 3.h,
                 ),
@@ -111,65 +112,69 @@ class _WorkoutGuidePage_ChestState extends State<WorkoutGuidePage_Chest> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 12.h,
                 ),
                 // List of images displayed vertically
                 Column(
-                  children: List.generate(chestExerciseImages.length, (index) {
-                    return InkWell(
-                      onTap: () {
-                         Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                            pageBuilder: (BuildContext context,
-                                Animation<double> animation1,
-                                Animation<double> animation2) {
-                              return chestExerciseScreens[index];
-                            },
-                            transitionDuration: Duration.zero,
-                            reverseTransitionDuration: Duration.zero,
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 10.h),
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15), // Adjust the border radius as needed
-                              child: Image.asset(
-                                chestExerciseImages[index],
-                                height: 100.h, // Adjust the height as needed
-                                width: 320.w, // Adjust the width as needed
-                                fit: BoxFit.cover,
-                              ),
+                  children: List.generate(
+                    chestExerciseImages.length,
+                    (index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return chestExerciseScreens[index];
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
                             ),
-                            Positioned.fill(
-                              child: Center(
-                                child: Text(
-                                  chestExerciseNames[index],
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: whiteColor,
+                          );
+                        },
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 10.h),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    15), // Adjust the border radius as needed
+                                child: Image.asset(
+                                  chestExerciseImages[index],
+                                  height: 100.h, // Adjust the height as needed
+                                  width: 320.w, // Adjust the width as needed
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned.fill(
+                                child: Center(
+                                  child: Text(
+                                    chestExerciseNames[index],
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: whiteColor,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    },
+                  ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 ),
-              ], 
+              ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

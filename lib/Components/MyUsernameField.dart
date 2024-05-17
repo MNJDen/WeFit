@@ -9,11 +9,13 @@ class MyUsernameField extends StatefulWidget {
   final IconData? prefixIcon;
   final String labelText;
   final TextEditingController controller;
+  final FormFieldValidator<String>? validator;
 
   MyUsernameField({
     this.prefixIcon,
     required this.labelText,
     required this.controller,
+    this.validator,
   });
 
   @override
@@ -21,27 +23,22 @@ class MyUsernameField extends StatefulWidget {
 }
 
 class _MyUsernameFieldState extends State<MyUsernameField> {
-  // Define a boolean variable to track the focus state
   bool _isFocused = false;
 
-  // Create a FocusNode to track the focus state
   late FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    // Add a listener to the FocusNode to update the focus state
     _focusNode.addListener(_onFocusChange);
   }
 
   @override
   void dispose() {
-    // Dispose the FocusNode when the widget is disposed
     _focusNode.dispose();
     super.dispose();
   }
 
-  // Method to update the focus state
   void _onFocusChange() {
     setState(() {
       _isFocused = _focusNode.hasFocus;
@@ -77,8 +74,7 @@ class _MyUsernameFieldState extends State<MyUsernameField> {
           color: _isFocused ? purpleColor : whiteColor,
         ),
       ),
-
-      // Update the focus state when the user submits the text field
+      validator: widget.validator,
       onFieldSubmitted: (_) {
         setState(() {
           _isFocused = false;

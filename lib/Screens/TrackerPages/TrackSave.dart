@@ -168,7 +168,7 @@ class _TrackSaveState extends State<TrackSave> {
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w400,
-                color: Colors.white,
+                color: whiteColor,
               ),
             ),
           ],
@@ -213,7 +213,7 @@ class _TrackSaveState extends State<TrackSave> {
                       style: TextStyle(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white),
+                          color: whiteColor),
                     ),
                   ],
                 ),
@@ -227,7 +227,7 @@ class _TrackSaveState extends State<TrackSave> {
                       style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w200,
-                          color: Colors.white),
+                          color: whiteColor),
                     ),
                     SizedBox(width: 3.w),
                     Text(
@@ -235,7 +235,7 @@ class _TrackSaveState extends State<TrackSave> {
                       style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w200,
-                          color: Colors.white),
+                          color: whiteColor),
                     ),
                   ],
                 ),
@@ -243,7 +243,7 @@ class _TrackSaveState extends State<TrackSave> {
                   height: 29.h,
                 ),
                 if (widget.exercise.isNeedTimer)
-                  Column(
+                  Column( 
                     children: [
                       SizedBox(
                         height: 2.h,
@@ -304,7 +304,7 @@ class _TrackSaveState extends State<TrackSave> {
                       "Save",
                       style: TextStyle(
                           fontSize: 16.sp,
-                          color: Colors.white,
+                          color: whiteColor,
                           fontWeight: FontWeight.w500),
                     ),
                   ),
@@ -326,7 +326,7 @@ class _TrackSaveState extends State<TrackSave> {
           style: TextStyle(
             fontSize: 12.sp,
             fontWeight: FontWeight.w200,
-            color: Colors.white,
+            color: whiteColor,
           ),
         ),
         Spacer(),
@@ -351,7 +351,7 @@ class _TrackSaveState extends State<TrackSave> {
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w400,
-                  color: Colors.white,
+                  color: whiteColor,
                 ),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(

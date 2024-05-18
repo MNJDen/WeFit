@@ -5,7 +5,9 @@ import 'package:itec303/Screens/TrackScreen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyBottomNavBar extends StatefulWidget {
-  const MyBottomNavBar({super.key});
+  final int selectedIndex;
+
+  const MyBottomNavBar({super.key, this.selectedIndex = 0});
 
   @override
   State<MyBottomNavBar> createState() => _MyBottomNavBarState();
@@ -16,7 +18,13 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
 
-  int selectedIndex = 0;
+  late int selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = widget.selectedIndex;
+  }
 
   final screen = [
     HomeScreen(),
@@ -33,11 +41,10 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: blackColor,
-                spreadRadius: 1,
-                blurRadius: 40,
-                offset: Offset(0, 5)
-              ),
+                  color: blackColor,
+                  spreadRadius: 1,
+                  blurRadius: 40,
+                  offset: Offset(0, 5)),
             ],
           ),
           child: BottomAppBar(

@@ -1,221 +1,10 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_screenutil/flutter_screenutil.dart';
-// import 'package:dotted_border/dotted_border.dart';
-// import 'package:itec303/Components/MyPasswordField.dart';
-// import 'package:itec303/Screens/TrackSave.dart';
-
-// class TrackScreen extends StatefulWidget {
-//   const TrackScreen({Key? key}) : super(key: key);
-
-//   @override
-//   State<TrackScreen> createState() => _TrackScreenState();
-// }
-
-// class _TrackScreenState extends State<TrackScreen> {
-//   String sets = '0';
-//   String reps = '0';
-//   String weight = '0';
-
-//   DateTime today = DateTime.now();
-//   List<String> exercises = [];
-
-//   void addExercise(String exercise) {
-//     setState(() {
-//       exercises.add(exercise);
-//     });
-//   }
-
-//   void updateExerciseValues(String newSets, String newReps, String newWeight) {
-//     setState(() {
-//       sets = newSets;
-//       reps = newReps;
-//       weight = newWeight;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     List<String> muscleGroups = [
-//       "Chest",
-//       "Back",
-//       "Legs",
-//       "Shoulders",
-//       "Arms",
-//       "Abs",
-//       "Cardio",
-//       "Glutes"
-//     ];
-
-//     return Scaffold(
-//       backgroundColor: Colors.black,
-//       body: SafeArea(
-//         child: SingleChildScrollView(
-//           child: Padding(
-//             padding: EdgeInsets.symmetric(horizontal: 20.w),
-//             child: Column(
-//               children: [
-//                 SizedBox(height: 15.h),
-//                 Row(
-//                   children: [
-//                     Text(
-//                       "Progress Tracker",
-//                       style: TextStyle(
-//                           fontSize: 20.sp,
-//                           fontWeight: FontWeight.w500,
-//                           color: purpleColor),
-//                     ),
-//                   ],
-//                 ),
-//                 SizedBox(height: 17.h),
-//                 SingleChildScrollView(
-//                   scrollDirection: Axis.horizontal,
-//                   child: Row(
-//                     children: muscleGroups.map((group) {
-//                       return Container(
-//                         margin: EdgeInsets.only(right: 8.w),
-//                         child: InkWell(
-//                           onTap: () {
-//                             // Define onTap functionality if needed
-//                           },
-//                           child: Chip(
-//                             label: Text(group),
-//                             backgroundColor: Colors.black,
-//                             labelStyle: TextStyle(
-//                               color: Colors.white,
-//                               fontSize: 12.sp,
-//                               fontWeight: FontWeight.w400,
-//                             ),
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(20.0),
-//                             ),
-//                           ),
-//                         ),
-//                       );
-//                     }).toList(),
-//                   ),
-//                 ),
-//                 SizedBox(height: 32.h),
-//                 Column(
-//                   children: [
-//                     // Display the list of exercise cards
-//                     ...exercises.map(
-//                       (exercise) => SizedBox(
-//                         width: 370.w,
-//                         height: 115.h,
-//                         child: Card(
-//                           margin: EdgeInsets.symmetric(vertical: 8.h),
-//                           child: ListTile(
-//                             title: Text(
-//                               exercise,
-//                               style: TextStyle(
-//                                 fontSize: 16.sp, // Example font size
-//                                 fontWeight:
-//                                     FontWeight.w600, // Example font weight
-//                                 color: Colors.black, // Example text color
-//                               ),
-//                             ),
-//                             contentPadding:
-//                                 EdgeInsets.symmetric(horizontal: 16.w),
-//                             trailing: Icon(
-//                               Icons.edit, // Example icon
-//                               size: 21.sp, // Example icon size
-//                               color: purpleColor, // Example icon color
-//                             ),
-//                             onTap: () {
-//                               Navigator.push(
-//                                 context,
-//                                 MaterialPageRoute(
-//                                   builder: (context) => TrackSave(
-//                                     addExercise: addExercise,
-//                                     exerciseName: exercise,
-//                                     initialSets: '0', // Provide initial values here
-//                                     initialReps: '0', // Provide initial values here
-//                                     initialWeight: '0 lbs', // Provide initial values here
-//                                   ),
-//                                 ),
-//                               );
-//                             },
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       height: 8.h,
-//                     ),
-//                     // Display the button to add more exercises
-//                     SizedBox(
-//                       height: 100.h, // Set the height
-//                       width: 320.w, // Set the width
-//                       child: DottedBorder(
-//                         dashPattern: [6, 5, 6, 5],
-//                         color: purpleColor,
-//                         strokeWidth: 1.w,
-//                         borderType: BorderType.RRect,
-//                         radius: Radius.circular(15),
-//                         child: ElevatedButton(
-//                           onPressed: () async {
-//                             Navigator.push(
-//                               context,
-//                               MaterialPageRoute(
-//                                 builder: (context) => TrackSave(
-//                                   addExercise: addExercise,
-//                                   exerciseName: 'this is the name', // Provide exercise name if needed
-//                                   initialSets: '0', // Provide initial values here
-//                                   initialReps: '0', // Provide initial values here
-//                                   initialWeight: '0 lbs', // Provide initial values here
-//                                 ),
-//                               ),
-//                             );
-//                           },
-//                           style: ElevatedButton.styleFrom(
-//                             backgroundColor: Colors.transparent,
-//                             elevation: 0,
-//                             padding: EdgeInsets.symmetric(
-//                               vertical: 12.h,
-//                               horizontal: 24.w,
-//                             ),
-//                           ),
-//                           child: Column(
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: [
-//                               Center(
-//                                 child: Icon(
-//                                   Icons.add_circle,
-//                                   color: purpleColor,
-//                                   size: 40.0,
-//                                 ),
-//                               ),
-//                               SizedBox(height: 2.h),
-//                               Text(
-//                                 'Tap to add an exercise',
-//                                 style: TextStyle(
-//                                   fontSize: 10.sp,
-//                                   fontWeight: FontWeight.w200,
-//                                   color: Colors.white,
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                     SizedBox(
-//                       height: 20.h,
-//                     )
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:itec303/Components/MyPasswordField.dart';
+import 'package:itec303/Constants/exercises_constants.dart';
+import 'package:itec303/Models/exercise_progress.dart';
+import 'package:itec303/Screens/TrackerPages/TrackSave.dart';
 import 'package:itec303/Screens/TrackerPages/Tracker_WorkoutGuidePage.dart';
 
 class TrackScreen extends StatefulWidget {
@@ -226,12 +15,45 @@ class TrackScreen extends StatefulWidget {
 }
 
 class _TrackScreenState extends State<TrackScreen> {
-  DateTime today = DateTime.now();
-  List<String> exercises = [];
+  // dummy data. use this var when integrating the real backend data
+  List<ExerciseProgress> exerciseProgresses = [
+    ExerciseProgress(
+        numSets: 3,
+        numReps: 15,
+        mins: 0,
+        muscleGroup: 'Abs',
+        exercise: ExercisesConstants.absExercises[0]),
+    ExerciseProgress(
+        numSets: 3,
+        numReps: 3,
+        mins: 0,
+        numWeights: 25.0,
+        muscleGroup: 'Chest',
+        exercise: ExercisesConstants.chestExercises[0]),
+    ExerciseProgress(
+        numSets: 3,
+        numReps: 8,
+        mins: 0,
+        numWeights: 100.0,
+        muscleGroup: 'Legs',
+        exercise: ExercisesConstants.legExercises[0]),
+    ExerciseProgress(
+        numSets: 0,
+        numReps: 0,
+        mins: 15,
+        muscleGroup: 'Abs',
+        exercise: ExercisesConstants.absExercises[3]),
+  ];
 
-  void addExercise(String sets, String reps, String weight) {
+  List<String> filteredMuscleGroups = [];
+
+  void handleFilterPressed(String muscleGroup) {
     setState(() {
-      exercises.add('Sets: $sets, Reps: $reps, Weight: $weight');
+      if (filteredMuscleGroups.contains(muscleGroup)) {
+        filteredMuscleGroups.remove(muscleGroup);
+      } else {
+        filteredMuscleGroups.add(muscleGroup);
+      }
     });
   }
 
@@ -264,7 +86,8 @@ class _TrackScreenState extends State<TrackScreen> {
                       style: TextStyle(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w500,
-                          color: Colors.purple), // Example color, define purpleColor if needed
+                          color:
+                              purpleColor), // Example color, define purpleColor if needed
                     ),
                   ],
                 ),
@@ -273,17 +96,17 @@ class _TrackScreenState extends State<TrackScreen> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: muscleGroups.map((group) {
+                      final isSelected = filteredMuscleGroups.contains(group);
                       return Container(
                         margin: EdgeInsets.only(right: 8.w),
                         child: InkWell(
-                          onTap: () {
-                            // Define onTap functionality if needed
-                          },
+                          onTap: () => {handleFilterPressed(group)},
                           child: Chip(
                             label: Text(group),
-                            backgroundColor: Colors.black,
+                            backgroundColor:
+                                isSelected ? purpleColor : blackColor,
                             labelStyle: TextStyle(
-                              color: Colors.white,
+                              color: whiteColor,
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400,
                             ),
@@ -300,34 +123,166 @@ class _TrackScreenState extends State<TrackScreen> {
                 Column(
                   children: [
                     // Display the list of exercise cards
-                    ...exercises.map(
-                      (exercise) => SizedBox(
-                        width: 370.w,
-                        height: 115.h,
-                        child: Card(
-                          margin: EdgeInsets.symmetric(vertical: 8.h),
-                          child: ListTile(
-                            title: Text(
-                              exercise,
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
+                    ...exerciseProgresses
+                        .where((epItem) =>
+                            filteredMuscleGroups.contains(epItem.muscleGroup) ||
+                            filteredMuscleGroups.isEmpty)
+                        .map(
+                          (epItem) => Column(
+                            children: [
+                              SizedBox(
+                                width: 370.w,
+                                height: 115.h,
+                                child: Stack(
+                                  children: [
+                                    // Background image
+                                    Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        image: DecorationImage(
+                                          image: AssetImage(epItem.exercise
+                                              .imagePath), // Replace with your image asset
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      child: ShaderMask(
+                                        shaderCallback: (rect) {
+                                          return LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [
+                                              Colors.black.withOpacity(0),
+                                              Colors.black.withOpacity(0.3),
+                                              Colors.black.withOpacity(0.7),
+                                              Colors.black,
+                                            ],
+                                          ).createShader(rect);
+                                        },
+                                        blendMode: BlendMode.overlay,
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                          color: Colors.black.withOpacity(0.1),
+                                        ),
+                                      ),
+                                    ),
+                                    // Card with ListTile
+                                    Card(
+                                      color: Colors.transparent,
+                                      elevation: 0,
+                                      child: ListTile(
+                                        title: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              epItem.exercise.name,
+                                              style: TextStyle(
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.w600,
+                                                color: whiteColor,
+                                              ),
+                                            ),
+                                            SizedBox(height: 4.h),
+                                            Row(
+                                              children: [
+                                                if (epItem.mins != 0)
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        'Mins: ' +
+                                                            epItem.mins
+                                                                .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: whiteColor,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                SizedBox(
+                                                  width: 2.w,
+                                                ),
+                                                if (epItem.mins == 0)
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        'Sets: ' +
+                                                            epItem.numSets
+                                                                .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: whiteColor,
+                                                        ),
+                                                      ),
+                                                      SizedBox(width: 4.w),
+                                                      Text(
+                                                        'Reps: ' +
+                                                            epItem.numReps
+                                                                .toString(),
+                                                        style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: whiteColor,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 10.w),
+                                        trailing: InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              PageRouteBuilder(
+                                                pageBuilder:
+                                                    (BuildContext context,
+                                                        Animation<double>
+                                                            animation1,
+                                                        Animation<double>
+                                                            animation2) {
+                                                  return TrackSave(
+                                                    exercise: epItem.exercise,
+                                                    categoryName:
+                                                        epItem.muscleGroup,
+                                                    initialReps: epItem.numReps,
+                                                    initialSets: epItem.numSets,
+                                                    initialWeight:
+                                                        epItem.numWeights,
+                                                  );
+                                                },
+                                                transitionDuration:
+                                                    Duration.zero,
+                                                reverseTransitionDuration:
+                                                    Duration.zero,
+                                              ),
+                                            );
+                                          },
+                                          child: Icon(
+                                            Icons.edit,
+                                            size: 21.sp,
+                                            color: purpleColor,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-                            trailing: Icon(
-                              Icons.edit,
-                              size: 21.sp,
-                              color: Colors.purple, // Example color, define purpleColor if needed
-                            ),
-                            onTap: () {
-                              // Define onTap functionality if needed
-                            },
+                              SizedBox(height: 20.h),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
                     SizedBox(height: 8.h),
                     // Display the button to add more exercises
                     SizedBox(
@@ -335,7 +290,8 @@ class _TrackScreenState extends State<TrackScreen> {
                       width: 320.w,
                       child: DottedBorder(
                         dashPattern: [6, 5, 6, 5],
-                        color: Colors.purple, // Example color, define purpleColor if needed
+                        color:
+                            purpleColor, // Example color, define purpleColor if needed
                         strokeWidth: 1.w,
                         borderType: BorderType.RRect,
                         radius: Radius.circular(15),
@@ -344,7 +300,8 @@ class _TrackScreenState extends State<TrackScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Tracker_WorkoutGuidePage(),
+                                builder: (context) =>
+                                    Tracker_WorkoutGuidePage(),
                               ),
                             );
                           },
@@ -362,7 +319,8 @@ class _TrackScreenState extends State<TrackScreen> {
                               Center(
                                 child: Icon(
                                   Icons.add_circle,
-                                  color: Colors.purple, // Example color, define purpleColor if needed
+                                  color:
+                                      purpleColor, // Example color, define purpleColor if needed
                                   size: 40.0,
                                 ),
                               ),
@@ -372,7 +330,7 @@ class _TrackScreenState extends State<TrackScreen> {
                                 style: TextStyle(
                                   fontSize: 10.sp,
                                   fontWeight: FontWeight.w200,
-                                  color: Colors.white,
+                                  color: whiteColor,
                                 ),
                               ),
                             ],

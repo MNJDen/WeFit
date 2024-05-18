@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/Chat_Bubble.dart';
 import 'package:itec303/Components/MyUsernameField.dart';
@@ -147,7 +148,7 @@ class _ChatPageState extends State<ChatPage> {
           _buildUserInput(),
         ],
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 
   Widget _buildMessageList() {

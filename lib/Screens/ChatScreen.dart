@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Components/User_Tile.dart';
@@ -28,6 +29,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       backgroundColor: blackColor,
       appBar: AppBar(
+        leading: null,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
@@ -66,9 +68,9 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: RefreshIndicator(
         onRefresh: _refreshChatList,
-        child: _buildUserList(),
+        child: _buildUserList().animate().fadeIn(delay: const Duration(milliseconds: 400)),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 
   Future<void> _refreshChatList() async {
@@ -221,9 +223,9 @@ class _ChatScreenState extends State<ChatScreen> {
             },
             isNewMessage: isNewMessage,
           ),
-        );
+        ).animate().fadeIn(delay: const Duration(milliseconds: 400));
       },
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 
   void _resetFontWeight(String userID) {

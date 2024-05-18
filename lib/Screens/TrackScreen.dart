@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
-import 'package:itec303/Constants/exercises_constants.dart';
+// import 'package:itec303/Constants/exercises_constants.dart';
 import 'package:itec303/Models/exercise_progress.dart';
+import 'package:itec303/Models/exercise_item.dart';
 import 'package:itec303/Screens/TrackerPages/TrackSave.dart';
 import 'package:itec303/Screens/TrackerPages/Tracker_WorkoutGuidePage.dart';
 
@@ -15,37 +18,59 @@ class TrackScreen extends StatefulWidget {
 }
 
 class _TrackScreenState extends State<TrackScreen> {
-  // dummy data. use this var when integrating the real backend data
-  List<ExerciseProgress> exerciseProgresses = [
-    ExerciseProgress(
-        numSets: 3,
-        numReps: 15,
-        mins: 0,
-        muscleGroup: 'Abs',
-        exercise: ExercisesConstants.absExercises[0]),
-    ExerciseProgress(
-        numSets: 3,
-        numReps: 3,
-        mins: 0,
-        numWeights: 25.0,
-        muscleGroup: 'Chest',
-        exercise: ExercisesConstants.chestExercises[0]),
-    ExerciseProgress(
-        numSets: 3,
-        numReps: 8,
-        mins: 0,
-        numWeights: 100.0,
-        muscleGroup: 'Legs',
-        exercise: ExercisesConstants.legExercises[0]),
-    ExerciseProgress(
-        numSets: 0,
-        numReps: 0,
-        mins: 15,
-        muscleGroup: 'Abs',
-        exercise: ExercisesConstants.absExercises[3]),
-  ];
+  List<ExerciseProgress> exerciseProgresses = [];
 
   List<String> filteredMuscleGroups = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Call a method to fetch exercise progress data from Firestore
+    fetchExerciseProgressData();
+  }
+
+  // Method to fetch exercise progress data from Firestore
+  Future<void> fetchExerciseProgressData() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final String uid = user!.uid;
+    // You can replace 'users' and 'exerciseProgress' with your actual Firestore collection names
+    final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection('exerciseTracker')
+        .doc(uid)
+        .collection('exerciseProgress')
+        .get();
+
+    // Clear existing exerciseProgresses list
+    setState(() {
+      exerciseProgresses.clear();
+    });
+
+    // Loop through the documents and create ExerciseProgress objects
+    snapshot.docs.forEach((doc) {
+      ExerciseProgress exerciseProgress = ExerciseProgress(
+        // Assuming the document fields match ExerciseProgress model fields
+        numSets: doc['sets'],
+        numReps: doc['reps'],
+        numWeights: doc['weight'],
+        mins: doc['minutes'],
+        muscleGroup: doc['muscleGroup'],
+        // You can add more fields as needed
+        // Exercise ID, name, imagePath, etc.
+        exercise: ExerciseItem(
+          id: doc['exerciseId'],
+          name: doc['exerciseName'],
+          imagePath: doc['imagePath'],
+        ),
+      );
+
+      // Add the ExerciseProgress object to the list
+      setState(() {
+        exerciseProgresses.add(exerciseProgress);
+      });
+    });
+  }
 
   void handleFilterPressed(String muscleGroup) {
     setState(() {
@@ -84,10 +109,10 @@ class _TrackScreenState extends State<TrackScreen> {
                     Text(
                       "Progress Tracker",
                       style: TextStyle(
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w500,
-                          color:
-                              purpleColor), // Example color, define purpleColor if needed
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w500,
+                        color: purpleColor,
+                      ),
                     ),
                   ],
                 ),
@@ -141,8 +166,8 @@ class _TrackScreenState extends State<TrackScreen> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
                                         image: DecorationImage(
-                                          image: AssetImage(epItem.exercise
-                                              .imagePath), // Replace with your image asset
+                                          image: AssetImage(
+                                              epItem.exercise.imagePath),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -232,6 +257,19 @@ class _TrackScreenState extends State<TrackScreen> {
                                                           color: whiteColor,
                                                         ),
                                                       ),
+                                                      SizedBox(width: 4.w),
+                                                      Text(
+                                                        'Weight: ' +
+                                                            epItem.numWeights
+                                                                .toString() +
+                                                            " lbs",
+                                                        style: TextStyle(
+                                                          fontSize: 12.sp,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: whiteColor,
+                                                        ),
+                                                      ),
                                                     ],
                                                   )
                                               ],
@@ -290,8 +328,7 @@ class _TrackScreenState extends State<TrackScreen> {
                       width: 320.w,
                       child: DottedBorder(
                         dashPattern: [6, 5, 6, 5],
-                        color:
-                            purpleColor, // Example color, define purpleColor if needed
+                        color: purpleColor,
                         strokeWidth: 1.w,
                         borderType: BorderType.RRect,
                         radius: Radius.circular(15),
@@ -319,8 +356,7 @@ class _TrackScreenState extends State<TrackScreen> {
                               Center(
                                 child: Icon(
                                   Icons.add_circle,
-                                  color:
-                                      purpleColor, // Example color, define purpleColor if needed
+                                  color: purpleColor,
                                   size: 40.0,
                                 ),
                               ),

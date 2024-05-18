@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Constants/exercises_constants.dart';
 import 'package:itec303/Models/exercise_item.dart';
 import 'package:itec303/Screens/SetExercise.dart';
+import 'package:itec303/Screens/TrackerPages/TrackSave.dart';
 
 class Tracker_AddExercise extends StatefulWidget {
   final List<ExerciseItem> exercises;
@@ -22,18 +24,6 @@ class _Tracker_AddExerciseState extends State<Tracker_AddExercise> {
   final blackColor = const Color.fromRGBO(13, 13, 13, 1);
   final purpleColor = const Color.fromRGBO(169, 88, 237, 1);
   final whiteColor = const Color.fromRGBO(251, 248, 255, 1);
-
-  List<ExerciseItem> selectedExercises = [];
-
-  void _toggleSelection(ExerciseItem selected) {
-    setState(() {
-      if (selectedExercises.contains(selected)) {
-        selectedExercises.remove(selected);
-      } else {
-        selectedExercises.add(selected);
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,32 +89,58 @@ class _Tracker_AddExerciseState extends State<Tracker_AddExercise> {
                   children: List.generate(widget.exercises.length, (index) {
                     return Padding(
                       padding: EdgeInsets.only(bottom: 10.h),
-                      child: Container(
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(15),
-                              child: Image.asset(
-                                widget.exercises[index].imagePath,
-                                height: 100.h,
-                                width: 320.w,
-                                fit: BoxFit.cover,
-                              ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation1,
+                                  Animation<double> animation2) {
+                                return TrackSave(
+                                  exercise: widget.exercises[index],
+                                  categoryName: widget.categoryName,
+                                  initialReps: 0,
+                                  initialSets: 0,
+                                  initialWeight: 0,
+                                  initialMins: 0,
+                                );
+                              },
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
                             ),
-                            Positioned.fill(
-                              child: Center(
-                                child: Text(
-                                  widget.exercises[index].name,
-                                  style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: whiteColor,
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.asset(
+                                  widget.exercises[index].imagePath,
+                                  height: 100.h,
+                                  width: 320.w,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned.fill(
+                                child: Center(
+                                  child: Text(
+                                    widget.exercises[index].name,
+                                    style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: whiteColor,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );

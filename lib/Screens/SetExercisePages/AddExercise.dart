@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
+import 'package:itec303/Components/MyBottomNavBar.dart';
 import 'package:itec303/Models/exercise_item.dart';
+import 'package:itec303/Screens/HomeScreen.dart';
 import 'package:itec303/Screens/SetExercise.dart';
 
 class AddExercise extends StatefulWidget {
@@ -54,18 +56,19 @@ class _AddExerciseState extends State<AddExercise> {
     String userId = getCurrentUserId(); // Obtain the current user's identifier
     _saveSelectedExercisesToFirestore(
             selectedExercises, widget.currentDate, userId)
-        .then((val) => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SetExercise(
-                    today: widget.currentDate,
-                    selectedExercises: selectedExercises,
-                    userId: userId, // Pass userId to SetExercise
-                  ),
-                ),
-              )
-            }); // Pass the user's identifier
+        .then((val) {
+      Navigator.push(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (BuildContext context, Animation<double> animation1,
+              Animation<double> animation2) {
+            return MyBottomNavBar();
+          },
+          transitionDuration: Duration.zero,
+          reverseTransitionDuration: Duration.zero,
+        ),
+      );
+    }); // Pass the user's identifier
   }
 
   Future<void> _saveSelectedExercisesToFirestore(List<ExerciseItem> exercises,
@@ -114,7 +117,7 @@ class _AddExerciseState extends State<AddExercise> {
           Row(
             children: [
               Text(
-                "Next",
+                "Save",
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w400,

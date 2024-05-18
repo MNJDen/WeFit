@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:itec303/Constants/exercises_constants.dart';
 import 'package:itec303/Models/exercise_item.dart';
@@ -70,7 +71,7 @@ class _Tracker_AddExerciseState extends State<Tracker_AddExercise> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(height: 3.h),
                 Row(
                   children: [
@@ -83,7 +84,7 @@ class _Tracker_AddExerciseState extends State<Tracker_AddExercise> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(height: 12.h),
                 Column(
                   children: List.generate(widget.exercises.length, (index) {
@@ -145,12 +146,12 @@ class _Tracker_AddExerciseState extends State<Tracker_AddExercise> {
                       ),
                     );
                   }),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

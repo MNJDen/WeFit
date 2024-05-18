@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Constants/exercises_constants.dart';
 import 'package:itec303/Models/exercise_item.dart';
@@ -98,7 +99,7 @@ class _Tracker_WorkoutGuidePageState extends State<Tracker_WorkoutGuidePage> {
                 color: whiteColor,
                 fontWeight: FontWeight.w100,
               ),
-            ),
+            ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
             SizedBox(height: 20.h), // Adding space between Text and GridView
             Expanded(
               child: GridView.count(
@@ -155,10 +156,10 @@ class _Tracker_WorkoutGuidePageState extends State<Tracker_WorkoutGuidePage> {
                   );
                 }),
               ),
-            ),
+            ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
           ],
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

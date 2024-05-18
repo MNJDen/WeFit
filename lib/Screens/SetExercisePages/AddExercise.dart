@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore
 import 'package:itec303/Models/exercise_item.dart';
@@ -152,7 +153,7 @@ class _AddExerciseState extends State<AddExercise> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(height: 3.h),
                 Row(
                   children: [
@@ -165,7 +166,7 @@ class _AddExerciseState extends State<AddExercise> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(height: 12.h),
                 Column(
                   children: List.generate(widget.exercises.length, (index) {
@@ -213,12 +214,12 @@ class _AddExerciseState extends State<AddExercise> {
                       ),
                     );
                   }),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

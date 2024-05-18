@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:itec303/Components/MyBottomNavBar.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Models/exercise_item.dart';
 import 'package:itec303/Screens/TrackScreen.dart';
@@ -83,7 +84,7 @@ class _TrackSaveState extends State<TrackSave> {
       PageRouteBuilder(
         pageBuilder: (BuildContext context, Animation<double> animation1,
             Animation<double> animation2) {
-          return TrackScreen();
+          return const MyBottomNavBar(selectedIndex: 1);
         },
         transitionDuration: Duration.zero,
         reverseTransitionDuration: Duration.zero,
@@ -243,7 +244,7 @@ class _TrackSaveState extends State<TrackSave> {
                   height: 29.h,
                 ),
                 if (widget.exercise.isNeedTimer)
-                  Column( 
+                  Column(
                     children: [
                       SizedBox(
                         height: 2.h,

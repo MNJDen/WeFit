@@ -16,4 +16,6 @@ class ExerciseProgress {
     required this.exercise,
     this.numWeights = 0,
   });
+
+  static fromFirestore(Map<String, dynamic> data) {}
 }

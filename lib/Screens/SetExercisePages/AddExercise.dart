@@ -52,18 +52,20 @@ class _AddExerciseState extends State<AddExercise> {
 
   void _onNextButtonPressed() {
     String userId = getCurrentUserId(); // Obtain the current user's identifier
-    _saveSelectedExercisesToFirestore(selectedExercises, widget.currentDate,
-        userId); // Pass the user's identifier
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => SetExercise(
-          today: widget.currentDate,
-          selectedExercises: selectedExercises,
-          userId: userId, // Pass userId to SetExercise
-        ),
-      ),
-    );
+    _saveSelectedExercisesToFirestore(
+            selectedExercises, widget.currentDate, userId)
+        .then((val) => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SetExercise(
+                    today: widget.currentDate,
+                    selectedExercises: selectedExercises,
+                    userId: userId, // Pass userId to SetExercise
+                  ),
+                ),
+              )
+            }); // Pass the user's identifier
   }
 
   Future<void> _saveSelectedExercisesToFirestore(List<ExerciseItem> exercises,

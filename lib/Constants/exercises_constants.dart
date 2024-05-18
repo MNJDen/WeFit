@@ -2,11 +2,11 @@ import 'package:itec303/Models/exercise_item.dart';
 
 class ExercisesConstants{
   static final List<ExerciseItem> absExercises = [
-  ExerciseItem(name: 'Crunches', imagePath: 'assets/images/Abs_c.png', id: 'absc',),
-  ExerciseItem(name: 'Cable Crunches', imagePath: 'assets/images/Abs_cc.png', id: 'abscc'),
-  ExerciseItem(name: 'Mountain Climbers', imagePath: 'assets/images/Abs_mc.png', id: 'absmc'),
-  ExerciseItem(name: 'Plank', imagePath: 'assets/images/Abs_p.png', id: 'absp'),
-  ExerciseItem(name: 'Russian Twist', imagePath: 'assets/images/Abs_rt.png', id: 'absrt'),
+  ExerciseItem(name: 'Crunches', imagePath: 'assets/images/Abs_c.png', id: 'absc', isNeedWeights: false),
+  ExerciseItem(name: 'Cable Crunches', imagePath: 'assets/images/Abs_cc.png', id: 'abscc',),
+  ExerciseItem(name: 'Mountain Climbers', imagePath: 'assets/images/Abs_mc.png', id: 'absmc', isNeedWeights: false),
+  ExerciseItem(name: 'Plank', imagePath: 'assets/images/Abs_p.png', id: 'absp', isNeedWeights: false, isNeedTimer: true),
+  ExerciseItem(name: 'Russian Twist', imagePath: 'assets/images/Abs_rt.png', id: 'absrt', isNeedWeights: false),
 ];
 static final List<ExerciseItem> armsExercises = [
   ExerciseItem(name: 'Bicep Curls', imagePath: 'assets/images/Arms_bc.png', id: 'armsbc'),
@@ -22,11 +22,11 @@ static final List<ExerciseItem> backExercises = [
   ExerciseItem(name: 'Seated Cable Row', imagePath: 'assets/images/Back_scr.png', id: 'backscr'),
 ];
 static final List<ExerciseItem> cardioExercises = [
-  ExerciseItem(name: 'Burpee', imagePath: 'assets/images/Cardio_b.png', id: 'cardiob'),
-  ExerciseItem(name: 'Cycling', imagePath: 'assets/images/Cardio_c.png', id: 'cardioc'),
-  ExerciseItem(name: 'Elliptical', imagePath: 'assets/images/Cardio_e.png', id: 'cardioe'),
-  ExerciseItem(name: 'Jump Rope', imagePath: 'assets/images/Cardio_jr.png', id: 'cardiojr'),
-  ExerciseItem(name: 'Running/Jogging', imagePath: 'assets/images/Cardio_rj.png', id: 'cardiorj'),
+  ExerciseItem(name: 'Burpee', imagePath: 'assets/images/Cardio_b.png', id: 'cardiob', isNeedWeights: false),
+  ExerciseItem(name: 'Cycling', imagePath: 'assets/images/Cardio_c.png', id: 'cardioc', isNeedWeights: false, isNeedTimer: true),
+  ExerciseItem(name: 'Elliptical', imagePath: 'assets/images/Cardio_e.png', id: 'cardioe', isNeedWeights: false, isNeedTimer: true),
+  ExerciseItem(name: 'Jump Rope', imagePath: 'assets/images/Cardio_jr.png', id: 'cardiojr', isNeedWeights: false),
+  ExerciseItem(name: 'Running/Jogging', imagePath: 'assets/images/Cardio_rj.png', id: 'cardiorj', isNeedWeights: false, isNeedTimer: true),
 ];
 static final List<ExerciseItem> chestExercises = [
   ExerciseItem(name: 'Dumbbell Flat Bench Press', imagePath: 'assets/images/dbFlatBenchPress.png', id: 'chestdfbp'),
@@ -39,7 +39,7 @@ static final List<ExerciseItem> gluteExercises = [
   ExerciseItem(name: 'Dumbbell Bulgarian Split Squats', imagePath: 'assets/images/Legs_bss.png', id: 'glutesbss'),
   ExerciseItem(name: 'Romanian Deadlift', imagePath: 'assets/images/Glutes_rd.png', id: 'glutesrd'),
   ExerciseItem(name: 'Reverse Hyper', imagePath: 'assets/images/Glutes_rh.png', id: 'glutesrh'),
-  ExerciseItem(name: 'Single Hip Thrust', imagePath: 'assets/images/Glutes_sht.png', id: 'glutessht'),
+  ExerciseItem(name: 'Single Hip Thrust', imagePath: 'assets/images/Glutes_sht.png', id: 'glutessht', isNeedWeights: false,),
 ];
 static final List<ExerciseItem> legExercises = [
   ExerciseItem(name: 'Barbell Squat', imagePath: 'assets/images/Legs_bs.png', id: 'legsbs'),

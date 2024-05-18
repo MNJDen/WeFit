@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
 import 'package:itec303/Models/exercise_item.dart';
@@ -202,7 +203,7 @@ class _TrackSaveState extends State<TrackSave> {
                     width: 320.w,
                     fit: BoxFit.cover,
                   ),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -216,7 +217,7 @@ class _TrackSaveState extends State<TrackSave> {
                           color: whiteColor),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 4.h,
                 ),
@@ -238,7 +239,7 @@ class _TrackSaveState extends State<TrackSave> {
                           color: whiteColor),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
                   height: 29.h,
                 ),
@@ -254,7 +255,7 @@ class _TrackSaveState extends State<TrackSave> {
                       ),
                       SizedBox(height: 70.h),
                     ],
-                  ),
+                  ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
                 SizedBox(
                   height: 2.h,
                 ),
@@ -264,11 +265,11 @@ class _TrackSaveState extends State<TrackSave> {
                       buildRow(
                         label: "Number of Sets:",
                         controller: setsController,
-                      ),
+                      ).animate().fadeIn(delay: const Duration(milliseconds: 800)),
                       buildRow(
                         label: "Number of Reps:",
                         controller: repsController,
-                      ),
+                      ).animate().fadeIn(delay: const Duration(milliseconds: 900)),
                     ],
                   ),
                 SizedBox(
@@ -283,7 +284,7 @@ class _TrackSaveState extends State<TrackSave> {
                       buildRow(
                         label: "Number of Weight (lbs):",
                         controller: weightController,
-                      ),
+                      ).animate().fadeIn(delay: const Duration(milliseconds: 950)),
                     ],
                   ),
                 SizedBox(height: 175.h),
@@ -307,14 +308,14 @@ class _TrackSaveState extends State<TrackSave> {
                           color: whiteColor,
                           fontWeight: FontWeight.w500),
                     ),
-                  ),
+                  ).animate().fadeIn(delay: const Duration(milliseconds: 1000)),
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 
   Widget buildRow(

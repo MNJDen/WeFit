@@ -92,7 +92,7 @@ class _Tracker_WorkoutGuidePageState extends State<Tracker_WorkoutGuidePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Choose a muscle group you wish to do for the day',
+              'What muscle group did you hit?',
               style: TextStyle(
                 fontSize: 12.sp,
                 color: whiteColor,

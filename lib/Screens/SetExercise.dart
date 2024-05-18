@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:itec303/Models/exercise_item.dart';
@@ -145,7 +146,7 @@ class _SetExerciseState extends State<SetExercise> {
                         ),
                       ),
                     ],
-                  ),
+                  ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                   SizedBox(
                     height: 3.h,
                   ),
@@ -160,7 +161,7 @@ class _SetExerciseState extends State<SetExercise> {
                         ),
                       ),
                     ],
-                  ),
+                  ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                   SizedBox(
                     height: 16.h,
                   ),
@@ -204,7 +205,7 @@ class _SetExerciseState extends State<SetExercise> {
                           }).toList(),
                         ),
                       ],
-                    ),
+                    ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                     SizedBox(height: 8.h),
                   ],
                   InkWell(
@@ -256,13 +257,13 @@ class _SetExerciseState extends State<SetExercise> {
                         ),
                       ),
                     ),
-                  ),
+                  ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
                 ],
               ),
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

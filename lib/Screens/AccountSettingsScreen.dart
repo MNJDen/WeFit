@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Screens/ChangePasswordScreen.dart';
 import 'package:itec303/Screens/ProfileDetailsScreen.dart';
@@ -60,18 +61,33 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
         (route) => false,
       );
     } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("Error: $e"),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text("OK"),
-            ),
-          ],
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          width: MediaQuery.of(context).size.width * 0.95,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Color.fromRGBO(59, 23, 23, 1),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_rounded,
+                color: Color.fromRGBO(255, 49, 49, 1),
+              ),
+              SizedBox(
+                width: 4.w,
+              ),
+              Flexible(
+                child: Text(
+                  "Sign Up Unsuccessful", // Use the cleaned error message here
+                  style: TextStyle(
+                    color: whiteColor,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       );
     } finally {
@@ -172,7 +188,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                       ],
                     );
                   },
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(
                   height: 60.h,
                 ),
@@ -217,7 +233,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                       ],
                     ),
                   ),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -262,7 +278,7 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                       ],
                     ),
                   ),
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
                 SizedBox(
                   height: 180.h,
                 ),
@@ -303,12 +319,12 @@ class _AccountSettingScreenState extends State<AccountSettingScreen> {
                             ],
                           ),
                         ),
-                      ),
+                      ).animate().fadeIn(delay: const Duration(milliseconds: 700)),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

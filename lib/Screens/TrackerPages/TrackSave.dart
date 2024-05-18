@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
@@ -43,7 +44,7 @@ class _TrackSaveState extends State<TrackSave> {
     weightController =
         TextEditingController(text: widget.initialWeight.toString());
     minutesController =
-        TextEditingController(text: widget.initialWeight.toString());
+        TextEditingController(text: widget.initialMins.toString());
   }
 
   void increment(TextEditingController controller) {
@@ -97,8 +98,61 @@ class _TrackSaveState extends State<TrackSave> {
     int mins,
     String muscleGroup,
   ) async {
-    // add backend logic here and rmv print after
-    print('4pls: $numSets, $numReps, $numWeights, $muscleGroup,');
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+
+    if (user != null) {
+      final String uid = user.uid;
+
+      // Check if the document already exists
+      final QuerySnapshot<Map<String, dynamic>> existingDocs =
+          await FirebaseFirestore.instance
+              .collection('exerciseTracker')
+              .doc(uid)
+              .collection('exerciseProgress')
+              .where('exerciseId', isEqualTo: widget.exercise.id)
+              .limit(1)
+              .get();
+
+      if (existingDocs.docs.isNotEmpty) {
+        // Document already exists, update it
+        final docId = existingDocs.docs.first.id;
+        await FirebaseFirestore.instance
+            .collection('exerciseTracker')
+            .doc(uid)
+            .collection('exerciseProgress')
+            .doc(docId)
+            .update({
+          'sets': numSets,
+          'reps': numReps,
+          'weight': numWeights,
+          'minutes': mins,
+          'muscleGroup': muscleGroup,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
+      } else {
+        // Document does not exist, add it
+        await FirebaseFirestore.instance
+            .collection('exerciseTracker')
+            .doc(uid)
+            .collection('exerciseProgress')
+            .add({
+          'uid': uid,
+          'exerciseName': widget.exercise.name,
+          'imagePath': widget.exercise.imagePath,
+          'exerciseId': widget.exercise.id,
+          'sets': numSets,
+          'reps': numReps,
+          'weight': numWeights,
+          'minutes': mins,
+          'muscleGroup': muscleGroup,
+          'timestamp': FieldValue.serverTimestamp(),
+        });
+      }
+    } else {
+      // Handle the case when the user is not logged in
+      print('User not logged in');
+    }
   }
 
   @override
@@ -195,8 +249,8 @@ class _TrackSaveState extends State<TrackSave> {
                         height: 2.h,
                       ),
                       buildRow(
-                        label: "Number of Minutes :",
-                        controller: weightController,
+                        label: "Number of Minutes:",
+                        controller: minutesController,
                       ),
                       SizedBox(height: 70.h),
                     ],

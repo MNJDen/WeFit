@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
@@ -106,12 +107,12 @@ class _TrackScreenState extends State<TrackScreen> {
             'Mins: ${epItem.mins}',
             style: TextStyle(
               fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               color: whiteColor,
             ),
           ),
         ],
-      );
+      ).animate().fadeIn(delay: const Duration(milliseconds: 700));
     } else if (epItem.numWeights == 0.0) {
       return Row(
         children: [
@@ -119,7 +120,7 @@ class _TrackScreenState extends State<TrackScreen> {
             'Sets: ${epItem.numSets}',
             style: TextStyle(
               fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               color: whiteColor,
             ),
           ),
@@ -128,12 +129,12 @@ class _TrackScreenState extends State<TrackScreen> {
             'Reps: ${epItem.numReps}',
             style: TextStyle(
               fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               color: whiteColor,
             ),
           ),
         ],
-      );
+      ).animate().fadeIn(delay: const Duration(milliseconds: 700));
     } else {
       return Row(
         children: [
@@ -141,7 +142,7 @@ class _TrackScreenState extends State<TrackScreen> {
             'Sets: ${epItem.numSets}',
             style: TextStyle(
               fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               color: whiteColor,
             ),
           ),
@@ -150,7 +151,7 @@ class _TrackScreenState extends State<TrackScreen> {
             'Reps: ${epItem.numReps}',
             style: TextStyle(
               fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               color: whiteColor,
             ),
           ),
@@ -159,12 +160,12 @@ class _TrackScreenState extends State<TrackScreen> {
             'Weight: ${epItem.numWeights} lbs',
             style: TextStyle(
               fontSize: 12.sp,
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w500,
               color: whiteColor,
             ),
           ),
         ],
-      );
+      ).animate().fadeIn(delay: const Duration(milliseconds: 700));
     }
   }
 
@@ -190,7 +191,7 @@ class _TrackScreenState extends State<TrackScreen> {
                       ),
                     ),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 400)),
                 SizedBox(height: 17.h),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -217,7 +218,7 @@ class _TrackScreenState extends State<TrackScreen> {
                         ),
                       );
                     }).toList(),
-                  ),
+                  ).animate().fadeIn(delay: const Duration(milliseconds: 500)),
                 ),
                 SizedBox(height: 32.h),
                 Column(
@@ -283,7 +284,9 @@ class _TrackScreenState extends State<TrackScreen> {
                                                 fontWeight: FontWeight.w600,
                                                 color: whiteColor,
                                               ),
-                                            ),
+                                            ).animate().fadeIn(
+                                                delay: const Duration(
+                                                    milliseconds: 600)),
                                             SizedBox(height: 4.h),
                                             buildExerciseDetails(epItem),
                                           ],
@@ -349,9 +352,14 @@ class _TrackScreenState extends State<TrackScreen> {
                           onPressed: () async {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    Tracker_WorkoutGuidePage(),
+                              PageRouteBuilder(
+                                pageBuilder: (BuildContext context,
+                                    Animation<double> animation1,
+                                    Animation<double> animation2) {
+                                  return Tracker_WorkoutGuidePage();
+                                },
+                                transitionDuration: Duration.zero,
+                                reverseTransitionDuration: Duration.zero,
                               ),
                             );
                           },
@@ -389,12 +397,12 @@ class _TrackScreenState extends State<TrackScreen> {
                     ),
                     SizedBox(height: 20.h),
                   ],
-                ),
+                ).animate().fadeIn(delay: const Duration(milliseconds: 600)),
               ],
             ),
           ),
         ),
       ),
-    );
+    ).animate().fadeIn(delay: const Duration(milliseconds: 300));
   }
 }

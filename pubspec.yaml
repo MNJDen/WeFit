@@ -46,10 +46,22 @@ dependencies:
   dotted_border: ^2.1.0
   image_picker: ^1.0.8
   firebase_storage: ^11.6.0
+  flutter_launcher_icons: "^0.13.1"
+  flutter_native_splash: 2.3.7
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  image: "assets/images/SplashLogo.png"
+  color: "#0D0D0D"
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: "AppIcon"
+  image_path: "assets/images/LogoBlack.png"
+  # adaptive_icon-_foreground: "assets/images/Logo1.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:itec303/Components/MyPasswordField.dart';
-// import 'package:itec303/Constants/exercises_constants.dart';
+import 'package:itec303/Constants/exercises_constants.dart';
 import 'package:itec303/Models/exercise_progress.dart';
 import 'package:itec303/Models/exercise_item.dart';
 import 'package:itec303/Screens/TrackerPages/TrackSave.dart';
@@ -21,6 +21,27 @@ class _TrackScreenState extends State<TrackScreen> {
   List<ExerciseProgress> exerciseProgresses = [];
 
   List<String> filteredMuscleGroups = [];
+
+  List<String> muscleGroups = [
+    "Chest",
+    "Back",
+    "Legs",
+    "Shoulders",
+    "Arms",
+    "Abs",
+    "Cardio",
+    "Glutes"
+  ];
+  List<List<ExerciseItem>> exercises = [
+    ExercisesConstants.chestExercises,
+    ExercisesConstants.backExercises,
+    ExercisesConstants.legExercises,
+    ExercisesConstants.shoulderExercises,
+    ExercisesConstants.armsExercises,
+    ExercisesConstants.absExercises,
+    ExercisesConstants.cardioExercises,
+    ExercisesConstants.gluteExercises,
+  ];
 
   @override
   void initState() {
@@ -50,21 +71,16 @@ class _TrackScreenState extends State<TrackScreen> {
     // Loop through the documents and create ExerciseProgress objects
     snapshot.docs.forEach((doc) {
       ExerciseProgress exerciseProgress = ExerciseProgress(
-        // Assuming the document fields match ExerciseProgress model fields
-        numSets: doc['sets'],
-        numReps: doc['reps'],
-        numWeights: doc['weight'],
-        mins: doc['minutes'],
-        muscleGroup: doc['muscleGroup'],
-        // You can add more fields as needed
-        // Exercise ID, name, imagePath, etc.
-        exercise: ExerciseItem(
-          id: doc['exerciseId'],
-          name: doc['exerciseName'],
-          imagePath: doc['imagePath'],
-        ),
-      );
-
+          // Assuming the document fields match ExerciseProgress model fields
+          numSets: doc['sets'],
+          numReps: doc['reps'],
+          numWeights: doc['weight'],
+          mins: doc['minutes'],
+          muscleGroup: doc['muscleGroup'],
+          // You can add more fields as needed
+          // Exercise ID, name, imagePath, etc.
+          exercise: exercises[muscleGroups.indexOf(doc['muscleGroup'])]
+              .firstWhere((e) => e.id == doc['exerciseId']));
       // Add the ExerciseProgress object to the list
       setState(() {
         exerciseProgresses.add(exerciseProgress);
@@ -82,19 +98,78 @@ class _TrackScreenState extends State<TrackScreen> {
     });
   }
 
+  Widget buildExerciseDetails(ExerciseProgress epItem) {
+    if (epItem.mins != 0) {
+      return Row(
+        children: [
+          Text(
+            'Mins: ${epItem.mins}',
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: whiteColor,
+            ),
+          ),
+        ],
+      );
+    } else if (epItem.numWeights == 0.0) {
+      return Row(
+        children: [
+          Text(
+            'Sets: ${epItem.numSets}',
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: whiteColor,
+            ),
+          ),
+          SizedBox(width: 4.w),
+          Text(
+            'Reps: ${epItem.numReps}',
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: whiteColor,
+            ),
+          ),
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          Text(
+            'Sets: ${epItem.numSets}',
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: whiteColor,
+            ),
+          ),
+          SizedBox(width: 4.w),
+          Text(
+            'Reps: ${epItem.numReps}',
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: whiteColor,
+            ),
+          ),
+          SizedBox(width: 4.w),
+          Text(
+            'Weight: ${epItem.numWeights} lbs',
+            style: TextStyle(
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w600,
+              color: whiteColor,
+            ),
+          ),
+        ],
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> muscleGroups = [
-      "Chest",
-      "Back",
-      "Legs",
-      "Shoulders",
-      "Arms",
-      "Abs",
-      "Cardio",
-      "Glutes"
-    ];
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
@@ -210,74 +285,11 @@ class _TrackScreenState extends State<TrackScreen> {
                                               ),
                                             ),
                                             SizedBox(height: 4.h),
-                                            Row(
-                                              children: [
-                                                if (epItem.mins != 0)
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        'Mins: ' +
-                                                            epItem.mins
-                                                                .toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: whiteColor,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                SizedBox(
-                                                  width: 2.w,
-                                                ),
-                                                if (epItem.mins == 0)
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        'Sets: ' +
-                                                            epItem.numSets
-                                                                .toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: whiteColor,
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: 4.w),
-                                                      Text(
-                                                        'Reps: ' +
-                                                            epItem.numReps
-                                                                .toString(),
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: whiteColor,
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: 4.w),
-                                                      Text(
-                                                        'Weight: ' +
-                                                            epItem.numWeights
-                                                                .toString() +
-                                                            " lbs",
-                                                        style: TextStyle(
-                                                          fontSize: 12.sp,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: whiteColor,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  )
-                                              ],
-                                            ),
+                                            buildExerciseDetails(epItem),
                                           ],
                                         ),
                                         contentPadding: EdgeInsets.symmetric(
-                                            horizontal: 10.w),
+                                            horizontal: 16.w),
                                         trailing: InkWell(
                                           onTap: () {
                                             Navigator.push(
@@ -297,6 +309,7 @@ class _TrackScreenState extends State<TrackScreen> {
                                                     initialSets: epItem.numSets,
                                                     initialWeight:
                                                         epItem.numWeights,
+                                                    initialMins: epItem.mins,
                                                   );
                                                 },
                                                 transitionDuration:
@@ -313,7 +326,7 @@ class _TrackScreenState extends State<TrackScreen> {
                                           ),
                                         ),
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),

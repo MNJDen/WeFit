@@ -37,7 +37,7 @@ class _SetExerciseState extends State<SetExercise> {
       return user.uid;
     } else {
       // Handle the case when the user is not authenticated
-      // You can return null or an empty string, or handle this case based on your application's logic
+      // You can return null or an empty   string, or handle this case based on your application's logic
       return '';
     }
   }
@@ -46,7 +46,10 @@ class _SetExerciseState extends State<SetExercise> {
   void initState() {
     super.initState();
     String userId = getCurrentUserId(); // Obtain the current user's identifier
-    _refreshFuture = _fetchSavedExercises(userId); // Pass the userId to fetch saved exercises
+    _refreshFuture = _fetchSavedExercises(
+        userId); // Pass the userId to fetch saved exercises
+
+    print('hello');
   }
 
   Future<void> _fetchSavedExercises(String userId) async {

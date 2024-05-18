@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:itec303/Constants/exercises_constants.dart';
 import 'package:itec303/Models/exercise_item.dart';
-import 'package:itec303/Screens/SetExercisePages/AddExercise.dart';
+// import 'package:itec303/Screens/SetExercisePages/AddExercise.dart';
 import 'package:itec303/Screens/TrackerPages/Tracker_AddExercise.dart';
 
 class Tracker_WorkoutGuidePage extends StatefulWidget {
@@ -11,7 +11,8 @@ class Tracker_WorkoutGuidePage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<Tracker_WorkoutGuidePage> createState() => _Tracker_WorkoutGuidePageState();
+  State<Tracker_WorkoutGuidePage> createState() =>
+      _Tracker_WorkoutGuidePageState();
 }
 
 class _Tracker_WorkoutGuidePageState extends State<Tracker_WorkoutGuidePage> {

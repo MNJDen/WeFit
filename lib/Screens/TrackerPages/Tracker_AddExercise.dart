@@ -76,7 +76,7 @@ class _Tracker_AddExerciseState extends State<Tracker_AddExercise> {
                 Row(
                   children: [
                     Text(
-                      "Choose ${widget.categoryName.toLowerCase()} exercise you wish to do for the day",
+                      "Choose ${widget.categoryName.toLowerCase()} exercise you have done",
                       style: TextStyle(
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w100,
